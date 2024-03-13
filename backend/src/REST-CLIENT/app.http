@@ -1,0 +1,46 @@
+### register user
+POST http://localhost:4500/users/register
+Content-Type: application/json
+
+{
+  "Name": "Just Doe",
+  "email": "justdoe@yopmail.com",
+  "password": "StrongPassword123"
+}
+
+
+### validate user
+PUT http://localhost:4500/users/validate/dc66b82a-b996-40e3-a387-1d9a213f95d3
+
+### login user
+POST http://localhost:4500/users/login
+Content-Type: application/json
+
+# {
+#     "email":"janengene12@gmail.com",
+#     "password":"12345"
+# }
+
+{
+ "email": "kendoe@example.com",
+  "password": "StrongPassword123"
+}
+
+### Get all Users
+GET  http://localhost:4500/users
+Content-Type: application/json
+ 
+### Delete user
+DELETE http://localhost:4500/users/delete/7442d565-3077-466d-93be-15727ada79c0
+ 
+### Products
+GET  http://localhost:4500/products/1fc7b941-0af0-4370-9ca9-1f629760
+Content-Type: application/json
+ 
+ 
+###
+DELETE   http://localhost:4500/products/1fc7b941-0af0-4370-9ca9-1f6297606b66
+Content-Type: application/json
+ 
+ 
+
