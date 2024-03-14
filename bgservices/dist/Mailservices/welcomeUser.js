@@ -47,19 +47,46 @@ const sendWelcomeEmails = () => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.sendWelcomeEmails = sendWelcomeEmails;
-// Function to send OTP emails to users
-// Function to send OTP emails to users
+// // Function to send OTP emails to users
+// export const sendOTPEmails = async () => {
+//     let pool;
+//     try {
+//         pool = await mssql.connect(sqlConfig1);
+//         const emails = (await pool.request().query('SELECT email FROM Users')).recordset;
+//         for (const { email } of emails) {
+//             const OTP = generateOTP();
+//             console.log(OTP);
+//             const hashedOTP = await bcrypt.hash(OTP, 1);
+//             console.log(hashedOTP);
+//             const emailTemplateData = { OTP: OTP }; // Pass otp variable to the template data
+//             const emailContent = await renderEmailTemplate('Template/OTP.ejs', emailTemplateData);
+//             const mailOptions = {
+//                 from: "wangaripauline303@gmail.com",
+//                 to: email,
+//                 subject: "OTP Verification",
+//                 html: emailContent // Use emailContent generated from the template
+//             };
+//             await sendMail(mailOptions);
+//             await saveOTPRecord(email, hashedOTP);
+//             console.log(`OTP email sent to ${email}`);
+//         }
+//     } catch (error) {
+//         console.error('Error sending OTP emails:', error);
+//     } finally {
+//         if (pool) await pool.close();
+//     }
+// };
 const sendOTPEmails = () => __awaiter(void 0, void 0, void 0, function* () {
     let pool;
     try {
         pool = yield mssql_1.default.connect(sqlconfig_1.sqlConfig1);
-        const emails = (yield pool.request().query('SELECT email FROM Users')).recordset;
-        for (const { email } of emails) {
-            const otp = (0, exports.generateOTP)();
-            console.log(otp);
-            const hashedOTP = yield bcrypt_1.default.hash(otp, 1);
+        const users = (yield pool.request().query('SELECT userID, email FROM Users')).recordset; // Select userID along with email
+        for (const { userID, email } of users) { // Iterate over users and extract userID and email
+            const OTP = (0, exports.generateOTP)();
+            console.log(OTP);
+            const hashedOTP = yield bcrypt_1.default.hash(OTP, 1);
             console.log(hashedOTP);
-            const emailTemplateData = { otp: otp }; // Pass otp variable to the template data
+            const emailTemplateData = { OTP: OTP }; // Pass otp variable to the template data
             const emailContent = yield renderEmailTemplate('Template/OTP.ejs', emailTemplateData);
             const mailOptions = {
                 from: "wangaripauline303@gmail.com",
@@ -68,7 +95,7 @@ const sendOTPEmails = () => __awaiter(void 0, void 0, void 0, function* () {
                 html: emailContent // Use emailContent generated from the template
             };
             yield (0, emailHelpers_1.sendMail)(mailOptions);
-            yield saveOTPRecord(email, hashedOTP);
+            yield saveOTPRecord(userID, hashedOTP); // Pass userID along with hashedOTP
             console.log(`OTP email sent to ${email}`);
         }
     }
@@ -111,8 +138,20 @@ const updateUserAsWelcomed = () => __awaiter(void 0, void 0, void 0, function* (
         throw error;
     }
 });
-// Function to save OTP record in the database
-const saveOTPRecord = (email, hashedOTP) => __awaiter(void 0, void 0, void 0, function* () {
-    // Implement logic to save OTP record in the database
-    console.log('Saving OTP record for email:', email);
+// Function to save hashed OTP in the Users table
+const saveOTPRecord = (userID, hashedOTP) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const pool = yield mssql_1.default.connect(sqlconfig_1.sqlConfig1);
+        // Save the hashed OTP in the Users table
+        yield pool.request()
+            .input('userID', mssql_1.default.VarChar, userID)
+            .input('hashedOTP', mssql_1.default.VarChar, hashedOTP)
+            .query('UPDATE Users SET OTP = @hashedOTP WHERE userID = @userID');
+        yield pool.close();
+        console.log('Saved hashed OTP for user:', userID);
+    }
+    catch (error) {
+        console.error('Error saving hashed OTP:', error);
+        throw error;
+    }
 });

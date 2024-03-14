@@ -33,22 +33,56 @@ export const sendWelcomeEmails = async () => {
     }
 };
 
-// Function to send OTP emails to users
-// Function to send OTP emails to users
+// // Function to send OTP emails to users
+// export const sendOTPEmails = async () => {
+//     let pool;
+//     try {
+//         pool = await mssql.connect(sqlConfig1);
+//         const emails = (await pool.request().query('SELECT email FROM Users')).recordset;
+
+//         for (const { email } of emails) {
+//             const OTP = generateOTP();
+//             console.log(OTP);
+
+//             const hashedOTP = await bcrypt.hash(OTP, 1);
+//             console.log(hashedOTP);
+
+//             const emailTemplateData = { OTP: OTP }; // Pass otp variable to the template data
+//             const emailContent = await renderEmailTemplate('Template/OTP.ejs', emailTemplateData);
+
+//             const mailOptions = {
+//                 from: "wangaripauline303@gmail.com",
+//                 to: email,
+//                 subject: "OTP Verification",
+//                 html: emailContent // Use emailContent generated from the template
+//             };
+
+//             await sendMail(mailOptions);
+//             await saveOTPRecord(email, hashedOTP);
+//             console.log(`OTP email sent to ${email}`);
+//         }
+//     } catch (error) {
+//         console.error('Error sending OTP emails:', error);
+//     } finally {
+//         if (pool) await pool.close();
+//     }
+// };
+
+
 export const sendOTPEmails = async () => {
     let pool;
     try {
         pool = await mssql.connect(sqlConfig1);
-        const emails = (await pool.request().query('SELECT email FROM Users')).recordset;
+        const users = (await pool.request().query('SELECT userID, email FROM Users')).recordset; // Select userID along with email
 
-        for (const { email } of emails) {
-            const otp = generateOTP();
-            console.log(otp);
+        for (const { userID, email } of users) { // Iterate over users and extract userID and email
+            const OTP = generateOTP();
+            console.log(OTP);
 
-            const hashedOTP = await bcrypt.hash(otp, 1);
+            const hashedOTP = await bcrypt.hash(OTP, 1);
             console.log(hashedOTP);
 
-            const emailTemplateData = { otp: otp }; // Pass otp variable to the template data
+            const emailTemplateData = { OTP: OTP }; // Pass otp variable to the template data
             const emailContent = await renderEmailTemplate('Template/OTP.ejs', emailTemplateData);
 
             const mailOptions = {
@@ -59,7 +93,7 @@ export const sendOTPEmails = async () => {
             };
 
             await sendMail(mailOptions);
-            await saveOTPRecord(email, hashedOTP);
+            await saveOTPRecord(userID, hashedOTP); // Pass userID along with hashedOTP
             console.log(`OTP email sent to ${email}`);
         }
     } catch (error) {
@@ -101,8 +135,24 @@ const updateUserAsWelcomed = async () => {
 };
 
 
-// Function to save OTP record in the database
-const saveOTPRecord = async (email: string, hashedOTP: string) => {
-    // Implement logic to save OTP record in the database
-    console.log('Saving OTP record for email:', email);
+// Function to save hashed OTP in the Users table
+const saveOTPRecord = async (userID: string, hashedOTP: string) => {
+    try {
+        const pool = await mssql.connect(sqlConfig1);
+
+
+        // Save the hashed OTP in the Users table
+        await pool.request()
+            .input('userID', mssql.VarChar, userID)
+            .input('hashedOTP', mssql.VarChar, hashedOTP)
+            .query('UPDATE Users SET OTP = @hashedOTP WHERE userID = @userID');
+
+        await pool.close();
+        console.log('Saved hashed OTP for user:', userID);
+    } catch (error) {
+        console.error('Error saving hashed OTP:', error);
+        throw error;
+    }
 };
+
+

@@ -3,14 +3,21 @@ POST http://localhost:4500/users/register
 Content-Type: application/json
 
 {
-  "Name": "Just Doe",
-  "email": "justdoe@yopmail.com",
+  "Name": " Sharon Cherotich ",
+  "email": "sharoncherotich112@gmail.com",
   "password": "StrongPassword123"
 }
 
 
 ### validate user
-PUT http://localhost:4500/users/validate/dc66b82a-b996-40e3-a387-1d9a213f95d3
+PUT http://localhost:4500/users/validate
+Content-Type: application/json
+
+{
+  "userID": "ebedb25d-4db6-41ac-9b37-0a8ce0c375c5",
+  "OTP": "8405"  
+}
+
 
 ### login user
 POST http://localhost:4500/users/login
@@ -22,7 +29,7 @@ Content-Type: application/json
 # }
 
 {
- "email": "kendoe@example.com",
+  "email": "chombasheila980@gmail.com",
   "password": "StrongPassword123"
 }
 
@@ -31,7 +38,8 @@ GET  http://localhost:4500/users
 Content-Type: application/json
  
 ### Delete user
-DELETE http://localhost:4500/users/delete/7442d565-3077-466d-93be-15727ada79c0
+DELETE http://localhost:4500/users/delete/5af88f03-7c21-41de-819a-a340105a69c1
+
  
 ### Products
 GET  http://localhost:4500/products/1fc7b941-0af0-4370-9ca9-1f629760

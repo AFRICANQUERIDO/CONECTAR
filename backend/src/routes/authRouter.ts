@@ -1,13 +1,13 @@
 import { Router } from "express";
-import { checkUserDetails, deleteUserController, fetchAllUSersController, generateOTP, getSingleUserController, getUserDetails, loginUserController, registerUserController, resetPasswordController, updateUserController, validateUser } from "../controllers/userController";
+import { checkUserDetails, deleteUserController, fetchAllUSersController, getSingleUserController, getUserDetails, loginUserController, registerUserController, resetPasswordController, updateUserController, validateUser } from "../controllers/userController";
 import { verifyToken } from "../middlewares/verifyToken";
 
 
 const userRouter = Router()
 
 userRouter.post('/register', registerUserController)
-userRouter.post('/', generateOTP)
-userRouter.put('/validate/:userID', validateUser)
+// userRouter.post('/', generateOTP)
+userRouter.put('/validate', validateUser)
 userRouter.post('/login', loginUserController)
 userRouter.get('/userDetails', verifyToken,getUserDetails)
 userRouter.get('/checkdetails', verifyToken, checkUserDetails)

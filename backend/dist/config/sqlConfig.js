@@ -11,10 +11,10 @@ dotenv_1.default.config();
 // console.log(DB_USER)
 console.log((_a = process.env) === null || _a === void 0 ? void 0 : _a['DB_NAME']);
 exports.sqlConfig = {
-    user: ((_b = process.env) === null || _b === void 0 ? void 0 : _b['DB_USER']) || 'sa',
-    password: ((_c = process.env) === null || _c === void 0 ? void 0 : _c['DB_PWD']) || 'sql.jane',
-    database: ((_d = process.env) === null || _d === void 0 ? void 0 : _d['DB_NAME']) || 'conectar',
-    server: ((_e = process.env) === null || _e === void 0 ? void 0 : _e['SERVER']) || 'DESKTOP-G3PNO3V',
+    user: (_b = process.env) === null || _b === void 0 ? void 0 : _b['DB_USER'],
+    password: (_c = process.env) === null || _c === void 0 ? void 0 : _c['DB_PWD'],
+    database: (_d = process.env) === null || _d === void 0 ? void 0 : _d['DB_NAME'],
+    server: (_e = process.env) === null || _e === void 0 ? void 0 : _e['SERVER'],
     pool: {
         max: 10,
         min: 0,

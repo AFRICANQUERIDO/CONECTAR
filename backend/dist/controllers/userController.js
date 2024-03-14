@@ -23,7 +23,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.resetPasswordController = exports.getUserDetails = exports.updateUserController = exports.deleteUserController = exports.getSingleUserController = exports.fetchAllUSersController = exports.deleteOTP = exports.generateOTP = exports.checkUserDetails = exports.validateUser = exports.loginUserController = exports.registerUserController = void 0;
+exports.resetPasswordController = exports.getUserDetails = exports.updateUserController = exports.deleteUserController = exports.getSingleUserController = exports.fetchAllUSersController = exports.checkUserDetails = exports.validateUser = exports.loginUserController = exports.registerUserController = void 0;
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const uuid_1 = require("uuid");
 const mssql_1 = __importDefault(require("mssql"));
@@ -32,7 +32,7 @@ const dbhelper_1 = __importDefault(require("../dbHelper/dbhelper"));
 const sqlConfig_1 = require("../config/sqlConfig");
 // import dotenv from 'dotenv'
 const dbHelpers = new dbhelper_1.default;
-let SECRET = "QRTWVNSASMJWIO";
+// let SECRET = "QRTWVNSASMJWIO"
 const registerUserController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { Name, email, password } = req.body;
@@ -95,7 +95,7 @@ const loginUserController = (req, res) => __awaiter(void 0, void 0, void 0, func
         if (((_a = user[0]) === null || _a === void 0 ? void 0 : _a.email) == email) {
             const correctPWD = yield bcrypt_1.default.compare(password, (_b = user[0]) === null || _b === void 0 ? void 0 : _b.password);
             if (user.length < 1) {
-                return res.status(202).json({
+                return res.json({
                     error: "User not found"
                 });
             }
@@ -114,7 +114,7 @@ const loginUserController = (req, res) => __awaiter(void 0, void 0, void 0, func
                 const { password } = records, rest = __rest(records, ["password"]);
                 return rest;
             });
-            const token = jsonwebtoken_1.default.sign(loginCredentials[0], process.env.SECRET || SECRET, {
+            const token = jsonwebtoken_1.default.sign(loginCredentials[0], process.env.SECRET, {
                 expiresIn: '36000h'
             });
             return res.json(Object.assign({ message: 'User Logged in successfully', token }, loginCredentials[0]));
@@ -133,36 +133,53 @@ const loginUserController = (req, res) => __awaiter(void 0, void 0, void 0, func
 });
 exports.loginUserController = loginUserController;
 const validateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _c;
     try {
-        const userID = req.params.userID;
-        const pool = yield mssql_1.default.connect(sqlConfig_1.sqlConfig);
-        const alreadyVerified = (yield pool.request()
-            .input('userID', mssql_1.default.VarChar, userID)
-            .query('SELECT * FROM Users WHERE userID = @userID AND isVerified = 0')).recordset;
-        if (alreadyVerified.length < 1) {
-            return res.json({
-                error: "Email is already verified"
-            });
+        const { userID, OTP } = req.body;
+        // Check if the request body is empty
+        if (!userID || !OTP) {
+            return res.status(400).json({ error: "Request body is missing or empty" });
         }
+        const pool = yield mssql_1.default.connect(sqlConfig_1.sqlConfig);
+        // Retrieve the user's OTP from the database
         const result = yield pool.request()
             .input('userID', mssql_1.default.VarChar, userID)
-            .query('UPDATE Users SET isVerified = 1 WHERE userID = @userID AND isVerified = 0');
-        const rowsAffected = result.rowsAffected[0];
-        if (rowsAffected > 0) {
-            return res.json({
-                success: "Email successfully validated"
-            });
+            .query('SELECT OTP FROM Users WHERE userID = @userID');
+        const userOTP = (_c = result.recordset[0]) === null || _c === void 0 ? void 0 : _c.OTP;
+        if (!userOTP) {
+            return res.status(404).json({ error: "User not found" });
+        }
+        // Compare the received OTP with the user's OTP
+        const isMatch = yield bcrypt_1.default.compare(OTP, userOTP);
+        if (isMatch) {
+            // Update the user's verification status
+            const updateResult = yield pool.request()
+                .input('userID', mssql_1.default.VarChar, userID)
+                .query('UPDATE Users SET isVerified = 1 WHERE userID = @userID AND isVerified = 0');
+            const rowsAffected = updateResult.rowsAffected[0];
+            if (rowsAffected > 0) {
+                // Delete the OTP from the database
+                yield pool.request()
+                    .input('userID', mssql_1.default.VarChar, userID)
+                    .query('UPDATE Users SET OTP = NULL WHERE userID = @userID');
+                return res.json({
+                    success: "Email successfully validated and OTP deleted"
+                });
+            }
+            else {
+                return res.json({
+                    error: "Email is already verified"
+                });
+            }
         }
         else {
             return res.json({
-                error: "There was an error trying to validate email"
+                error: "Invalid OTP"
             });
         }
     }
     catch (error) {
-        return res.json({
-            error
-        });
+        return res.status(500).json({ error: "Internal server error" });
     }
 });
 exports.validateUser = validateUser;
@@ -174,30 +191,27 @@ const checkUserDetails = (req, res) => __awaiter(void 0, void 0, void 0, functio
     }
 });
 exports.checkUserDetails = checkUserDetails;
-const generateOTP = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { email, subject, message, duration = 1 } = req.body;
-    try {
-        if (!(email && subject && message)) {
-            return res.json({ error: "Provide values for email, subject, message" });
-        }
-        const otp = `${Math.floor(1000 + Math.random() * 9000)}`;
-        // Assuming this function is responsible for sending OTP via email
-        // Implement the logic to send OTP via email here
-        // Clear any old record
-        yield (0, exports.deleteOTP)(email);
-        return res.json({ otp });
-    }
-    catch (error) {
-        return res.json({ error: "Error when generating OTP" });
-    }
-});
-exports.generateOTP = generateOTP;
-const deleteOTP = (email) => __awaiter(void 0, void 0, void 0, function* () {
-    // Assuming this function is responsible for deleting OTP records
-    // Implement the logic to delete OTP records for the given email
-    console.log("Deleting OTP for email:", email);
-});
-exports.deleteOTP = deleteOTP;
+// export const generateOTP = async (req: Request, res: Response) => {
+//   const { email, subject, message, duration = 1 } = req.body;
+//   try {
+//       if (!(email && subject && message)) {
+//           return res.json({ error: "Provide values for email, subject, message" });
+//       }
+//       const otp = `${Math.floor(1000 + Math.random() * 9000)}`;
+//       // Assuming this function is responsible for sending OTP via email
+//       // Implement the logic to send OTP via email here
+//       // Clear any old record
+//       await deleteOTP(email);
+//       return res.json({ otp });
+//   } catch (error) {
+//       return res.json({ error: "Error when generating OTP" });
+//   }
+// }
+// export const deleteOTP = async (email: string) => {
+//   // Assuming this function is responsible for deleting OTP records
+//   // Implement the logic to delete OTP records for the given email
+//   console.log("Deleting OTP for email:", email);
+// }
 const fetchAllUSersController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const pool = yield mssql_1.default.connect(sqlConfig_1.sqlConfig);

@@ -10,26 +10,26 @@ import { sqlConfig } from "../config/sqlConfig";
 
 const dbHelpers = new Connection
 
-let SECRET = "QRTWVNSASMJWIO"
+// let SECRET = "QRTWVNSASMJWIO"
 
 export const registerUserController = async (req: Request, res: Response) => {
 
   try {
     const { Name, email, password } = req.body;
 
-if (!Name || !email || !password) {
-  return res.json({ error: "Empty input fields" });
+    if (!Name || !email || !password) {
+      return res.json({ error: "Empty input fields" });
 
-}  else if (!/^[a-zA-Z\s]*$/.test(Name)) {
-  return res.json({error: "Invalid name entered"});
+    } else if (!/^[a-zA-Z\s]*$/.test(Name)) {
+      return res.json({ error: "Invalid name entered" });
 
-} else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/.test(email)) {
-  return res.json({ error: "Invalid email format entered" });
+    } else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/.test(email)) {
+      return res.json({ error: "Invalid email format entered" });
 
-} else if (password.length < 8) {
-return res.json({ error: "Password is too short!"});
-}
-   const emailExists = await checkIfEmailExists(email);
+    } else if (password.length < 8) {
+      return res.json({ error: "Password is too short!" });
+    }
+    const emailExists = await checkIfEmailExists(email);
     if (emailExists) {
       return res.json({
         error: 'Email is already registered',
@@ -84,19 +84,19 @@ export const loginUserController = async (req: Request, res: Response) => {
 
     if (user[0]?.email == email) {
       const correctPWD = await bcrypt.compare(password, user[0]?.password);
-      if(user.length < 1) {
-        return res.status(202).json({
-            error: "User not found"
+      if (user.length < 1) {
+        return res.json({
+          error: "User not found"
         })
-    }
+      }
 
-    const isVerified = user[0].isVerified
+      const isVerified = user[0].isVerified
 
-    if(!isVerified){
+      if (!isVerified) {
         return res.status(202).json({
-            error: "You need to verify your email to login"
+          error: "You need to verify your email to login. Check your inbox"
         })
-    }
+      }
 
       if (!correctPWD) {
         return res.json({
@@ -109,7 +109,7 @@ export const loginUserController = async (req: Request, res: Response) => {
         return rest
       });
 
-      const token = jwt.sign(loginCredentials[0], process.env.SECRET || SECRET as string, {
+      const token = jwt.sign(loginCredentials[0], process.env.SECRET as string, {
         expiresIn: '36000h'
       })
 
@@ -131,83 +131,72 @@ export const loginUserController = async (req: Request, res: Response) => {
     })
   }
 }
-
 export const validateUser = async (req: Request, res: Response) => {
   try {
-      const userID = req.params.userID;
+    const { userID, OTP } = req.body;
 
-      const pool = await mssql.connect(sqlConfig);
+    // Check if the request body is empty
+    if (!userID || !OTP) {
+      return res.json({ error: "Request body is missing or empty" });
+    }
 
-      const alreadyVerified = (await pool.request()
+    const pool = await mssql.connect(sqlConfig);
+
+    // Retrieve the user's OTP from the database
+    const result = await pool.request()
       .input('userID', mssql.VarChar, userID)
-      .query('SELECT * FROM Users WHERE userID = @userID AND isVerified = 0')).recordset
+      .query('SELECT OTP FROM Users WHERE userID = @userID');
 
-      if(alreadyVerified.length < 1) {
-          return res.json({
-              error: "Email is already verified"
-          })
-      }
+    const userOTP = result.recordset[0]?.OTP;
 
-      const result = await pool.request()
-      .input('userID', mssql.VarChar, userID)
-      .query('UPDATE Users SET isVerified = 1 WHERE userID = @userID AND isVerified = 0');
+    if (!userOTP) {
+      return res.json({ error: "User not found" });
+    }
 
-      const rowsAffected = result.rowsAffected[0];
+    // Compare the received OTP with the user's OTP
+    const isMatch = await bcrypt.compare(OTP, userOTP);
 
-      if (rowsAffected > 0){
-          return res.json({
-              success: "Email successfully validated"
-          })
+    if (isMatch) {
+      // Update the user's verification status
+      const updateResult = await pool.request()
+        .input('userID', mssql.VarChar, userID)
+        .query('UPDATE Users SET isVerified = 1 WHERE userID = @userID AND isVerified = 0');
+
+      const rowsAffected = updateResult.rowsAffected[0];
+
+      if (rowsAffected > 0) {
+        // Delete the OTP from the database
+        await pool.request()
+          .input('userID', mssql.VarChar, userID)
+          .query('UPDATE Users SET OTP = NULL WHERE userID = @userID');
+
+        return res.json({
+          success: "Email successfully validated and OTP deleted"
+        });
       } else {
-          return res.json({
-              error: "There was an error trying to validate email"
-          })
+        return res.json({
+          error: "Email is already verified"
+        });
       }
-  } catch (error) {
+    } else {
       return res.json({
-          error
-      })
-  }
-}
-
-
-
-
-export const checkUserDetails = async(req: ExtendeUser, res: Response)=>{
-  if(req.info){
-      return res.json({
-          info: req.info
-      })
-  }
-}
-export const generateOTP = async (req: Request, res: Response) => {
-  const { email, subject, message, duration = 1 } = req.body;
-
-  try {
-      if (!(email && subject && message)) {
-          return res.json({ error: "Provide values for email, subject, message" });
-      }
-
-      const otp = `${Math.floor(1000 + Math.random() * 9000)}`;
-
-      // Assuming this function is responsible for sending OTP via email
-      // Implement the logic to send OTP via email here
-      
-      // Clear any old record
-      await deleteOTP(email);
-
-      return res.json({ otp });
+        error: "Invalid OTP"
+      });
+    }
   } catch (error) {
-      return res.json({ error: "Error when generating OTP" });
+    return res.json({ error: "Internal server error" });
+  }
+};
+
+
+
+export const checkUserDetails = async (req: ExtendeUser, res: Response) => {
+  if (req.info) {
+    return res.json({
+      info: req.info
+    })
   }
 }
-
-export const deleteOTP = async (email: string) => {
-  // Assuming this function is responsible for deleting OTP records
-  // Implement the logic to delete OTP records for the given email
-  console.log("Deleting OTP for email:", email);
-}
-
 
 export const fetchAllUSersController = async (req: Request, res: Response) => {
   try {
@@ -356,3 +345,25 @@ export const resetPasswordController = async (req: Request, res: Response) => {
     });
   }
 };
+
+// reset password more secure
+// function generateResetToken() {
+//   return crypto.randomUUID().toString()
+// };
+
+// export async function saveResetToken(email, token, expiresAt) {
+//   const query = 'INSERT INTO ResetPasswordToken (email, Token_value, created_at, expired_at) VALUES (?, ?, ?, ?)';
+//   const values = [email, token, new Date(), expiresAt];
+  
+//   try {
+//       const result = await pool.query(query, values);
+//       console.log('Reset token saved in database:', result);
+//   } catch (error) {
+//       console.error('Error saving reset token in database:', error);
+//       throw error;
+//   }
+// }
+//  export function calculateExpirationTime() {
+//   const now = new Date();
+//   return new Date(now.getTime() + 60 * 60 * 1000); // 1 hour expiry
+// }

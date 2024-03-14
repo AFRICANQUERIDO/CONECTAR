@@ -5,8 +5,8 @@ const userController_1 = require("../controllers/userController");
 const verifyToken_1 = require("../middlewares/verifyToken");
 const userRouter = (0, express_1.Router)();
 userRouter.post('/register', userController_1.registerUserController);
-userRouter.post('/', userController_1.generateOTP);
-userRouter.put('/validate/:userID', userController_1.validateUser);
+// userRouter.post('/', generateOTP)
+userRouter.put('/validate', userController_1.validateUser);
 userRouter.post('/login', userController_1.loginUserController);
 userRouter.get('/userDetails', verifyToken_1.verifyToken, userController_1.getUserDetails);
 userRouter.get('/checkdetails', verifyToken_1.verifyToken, userController_1.checkUserDetails);

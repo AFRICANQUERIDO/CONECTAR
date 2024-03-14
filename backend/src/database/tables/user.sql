@@ -9,8 +9,8 @@ CREATE TABLE Users(
 
 select * from Users
 
--- ALTER TABLE Users
--- ADD isVerified BIT DEFAULT 0;
+ALTER TABLE Users
+ADD OTP VARCHAR(100)
 -- UPDATE Users SET isVerified = 0;
 
     -- role VARCHAR(100) DEFAULT 'customer',
@@ -18,3 +18,15 @@ select * from Users
 -- UPDATE Users SET role='Admin' where email='janengene12@gmail.com' 
 
 -- DROP TABLE Users
+
+
+DECLARE @userID VARCHAR(100);
+SET @userID = 'ebedb25d-4db6-41ac-9b37-0a8ce0c375c5';
+
+SELECT OTP FROM Users WHERE userID = @userID;
+
+
+
+
+
+
