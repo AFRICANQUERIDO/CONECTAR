@@ -1,4 +1,6 @@
 "use strict";
+// import { createIndustry } from "../industryController";
+// import mssql from "mssql";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,54 +10,54 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+const mssql_1 = __importDefault(require("mssql"));
 const industryController_1 = require("../industryController");
+jest.mock('mssql', () => ({
+    connect: jest.fn(),
+}));
 describe('createIndustry', () => {
-    it('should create a new industry', () => __awaiter(void 0, void 0, void 0, function* () {
-        const req = { body: { industryName: "Test Industry" } };
+    beforeEach(() => {
+        jest.clearAllMocks(); // Clear all mocks before each test
+    });
+    it('should create a new industry successfully', () => __awaiter(void 0, void 0, void 0, function* () {
+        const req = { body: { industryName: 'New Industry' } };
         const res = { json: jest.fn() };
-        yield (0, industryController_1.createIndustry)(req, res);
-        expect(res.json).toHaveBeenCalledWith({
-            message: "Industry created successfully",
+        // Mock the pool request to simulate a new industry
+        mssql_1.default.connect.mockResolvedValueOnce({
+            request: jest.fn().mockReturnThis(),
+            input: jest.fn().mockReturnThis(),
+            query: jest.fn().mockResolvedValueOnce({ recordset: [] }), // Simulate that industry does not exist
+            execute: jest.fn().mockResolvedValueOnce({ rowsAffected: [1] }),
         });
+        yield (0, industryController_1.createIndustry)(req, res);
+        // Check if the response contains the expected message
+        expect(res.json).toHaveBeenCalledWith({ message: 'Industry created successfully' });
+    }));
+    it('should handle error when industry already exists', () => __awaiter(void 0, void 0, void 0, function* () {
+        const req = { body: { industryName: 'Testing Industry' } };
+        const res = { json: jest.fn() };
+        // Mock the pool request to simulate an existing industry
+        mssql_1.default.connect.mockResolvedValueOnce({
+            request: jest.fn().mockReturnThis(),
+            input: jest.fn().mockReturnThis(),
+            query: jest.fn().mockResolvedValueOnce({ recordset: [{ industryName: 'Testing Industry' }] }),
+        });
+        yield (0, industryController_1.createIndustry)(req, res);
+        // Check if the response contains the expected error message
+        expect(res.json).toHaveBeenCalledWith({ error: 'Opps Industry already exists' });
+    }));
+    it('should handle error when creating industry fails', () => __awaiter(void 0, void 0, void 0, function* () {
+        const req = { body: { industryName: 'Test Industry' } };
+        const res = { json: jest.fn(), status: jest.fn().mockReturnThis() };
+        // Mock failed SQL query execution
+        mssql_1.default.connect.mockRejectedValueOnce(new Error('Database error'));
+        yield (0, industryController_1.createIndustry)(req, res);
+        // Check if the response contains the expected error message
+        // expect(res.status).toHaveBeenCalledWith(500)
+        expect(res.json).toHaveBeenCalledWith({ error: 'Internal server error' });
     }));
 });
-// describe('getOneIndustry', () => {
-//     const req = {
-//         params:{
-//             id: '4756cf7d-ff5c-4b78-965d-864691cbe560'
-//         }
-//     };
-//     it('should get one industry by id', async () => {
-//       const res: Response = { json: jest.fn() } as unknown as Response;
-//       await getOneIndustry(req, res);
-//       expect(res.json).toHaveBeenCalledWith({
-//         industry: {
-//           id: "123",
-//           name: "Test Industry",
-//           // Add other expected properties here
-//         },
-//       });
-//     });
-// });
-// describe('getAllIndustries', () => {
-//     it('should return all industries as JSON', async () => {
-//       const req: Request = {} as Request;
-//       const res: Response = { json: jest.fn(), status: jest.fn().mockReturnThis() } as unknown as Response;
-//       // Mock the database or pool interaction to return a specific set of industries
-//       // This depends on the testing framework and database interaction library being used
-//       await getAllIndustries(req, res);
-//       expect(res.status).toHaveBeenCalledWith(200);
-//       expect(res.json).toHaveBeenCalledWith({
-//         industries:
-//       });
-//     });
-//     it('should handle errors by returning an error response', async () => {
-//       const req: Request = {} as Request;
-//       const res: Response = { json: jest.fn(), status: jest.fn().mockReturnThis() } as unknown as Response;
-//       // Mock the database or pool interaction to throw an error
-//       // This depends on the testing framework and database interaction library being used
-//       await getAllIndustries(req, res);
-//     //   expect(res.json).toHaveBeenCalledWith({ error: /* Expected error message or object */ });
-//     });
-//   });

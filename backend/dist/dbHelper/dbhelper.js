@@ -30,8 +30,8 @@ class Connection {
         });
         return request;
     }
-    execute(procedureName, data = {}) {
-        return __awaiter(this, void 0, void 0, function* () {
+    execute(procedureName_1) {
+        return __awaiter(this, arguments, void 0, function* (procedureName, data = {}) {
             let pool = yield this.pool;
             let request = (yield pool.request());
             request = this.createRequest(request, data);

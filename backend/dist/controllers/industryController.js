@@ -19,30 +19,42 @@ const industry_1 = require("../validators/industry");
 const sqlConfig_1 = require("../config/sqlConfig");
 const createIndustry = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const id = (0, uuid_1.v4)();
         const { industryName } = req.body;
+        // Validate the incoming request body
         const { error } = industry_1.newIndustrySchema.validate(req.body);
         if (error) {
-            return res.json({ error: error });
+            // Return validation error message
+            return res.json({ error: error.message });
         }
         const pool = yield mssql_1.default.connect(sqlConfig_1.sqlConfig);
+        // Check if the industry already exists
+        const existingIndustry = yield pool.request()
+            .input('industryName', mssql_1.default.VarChar, industryName)
+            .query('SELECT TOP 1 * FROM industry WHERE industryName = @industryName');
+        if (existingIndustry.recordset.length > 0) {
+            // Return error message if the industry already exists
+            return res.json({ error: 'Opps Industry already exists' });
+        }
+        // Generate a new ID for the industry
+        const id = (0, uuid_1.v4)();
+        // Create the industry
         const result = yield pool.request()
             .input("industryID", mssql_1.default.VarChar, id)
             .input("industryName", mssql_1.default.VarChar, industryName)
             .execute('createIndustry');
         if (result.rowsAffected[0] > 0) {
-            return res.json({
-                message: "Industry created successfully",
-            });
+            // Return success message if the industry is created successfully
+            return res.json({ message: "Industry created successfully" });
         }
         else {
-            return res.json({
-                error: "Failed to create industry"
-            });
+            // Return generic error message if creating the industry fails
+            return res.json({ error: "Failed to create industry" });
         }
     }
     catch (error) {
-        return res.status(500).json({ error: error });
+        // Return error message for internal server errors
+        console.error("Error creating industry:", error);
+        return res.json({ error: "Internal server error" });
     }
 });
 exports.createIndustry = createIndustry;

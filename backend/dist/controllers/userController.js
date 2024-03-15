@@ -57,7 +57,7 @@ const registerUserController = (req, res) => __awaiter(void 0, void 0, void 0, f
         const userID = (0, uuid_1.v4)();
         const hashedpwd = yield bcrypt_1.default.hash(password, 5);
         const pool = yield mssql_1.default.connect(sqlConfig_1.sqlConfig);
-        const results = pool.request()
+        const results = yield pool.request()
             .input('userID', mssql_1.default.VarChar, userID)
             .input('Name', mssql_1.default.VarChar, Name)
             .input('email', mssql_1.default.VarChar, email)
@@ -101,7 +101,7 @@ const loginUserController = (req, res) => __awaiter(void 0, void 0, void 0, func
             }
             const isVerified = user[0].isVerified;
             if (!isVerified) {
-                return res.status(202).json({
+                return res.json({
                     error: "You need to verify your email to login. Check your inbox"
                 });
             }
@@ -271,7 +271,7 @@ const getUserDetails = (req, res) => __awaiter(void 0, void 0, void 0, function*
         const user = req.info;
         // console.log(user);
         if (!user) {
-            return res.status(404).json({
+            return res.json({
                 message: "User Not Found"
             });
         }
@@ -282,9 +282,9 @@ const getUserDetails = (req, res) => __awaiter(void 0, void 0, void 0, function*
         const userDetails = result.recordset;
         console.log(userDetails);
         if (!userDetails) {
-            return res.status(404).json({ message: 'User details not found' });
+            return res.json({ message: 'User details not found' });
         }
-        return res.status(200).json(userDetails);
+        return res.json(userDetails);
     }
     catch (error) {
         return res.json({
@@ -316,7 +316,7 @@ const resetPasswordController = (req, res) => __awaiter(void 0, void 0, void 0, 
         }
     }
     catch (error) {
-        return res.status(501).json({
+        return res.json({
             error: error,
         });
     }

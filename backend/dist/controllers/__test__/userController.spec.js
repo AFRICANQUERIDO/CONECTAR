@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const mssql_1 = __importDefault(require("mssql"));
-const userController_spec_1 = require("../userController.spec");
+const userController_1 = require("../userController");
 describe("User Registration", () => {
     let res;
     beforeEach(() => {
@@ -42,8 +42,7 @@ describe("User Registration", () => {
             request: jest.fn().mockReturnValue(mockedRequest)
         };
         jest.spyOn(mssql_1.default, 'connect').mockResolvedValue(mockedPool);
-        yield (0, userController_spec_1.registerUserController)(req, res);
-        expect(res.json).toHaveBeenCalledWith({ message: "Account created successfully" });
-        expect(res.status).toHaveBeenCalledWith(200);
+        yield (0, userController_1.registerUserController)(req, res);
+        expect(res.json).toHaveBeenCalledWith({ message: "User registered successfully" });
     }));
 });

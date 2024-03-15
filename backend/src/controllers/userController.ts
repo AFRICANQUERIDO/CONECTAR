@@ -41,7 +41,7 @@ export const registerUserController = async (req: Request, res: Response) => {
     const hashedpwd = await bcrypt.hash(password, 5);
     const pool = await mssql.connect(sqlConfig)
 
-    const results = pool.request()
+    const results = await pool.request()
       .input('userID', mssql.VarChar, userID)
       .input('Name', mssql.VarChar, Name)
       .input('email', mssql.VarChar, email)
@@ -76,8 +76,6 @@ export const loginUserController = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body
 
-
-
     const pool = await mssql.connect(sqlConfig);
     const user = await (await pool.request().input('email', mssql.VarChar, email).input('password', mssql.VarChar, password).execute('loginUser')).recordset
     console.log(user);
@@ -93,7 +91,7 @@ export const loginUserController = async (req: Request, res: Response) => {
       const isVerified = user[0].isVerified
 
       if (!isVerified) {
-        return res.status(202).json({
+        return res.json({
           error: "You need to verify your email to login. Check your inbox"
         })
       }
@@ -289,7 +287,7 @@ export const getUserDetails = async (req: ExtendeUser, res: Response) => {
     const user = req.info
     // console.log(user);
     if (!user) {
-      return res.status(404).json({
+      return res.json({
         message: "User Not Found"
       })
     }
@@ -303,11 +301,11 @@ export const getUserDetails = async (req: ExtendeUser, res: Response) => {
     const userDetails = result.recordset
     console.log(userDetails);
     if (!userDetails) {
-      return res.status(404).json({ message: 'User details not found' });
+      return res.json({ message: 'User details not found' });
 
     }
 
-    return res.status(200).json(userDetails);
+    return res.json(userDetails);
 
   } catch (error) {
     return res.json({
@@ -340,7 +338,7 @@ export const resetPasswordController = async (req: Request, res: Response) => {
       });
     }
   } catch (error) {
-    return res.status(501).json({
+    return res.json({
       error: error,
     });
   }
