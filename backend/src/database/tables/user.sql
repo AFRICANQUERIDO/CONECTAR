@@ -11,6 +11,11 @@ select * from Users
 
 ALTER TABLE Users
 ADD OTP VARCHAR(100)
+
+ALTER TABLE Users
+ADD role VARCHAR(20) NOT NULL DEFAULT 'customer' 
+CHECK (role IN ('customer', 'specialist'));
+
 -- UPDATE Users SET isVerified = 0;
 
     -- role VARCHAR(100) DEFAULT 'customer',

@@ -30,10 +30,12 @@ require('dotenv').config();
 const cors_1 = __importDefault(require("cors"));
 const authRouter_1 = __importDefault(require("./routes/authRouter"));
 const express_1 = __importStar(require("express"));
+const industryRouter_1 = __importDefault(require("./routes/industryRouter"));
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use((0, express_1.json)());
 app.use('/users', authRouter_1.default);
+app.use('/industry', industryRouter_1.default);
 app.use((error, request, response, next) => {
     response.json({
         message: error.message

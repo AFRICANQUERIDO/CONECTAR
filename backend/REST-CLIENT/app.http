@@ -41,12 +41,23 @@ Content-Type: application/json
 DELETE http://localhost:4500/users/delete/5af88f03-7c21-41de-819a-a340105a69c1
 
  
-### Products
-GET  http://localhost:4500/products/1fc7b941-0af0-4370-9ca9-1f629760
+### Industries
+# Create industry
+POST  http://localhost:4500/industry
 Content-Type: application/json
+
+{
+"industryName":"Data Analysis"
+}
  
+### getAll
+GET http://localhost:4500/industry/
+Content-Type: application/json
+
+### getOne
+GET http://localhost:4500/industry/
  
-###
+### Delete industry
 DELETE   http://localhost:4500/products/1fc7b941-0af0-4370-9ca9-1f6297606b66
 Content-Type: application/json
  

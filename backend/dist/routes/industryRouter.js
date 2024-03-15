@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const verifyToken_1 = require("../middlewares/verifyToken");
+const industryController_1 = require("../controllers/industryController");
+const industryRouter = (0, express_1.Router)();
+industryRouter.post('/', industryController_1.createIndustry);
+industryRouter.get('/:id', industryController_1.getOneIndustry);
+industryRouter.get('/', industryController_1.getAllIndustries);
+industryRouter.put('/:id', verifyToken_1.verifyToken, industryController_1.updateIndustry);
+industryRouter.delete('/:id', verifyToken_1.verifyToken, industryController_1.deActivateIndustry);
+industryRouter.delete('/:id', verifyToken_1.verifyToken, industryController_1.deleteIndustry);
+exports.default = industryRouter;

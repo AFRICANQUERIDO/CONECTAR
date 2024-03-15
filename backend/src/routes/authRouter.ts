@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { checkUserDetails, deleteUserController, fetchAllUSersController, getSingleUserController, getUserDetails, loginUserController, registerUserController, resetPasswordController, updateUserController, validateUser } from "../controllers/userController";
+import { checkUserDetails, deleteUserController, fetchAllUSersController, getSingleUserController, getUserDetails, loginUserController, registerUserController, resetPasswordController, updateUserController, validateUser } from "../controllers/userController.spec";
 import { verifyToken } from "../middlewares/verifyToken";
 
 
