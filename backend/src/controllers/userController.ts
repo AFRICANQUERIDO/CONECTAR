@@ -25,10 +25,16 @@ export const registerUserController = async (req: Request, res: Response) => {
 
     } else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/.test(email)) {
       return res.json({ error: "Invalid email format entered" });
-
-    } else if (password.length < 8) {
-      return res.json({ error: "Password is too short!" });
-    }
+      
+  } else if (password.length < 8) {
+    return res.json({ error: "Password is too short!" });
+} else if (!/[a-zA-Z]/.test(password)) {
+    return res.json({ error: "Password must contain letters" });
+} else if (!/\d/.test(password)) {
+    return res.json({ error: "Password must contain numbers" });
+} else if (!/[@$!%*?&]/.test(password)) {
+    return res.json({ error: "Password must contain special characters" });
+}
     const emailExists = await checkIfEmailExists(email);
     if (emailExists) {
       return res.json({
