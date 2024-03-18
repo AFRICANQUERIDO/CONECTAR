@@ -5,7 +5,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.verifyToken = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const SECRET = "hahahaha";
 const verifyToken = (req, res, next) => {
     try {
         const token = req.headers['token'];
@@ -18,7 +17,7 @@ const verifyToken = (req, res, next) => {
             });
         }
         // Verify token
-        const userdata = jsonwebtoken_1.default.verify(token, process.env.SECRET || SECRET);
+        const userdata = jsonwebtoken_1.default.verify(token, process.env.SECRET);
         req.info = userdata;
         console.log(userdata);
     }

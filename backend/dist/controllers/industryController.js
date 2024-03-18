@@ -15,13 +15,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deActivateIndustry = exports.deleteIndustry = exports.getOneIndustry = exports.updateIndustry = exports.getAllIndustries = exports.createIndustry = void 0;
 const uuid_1 = require("uuid");
 const mssql_1 = __importDefault(require("mssql"));
-const industry_1 = require("../validators/industry");
+const industry_validator_1 = require("../validators/industry.validator");
 const sqlConfig_1 = require("../config/sqlConfig");
 const createIndustry = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { industryName } = req.body;
         // Validate the incoming request body
-        const { error } = industry_1.newIndustrySchema.validate(req.body);
+        const { error } = industry_validator_1.newIndustrySchema.validate(req.body);
         if (error) {
             // Return validation error message
             return res.json({ error: error.message });

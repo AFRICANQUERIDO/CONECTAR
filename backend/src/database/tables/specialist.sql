@@ -1,19 +1,23 @@
-CREATE TABLE specialist(
-        sellerID VARCHAR(100) PRIMARY KEY,
-    userID VARCHAR(100) NOT NULL,
-        Name VARCHAR(200) NOT NULL,
-    email VARCHAR(255) NOT NULL UNIQUE, 
-    password VARCHAR(100) NOT NULL,
-     industryId VARCHAR(255),
-    speciality VARCHAR(255),
-    talentWallet VARCHAR(255),
-    location VARCHAR(255),
-    phone VARCHAR(255) UNIQUE,
-     profileImg VARCHAR(255),
-    welcomed BIT Default 0,
-    isVerified BIT DEFAULT 0
-    FOREIGN KEY (userID) REFERENCES Users(userID),
-     FOREIGN KEY (industryID) REFERENCES industry(industryID)
-)
+CREATE TABLE Specialist
+(
+     specialist_id VARCHAR(250) PRIMARY KEY NOT NULL,
+     Name VARCHAR(250) NOT NULL,
+     email VARCHAR(250) NOT NULL UNIQUE,
+     password VARCHAR(250) NOT NULL,
+     phone VARCHAR(250) NOT NULL,
+     isAdmin BIT DEFAULT 0,
+     isWelcomed BIT DEFAULT 0,
+     isProfiled BIT DEFAULT 0,
+     isDeleted BIT DEFAULT 0,
+);
 
-SELECT * FROM specialist
+
+
+SELECT * FROM Specialist
+
+
+DROP TABLE Specialist
+
+DELETE  FROM Specialist;
+
+

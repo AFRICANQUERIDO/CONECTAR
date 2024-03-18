@@ -32,6 +32,23 @@ const authRouter_1 = __importDefault(require("./routes/authRouter"));
 const express_1 = __importStar(require("express"));
 const industryRouter_1 = __importDefault(require("./routes/industryRouter"));
 const app = (0, express_1.default)();
+// Websockets section starts here
+// const server = http.createServer(express)
+// const wss = new WebSocket.Server({server})
+// wss.on('connection', function connection(ws){
+//     // const userId = 
+//     ws.on('message', function incoming(data, isBinary){
+//         wss.clients.forEach(async function each(client){
+//             if(client !== ws && client.readyState === WebSocket.OPEN){
+//                 console.log(data);
+//                 client.send(data, {binary: isBinary})
+//             }
+//         })
+//     })
+// })
+// server.listen(4101, ()=>{
+//     console.log('websocket server running on port 4101'); 
+// })
 app.use((0, cors_1.default)());
 app.use((0, express_1.json)());
 app.use('/users', authRouter_1.default);

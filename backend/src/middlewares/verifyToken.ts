@@ -2,9 +2,6 @@ import { Request, Response, NextFunction } from "express"
 import jwt from "jsonwebtoken"
 import { User } from "../intefaces/userInterface"
 
-
-const SECRET = "hahahaha"
-
 export interface ExtendeUser extends Request {
 
     info?: User
@@ -24,7 +21,7 @@ export const verifyToken = (req: ExtendeUser, res: Response, next: NextFunction)
             })
         }
          // Verify token
-         const userdata = jwt.verify(token, process.env.SECRET || SECRET as string) as User;
+         const userdata = jwt.verify(token, process.env.SECRET as string) as User;
          req.info = userdata;
          console.log(userdata);
      } catch (error) {

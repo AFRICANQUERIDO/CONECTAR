@@ -1,7 +1,7 @@
 import { v4 } from "uuid"
 import mssql from "mssql"
 import { industry } from "../intefaces/industry"
-import { newIndustrySchema } from "../validators/industry"
+import { newIndustrySchema } from "../validators/industry.validator"
 import { sqlConfig } from "../config/sqlConfig"
 import { Request, Response } from "express"
 

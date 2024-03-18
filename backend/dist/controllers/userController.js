@@ -32,7 +32,6 @@ const dbhelper_1 = __importDefault(require("../dbHelper/dbhelper"));
 const sqlConfig_1 = require("../config/sqlConfig");
 // import dotenv from 'dotenv'
 const dbHelpers = new dbhelper_1.default;
-// let SECRET = "QRTWVNSASMJWIO"
 const registerUserController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { Name, email, password } = req.body;
@@ -47,6 +46,15 @@ const registerUserController = (req, res) => __awaiter(void 0, void 0, void 0, f
         }
         else if (password.length < 8) {
             return res.json({ error: "Password is too short!" });
+        }
+        else if (!/[a-zA-Z]/.test(password)) {
+            return res.json({ error: "Password must contain letters" });
+        }
+        else if (!/\d/.test(password)) {
+            return res.json({ error: "Password must contain numbers" });
+        }
+        else if (!/[@$!%*?&]/.test(password)) {
+            return res.json({ error: "Password must contain special characters" });
         }
         const emailExists = yield checkIfEmailExists(email);
         if (emailExists) {

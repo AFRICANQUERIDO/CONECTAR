@@ -10,7 +10,7 @@ import { sqlConfig } from "../config/sqlConfig";
 
 const dbHelpers = new Connection
 
-// let SECRET = "QRTWVNSASMJWIO"
+
 
 export const registerUserController = async (req: Request, res: Response) => {
 
