@@ -23,7 +23,7 @@ const sendWelcomeEmails = () => __awaiter(void 0, void 0, void 0, function* () {
     let pool;
     try {
         pool = yield mssql_1.default.connect(sqlconfig_1.sqlConfig1);
-        const users = (yield pool.request().query('SELECT * FROM Users WHERE welcomed = 0')).recordset;
+        const users = (yield pool.request().query('SELECT * FROM UserDetails WHERE welcomed = 0')).recordset;
         for (const user of users) {
             const emailTemplateData = { Name: user.Name };
             const emailContent = yield renderEmailTemplate('Template/welcomeUser.ejs', emailTemplateData);
@@ -34,7 +34,9 @@ const sendWelcomeEmails = () => __awaiter(void 0, void 0, void 0, function* () {
                 html: emailContent
             };
             yield (0, emailHelpers_1.sendMail)(mailOptions);
-            yield updateUserAsWelcomed();
+            const pool = yield mssql_1.default.connect(sqlconfig_1.sqlConfig1);
+            yield pool.request()
+                .execute('UpdateUserAsWelcomed');
             console.log(`Welcome email sent to ${user.Name}`);
         }
     }
@@ -80,7 +82,7 @@ const sendOTPEmails = () => __awaiter(void 0, void 0, void 0, function* () {
     let pool;
     try {
         pool = yield mssql_1.default.connect(sqlconfig_1.sqlConfig1);
-        const users = (yield pool.request().query('SELECT userID, email FROM Users')).recordset; // Select userID along with email
+        const users = (yield pool.request().query('SELECT userID, email FROM UserDetails')).recordset; // Select userID along with email
         for (const { userID, email } of users) { // Iterate over users and extract userID and email
             const OTP = (0, exports.generateOTP)();
             console.log(OTP);
@@ -125,19 +127,6 @@ const generateOTP = () => {
     return `${Math.floor(min + Math.random() * (max - min + 1))}`;
 };
 exports.generateOTP = generateOTP;
-// Function to update user as welcomed in the database
-const updateUserAsWelcomed = () => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const pool = yield mssql_1.default.connect(sqlconfig_1.sqlConfig1);
-        yield pool.request()
-            .execute('UpdateUserAsWelcomed');
-        yield pool.close();
-    }
-    catch (error) {
-        console.error('Error updating user as welcomed:', error);
-        throw error;
-    }
-});
 // Function to save hashed OTP in the Users table
 const saveOTPRecord = (userID, hashedOTP) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -146,7 +135,7 @@ const saveOTPRecord = (userID, hashedOTP) => __awaiter(void 0, void 0, void 0, f
         yield pool.request()
             .input('userID', mssql_1.default.VarChar, userID)
             .input('hashedOTP', mssql_1.default.VarChar, hashedOTP)
-            .query('UPDATE Users SET OTP = @hashedOTP WHERE userID = @userID');
+            .query('UPDATE UserDetails SET OTP = @hashedOTP WHERE userID = @userID');
         yield pool.close();
         console.log('Saved hashed OTP for user:', userID);
     }

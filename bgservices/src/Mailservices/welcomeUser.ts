@@ -9,7 +9,7 @@ export const sendWelcomeEmails = async () => {
     let pool;
     try {
         pool = await mssql.connect(sqlConfig1);
-        const users = (await pool.request().query('SELECT * FROM Users WHERE welcomed = 0')).recordset;
+        const users = (await pool.request().query('SELECT * FROM UserDetails WHERE welcomed = 0')).recordset;
 
         for (const user of users) {
             const emailTemplateData = { Name: user.Name };
@@ -23,9 +23,13 @@ export const sendWelcomeEmails = async () => {
             };
 
             await sendMail(mailOptions);
-            await updateUserAsWelcomed();
+
+            const pool = await mssql.connect(sqlConfig1);
+            await pool.request()
+            .execute('UpdateUserAsWelcomed');
             console.log(`Welcome email sent to ${user.Name}`);
         }
+
     } catch (error) {
         console.error('Error sending welcome emails:', error);
     } finally {
@@ -73,7 +77,7 @@ export const sendOTPEmails = async () => {
     let pool;
     try {
         pool = await mssql.connect(sqlConfig1);
-        const users = (await pool.request().query('SELECT userID, email FROM Users')).recordset; // Select userID along with email
+        const users = (await pool.request().query('SELECT userID, email FROM UserDetails')).recordset; // Select userID along with email
 
         for (const { userID, email } of users) { // Iterate over users and extract userID and email
             const OTP = generateOTP();
@@ -121,19 +125,6 @@ export const generateOTP = () => {
     return `${Math.floor(min + Math.random() * (max - min + 1))}`;
 };
 
-// Function to update user as welcomed in the database
-const updateUserAsWelcomed = async () => {
-    try {
-        const pool = await mssql.connect(sqlConfig1);
-        await pool.request()
-                   .execute('UpdateUserAsWelcomed');
-        await pool.close();
-    } catch (error) {
-        console.error('Error updating user as welcomed:', error);
-        throw error;
-    }
-};
-
 
 // Function to save hashed OTP in the Users table
 const saveOTPRecord = async (userID: string, hashedOTP: string) => {
@@ -145,7 +136,7 @@ const saveOTPRecord = async (userID: string, hashedOTP: string) => {
         await pool.request()
             .input('userID', mssql.VarChar, userID)
             .input('hashedOTP', mssql.VarChar, hashedOTP)
-            .query('UPDATE Users SET OTP = @hashedOTP WHERE userID = @userID');
+            .query('UPDATE UserDetails SET OTP = @hashedOTP WHERE userID = @userID');
 
         await pool.close();
         console.log('Saved hashed OTP for user:', userID);

@@ -22,7 +22,7 @@ CREATE TABLE UserDetails(
 
 )
 
--- select * from UserDetails
+select * from UserDetails
 
 -- UPDATE UserDetails SET role='Admin' where email='janengene12@gmail.com' 
 

@@ -8,7 +8,7 @@ const userRouter = (0, express_1.Router)();
 userRouter.post('/role/:id', userController_1.setRole);
 userRouter.post('/register', userController_1.registerUserController);
 // userRouter.post('/', generateOTP)
-userRouter.put('/validate', authController_1.validateUser);
+userRouter.put('/validate/:id', authController_1.validateUser);
 userRouter.post('/login', authController_1.loginUserController);
 userRouter.get('/userDetails', verifyToken_1.verifyToken, userController_1.getUserDetails);
 userRouter.get('/checkdetails', verifyToken_1.verifyToken, authController_1.checkUserDetails);

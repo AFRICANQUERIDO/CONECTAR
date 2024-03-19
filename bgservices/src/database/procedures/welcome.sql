@@ -1,9 +1,9 @@
-create PROCEDURE WelcomeExisting
+create or alter PROCEDURE WelcomeExisting
 AS
 BEGIN
     SELECT *
-    FROM Users
+    FROM UserDetails
     WHERE welcomed = 0 
 END
 
-select * from Users
+select * from UserDetails

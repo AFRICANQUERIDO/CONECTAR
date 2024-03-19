@@ -17,20 +17,19 @@ Content-Type: application/json
 # }
 
 {
-  "Name": " Jane Ngene",
-  "email": "janengene12@gmail.com",
-  "password": "Jane@1234",
-  "role":"customer"
+  "Name": "Duncan Kingangi",
+  "email": "kingangiduncan47@gmail.com",
+  "password": "Duncun@123",
+  "role":"Specialist"
 }
 
 
 ### validate user
-PUT http://localhost:4500/users/validate
+PUT http://localhost:4500/users/validate/aaaecb53-2d2a-406a-9630-2135a087b8d9
 Content-Type: application/json
 
 {
-  "userID": "ebedb25d-4db6-41ac-9b37-0a8ce0c375c5",
-  "OTP": "8405"  
+  "OTP": "4235"  
 }
 
 
@@ -38,14 +37,9 @@ Content-Type: application/json
 POST http://localhost:4500/users/login
 Content-Type: application/json
 
-# {
-#     "email":"janengene12@gmail.com",
-#     "password":"12345"
-# }
-
 {
-  "email": "chombasheila980@gmail.com",
-  "password": "StrongPassword123"
+   "email":"kingangiduncan47@gmail.com",
+  "password": "Duncun@123"
 }
 
 ### Get all Users
@@ -54,11 +48,11 @@ Content-Type: application/json
  
 
 ### One user details
-GET http://localhost:4500/users/dc66b82a-b996-40e3-a387-1d9a213f95d3
+GET http://localhost:4500/users/267d74d3-0977-467f-9485-d78b343b42d5
 Content-Type: application/json
 
 ### Delete user
-DELETE http://localhost:4500/users/delete/dc66b82a-b996-40e3-a387-1d9a213f95d3
+DELETE http://localhost:4500/users/delete/55a4c7f2-e529-42f9-a624-0fc824f3ae54
 
  
 ### Industries

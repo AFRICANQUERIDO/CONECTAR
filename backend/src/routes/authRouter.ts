@@ -9,7 +9,7 @@ const userRouter = Router()
 userRouter.post('/role/:id', setRole);
 userRouter.post('/register', registerUserController)
 // userRouter.post('/', generateOTP)
-userRouter.put('/validate', validateUser)
+userRouter.put('/validate/:id', validateUser)
 userRouter.post('/login', loginUserController)
 userRouter.get('/userDetails', verifyToken,getUserDetails)
 userRouter.get('/checkdetails', verifyToken, checkUserDetails)

@@ -36,7 +36,9 @@ const loginUserController = (req, res) => __awaiter(void 0, void 0, void 0, func
     try {
         const { email, password } = req.body;
         const pool = yield mssql_1.default.connect(sqlConfig_1.sqlConfig);
-        const user = yield (yield pool.request().input('email', mssql_1.default.VarChar, email).input('password', mssql_1.default.VarChar, password).execute('loginUser')).recordset;
+        const user = (yield pool.request().input('email', mssql_1.default.VarChar, email)
+            .input('password', mssql_1.default.VarChar, password).execute('loginUser'))
+            .recordset;
         console.log(user);
         if (((_a = user[0]) === null || _a === void 0 ? void 0 : _a.email) == email) {
             const correctPWD = yield bcrypt_1.default.compare(password, (_b = user[0]) === null || _b === void 0 ? void 0 : _b.password);
@@ -61,7 +63,7 @@ const loginUserController = (req, res) => __awaiter(void 0, void 0, void 0, func
                 return rest;
             });
             const token = jsonwebtoken_1.default.sign(loginCredentials[0], process.env.SECRET, {
-                expiresIn: '3600h'
+                expiresIn: '36000h'
             });
             return res.json(Object.assign({ message: 'User Logged in successfully', token }, loginCredentials[0]));
         }
@@ -79,35 +81,45 @@ const loginUserController = (req, res) => __awaiter(void 0, void 0, void 0, func
 });
 exports.loginUserController = loginUserController;
 const validateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _c;
+    var _c, _d;
     try {
-        const { userID, OTP } = req.body;
+        const userID = req.params.id;
+        const { OTP } = req.body;
         // Check if the request body is empty
-        if (!userID || !OTP) {
+        if (!OTP) {
             return res.json({ error: "Request body is missing or empty" });
         }
         const pool = yield mssql_1.default.connect(sqlConfig_1.sqlConfig);
         // Retrieve the user's OTP from the database
-        const result = yield pool.request()
+        const result = (yield pool.request()
             .input('userID', mssql_1.default.VarChar, userID)
-            .query('SELECT OTP FROM Users WHERE userID = @userID');
-        const userOTP = (_c = result.recordset[0]) === null || _c === void 0 ? void 0 : _c.OTP;
+            .query('SELECT * FROM UserDetails WHERE userID = @userID')).recordset;
+        console.log('users: ', result);
+        const userOTP = (_c = result[0]) === null || _c === void 0 ? void 0 : _c.OTP;
+        console.log(userOTP);
         if (!userOTP) {
-            return res.json({ error: "User not found" });
+            return res.json({ error: "Invalid OTP" });
+        }
+        let VerifiedStatus = (_d = result[0]) === null || _d === void 0 ? void 0 : _d.isVerified;
+        if (VerifiedStatus == 1 && OTP === null) {
+            return res.json({
+                error: "Email is already verified"
+            });
         }
         // Compare the received OTP with the user's OTP
         const isMatch = yield bcrypt_1.default.compare(OTP, userOTP);
+        console.log(isMatch);
         if (isMatch) {
             // Update the user's verification status
             const updateResult = yield pool.request()
                 .input('userID', mssql_1.default.VarChar, userID)
-                .query('UPDATE Users SET isVerified = 1 WHERE userID = @userID AND isVerified = 0');
+                .query('UPDATE UserDetails SET isVerified = 1 WHERE userID = @userID AND isVerified = 0');
             const rowsAffected = updateResult.rowsAffected[0];
             if (rowsAffected > 0) {
                 // Delete the OTP from the database
                 yield pool.request()
                     .input('userID', mssql_1.default.VarChar, userID)
-                    .query('UPDATE Users SET OTP = NULL WHERE userID = @userID');
+                    .query('UPDATE UserDetails SET OTP = NULL WHERE userID = @userID');
                 return res.json({
                     success: "Email successfully validated and OTP deleted"
                 });

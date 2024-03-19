@@ -14,7 +14,9 @@ export const loginUserController = async (req: Request, res: Response) => {
       const { email, password } = req.body
   
       const pool = await mssql.connect(sqlConfig);
-      const user = await (await pool.request().input('email', mssql.VarChar, email).input('password', mssql.VarChar, password).execute('loginUser')).recordset
+      const user = (await pool.request().input('email', mssql.VarChar, email)
+      .input('password', mssql.VarChar, password).execute('loginUser'))
+      .recordset
       console.log(user);
   
       if (user[0]?.email == email) {
@@ -45,7 +47,7 @@ export const loginUserController = async (req: Request, res: Response) => {
         });
   
         const token = jwt.sign(loginCredentials[0], process.env.SECRET as string, {
-          expiresIn: '3600h'
+          expiresIn: '36000h'
         })
   
         return res.json({
@@ -68,34 +70,47 @@ export const loginUserController = async (req: Request, res: Response) => {
   }
   export const validateUser = async (req: Request, res: Response) => {
     try {
-      const { userID, OTP } = req.body;
+      const userID  = req.params.id
+
+      const {OTP}  = req.body;
   
       // Check if the request body is empty
-      if (!userID || !OTP) {
+      if ( !OTP) {
         return res.json({ error: "Request body is missing or empty" });
       }
   
       const pool = await mssql.connect(sqlConfig);
   
       // Retrieve the user's OTP from the database
-      const result = await pool.request()
+      const result = (await pool.request()
         .input('userID', mssql.VarChar, userID)
-        .query('SELECT OTP FROM Users WHERE userID = @userID');
+        .query('SELECT * FROM UserDetails WHERE userID = @userID')).recordset;
   
-      const userOTP = result.recordset[0]?.OTP;
+        console.log('users: ', result);
+
+      const userOTP = result[0]?.OTP;
+      console.log(userOTP)
   
       if (!userOTP) {
-        return res.json({ error: "User not found" });
+        return res.json({ error: "Invalid OTP" });
       }
-  
+ let VerifiedStatus = result[0]?.isVerified
+ if(VerifiedStatus == 1 && OTP === null) {
+  return res.json({
+    error: "Email is already verified"
+  });
+ }
       // Compare the received OTP with the user's OTP
       const isMatch = await bcrypt.compare(OTP, userOTP);
+
+      console.log(isMatch);
+      
   
       if (isMatch) {
         // Update the user's verification status
         const updateResult = await pool.request()
           .input('userID', mssql.VarChar, userID)
-          .query('UPDATE Users SET isVerified = 1 WHERE userID = @userID AND isVerified = 0');
+          .query('UPDATE UserDetails SET isVerified = 1 WHERE userID = @userID AND isVerified = 0');
   
         const rowsAffected = updateResult.rowsAffected[0];
   
@@ -103,7 +118,7 @@ export const loginUserController = async (req: Request, res: Response) => {
           // Delete the OTP from the database
           await pool.request()
             .input('userID', mssql.VarChar, userID)
-            .query('UPDATE Users SET OTP = NULL WHERE userID = @userID');
+            .query('UPDATE UserDetails SET OTP = NULL WHERE userID = @userID');
   
           return res.json({
             success: "Email successfully validated and OTP deleted"

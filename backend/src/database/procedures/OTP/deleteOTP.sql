@@ -1,10 +1,10 @@
-CREATE PROCEDURE deleteOtpByEmail
+CREATE OR ALTER PROCEDURE deleteOtpByEmail
     @email NVARCHAR(255)
 AS
 BEGIN
     SET NOCOUNT ON;
 
-    UPDATE users
-    SET otp = NULL
+    UPDATE userDetails
+    SET OTP = NULL
     WHERE email = @email;
 END;

@@ -4,6 +4,6 @@ CREATE OR ALTER PROCEDURE updateUser(
     @email VARCHAR(250)
 )
 AS BEGIN
-    UPDATE Users SET firstName=@Name,email=@email WHERE userID = @userID;
+    UPDATE UserDetails SET Name=@Name,email=@email WHERE userID = @userID;
 
 END
