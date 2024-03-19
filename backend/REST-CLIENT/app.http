@@ -90,11 +90,11 @@ POST  http://localhost:4500/sector/create
 Content-Type: application/json
 
 {
-"sectorName":"QAQE",
-"industryID":"baacb12b-90c6-4661-bc28-641932a35234"
+"sectorName":"",
+"industryID":"baacb12b-90c6-4661-bc28-64135234"
 }
  
 ### Get sector by industry
-GET http://localhost:4500/sector/baacb12b-90c6-4661-bc28-641932a35234
+GET http://localhost:4500/sector/b83c0ed7-2df5-431c-872b-2aee755bf0b8
 Content-Type: application/json
 

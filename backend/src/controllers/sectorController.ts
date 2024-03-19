@@ -60,31 +60,30 @@ export const createSector = async (req: Request, res: Response) => {
     }
 };
 
-
 export const getAllSectorsByIndustry = async (req: Request, res: Response) => {
     try {
-        const { industryID } = req.params;
+        const  industryID = req.params.id;
         const pool = await mssql.connect(sqlConfig);
 
         // Check if the industry exists
         const industryExistsQuery = `
-            SELECT COUNT(*) AS industryCount
-            FROM Industry
-            WHERE id = @industryID;
+            SELECT * 
+            FROM industry
+            WHERE industryID = @industryID;
         `;
-        const industryExistsResult = await pool.request()
+        const industryExistsResult = (await pool.request()
             .input('industryID', mssql.VarChar, industryID)
-            .query(industryExistsQuery);
+            .query('SELECT * FROM industry WHERE industryID = @industryID')).recordset;
 
-        const industryCount = industryExistsResult.recordset[0].industryCount;
-        if (industryCount === 0) {
+        const industryCount = industryExistsResult.length;
+        if (industryCount < 1) {
             return res.status(404).json({ error: 'Industry not found' });
         }
 
         // Fetch all sectors belonging to the industry
         const allSectorsQuery = `
             SELECT *
-            FROM Sector
+            FROM sectors
             WHERE industryID = @industryID;
         `;
         const allSectorsResult = await pool.request()

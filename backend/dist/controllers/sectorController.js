@@ -68,25 +68,25 @@ const createSector = (req, res) => __awaiter(void 0, void 0, void 0, function* (
 exports.createSector = createSector;
 const getAllSectorsByIndustry = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { industryID } = req.params;
+        const industryID = req.params.id;
         const pool = yield mssql_1.default.connect(sqlConfig_1.sqlConfig);
         // Check if the industry exists
         const industryExistsQuery = `
-            SELECT COUNT(*) AS industryCount
-            FROM Industry
-            WHERE id = @industryID;
+            SELECT * 
+            FROM industry
+            WHERE industryID = @industryID;
         `;
-        const industryExistsResult = yield pool.request()
+        const industryExistsResult = (yield pool.request()
             .input('industryID', mssql_1.default.VarChar, industryID)
-            .query(industryExistsQuery);
-        const industryCount = industryExistsResult.recordset[0].industryCount;
-        if (industryCount === 0) {
+            .query('SELECT * FROM industry WHERE industryID = @industryID')).recordset;
+        const industryCount = industryExistsResult.length;
+        if (industryCount < 1) {
             return res.status(404).json({ error: 'Industry not found' });
         }
         // Fetch all sectors belonging to the industry
         const allSectorsQuery = `
             SELECT *
-            FROM Sector
+            FROM sectors
             WHERE industryID = @industryID;
         `;
         const allSectorsResult = yield pool.request()

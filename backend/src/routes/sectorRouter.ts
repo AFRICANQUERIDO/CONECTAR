@@ -6,7 +6,7 @@ import { createSector, deleteSector, getAllSectorsByIndustry, updateSector } fro
 const sectorRouter = Router()
 
 sectorRouter.post('/create', createSector)
-sectorRouter.get('/:id', verifyToken, getAllSectorsByIndustry)
+sectorRouter.get('/:id', getAllSectorsByIndustry)
 sectorRouter.put('/:id', verifyToken, updateSector)
 sectorRouter.delete('/:id', verifyToken, deleteSector)
 

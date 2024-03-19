@@ -5,7 +5,7 @@ const verifyToken_1 = require("../middlewares/verifyToken");
 const sectorController_1 = require("../controllers/sectorController");
 const sectorRouter = (0, express_1.Router)();
 sectorRouter.post('/create', sectorController_1.createSector);
-sectorRouter.get('/:id', verifyToken_1.verifyToken, sectorController_1.getAllSectorsByIndustry);
+sectorRouter.get('/:id', sectorController_1.getAllSectorsByIndustry);
 sectorRouter.put('/:id', verifyToken_1.verifyToken, sectorController_1.updateSector);
 sectorRouter.delete('/:id', verifyToken_1.verifyToken, sectorController_1.deleteSector);
 exports.default = sectorRouter;
