@@ -6,6 +6,6 @@ CREATE OR ALTER PROCEDURE loginUser(
 AS
 BEGIN
 
-    SELECT * FROM Users WHERE email= @email
+    SELECT * FROM UserDetails WHERE email= @email
 
 END

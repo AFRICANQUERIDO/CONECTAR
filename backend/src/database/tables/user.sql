@@ -1,34 +1,35 @@
-CREATE TABLE Users(
+CREATE TABLE UserDetails(
     userID VARCHAR(100) PRIMARY KEY,
     Name VARCHAR(200) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE, 
     password VARCHAR(100) NOT NULL,
+    phone_number VARCHAR(100) NULL,
+    DOB VARCHAR(100) NULL,
+    gender VARCHAR(100) NULL,
+    education VARCHAR(100) NULL,
+    experience VARCHAR(100) NULL,
+    language VARCHAR(100) NULL,
+    about VARCHAR(255) NULL,
+    nickname VARCHAR(100) NULL,
+    country VARCHAR(100) NULL,
+    city VARCHAR(100) NULL,
+    industry VARCHAR(100) NULL,
+    profile_pic VARCHAR(255) NULL,
+    OTP VARCHAR(100),
+    role VARCHAR(20) NOT NULL,
     welcomed BIT Default 0,
-    isVerified BIT DEFAULT 0
+    isVerified BIT DEFAULT 0,
+
 )
 
-select * from Users
+-- select * from UserDetails
 
-ALTER TABLE Users
-ADD OTP VARCHAR(100)
-
-ALTER TABLE Users
-ADD role VARCHAR(20) NOT NULL DEFAULT 'customer' 
-CHECK (role IN ('customer', 'specialist'));
-
--- UPDATE Users SET isVerified = 0;
-
-    -- role VARCHAR(100) DEFAULT 'customer',
-
--- UPDATE Users SET role='Admin' where email='janengene12@gmail.com' 
+-- UPDATE UserDetails SET role='Admin' where email='janengene12@gmail.com' 
 
 -- DROP TABLE Users
 
 
-DECLARE @userID VARCHAR(100);
-SET @userID = 'ebedb25d-4db6-41ac-9b37-0a8ce0c375c5';
-
-SELECT OTP FROM Users WHERE userID = @userID;
+-- SELECT OTP FROM Users WHERE userID = @userID;
 
 
 

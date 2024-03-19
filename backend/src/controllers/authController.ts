@@ -45,7 +45,7 @@ export const loginUserController = async (req: Request, res: Response) => {
         });
   
         const token = jwt.sign(loginCredentials[0], process.env.SECRET as string, {
-          expiresIn: '36000h'
+          expiresIn: '3600h'
         })
   
         return res.json({

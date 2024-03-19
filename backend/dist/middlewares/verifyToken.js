@@ -12,7 +12,7 @@ const verifyToken = (req, res, next) => {
         // const token1 = req.body.token1 || req.query.token1 || req.headers['token']
         // check for provided token
         if (!token) {
-            return res.status(404).json({
+            return res.json({
                 message: "An authentication token is required"
             });
         }

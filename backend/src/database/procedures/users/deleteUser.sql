@@ -4,6 +4,6 @@ CREATE OR ALTER PROCEDURE deleteUser(
 
 AS
 BEGIN
-    DELETE  FROM Users WHERE userID=@userID
+    DELETE  FROM UserDetails WHERE userID=@userID
 
 END

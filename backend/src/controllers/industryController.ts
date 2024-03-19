@@ -7,7 +7,7 @@ import { Request, Response } from "express"
 
 export const createIndustry = async (req: Request, res: Response) => {
     try {
-        const { industryName }: industry = req.body;
+        const { industryName, industryImage }: industry = req.body;
 
         // Validate the incoming request body
         const { error } = newIndustrySchema.validate(req.body);
@@ -36,6 +36,7 @@ export const createIndustry = async (req: Request, res: Response) => {
         const result = await pool.request()
             .input("industryID", mssql.VarChar, id)
             .input("industryName", mssql.VarChar, industryName)
+            .input("industryImage", mssql.VarChar, industryImage)
             .execute('createIndustry');
 
         if (result.rowsAffected[0] > 0) {
@@ -68,26 +69,26 @@ export const getAllIndustries = async (req: Request, res: Response) => {
 
 export const updateIndustry = async (req: Request, res: Response) => {
     try {
-        const id = req.params.id
-
-        const { industryName }: industry = req.body
-
-        const pool = await mssql.connect(sqlConfig)
-
-        let result = (await pool.request()
+        const id = req.params.id;
+        const { industryName, industryImage }: industry = req.body;
+        const pool = await mssql.connect(sqlConfig);
+        const result = await pool.request()
             .input("industryID", id)
             .input("industryName", mssql.VarChar, industryName)
-            .execute('updateIndustry')).rowsAffected
-
+            .input("industryImage", mssql.VarChar, industryImage)
+            .execute('updateIndustry');
         console.log(result);
-
-        return res.json({
-            message: "Industry updated successfully"
-        })
+        if (result.rowsAffected[0] > 0) {
+            return res.json({ message: "Industry updated successfully" });
+        } else {
+            return res.json({ error: "Failed to update industry" });
+        }
     } catch (error) {
-
+        console.error("Error updating industry:", error);
+        return res.status(500).json({ error: "Internal server error" });
     }
 }
+
 
 export const getOneIndustry = async (req: Request, res: Response) => {
     try {

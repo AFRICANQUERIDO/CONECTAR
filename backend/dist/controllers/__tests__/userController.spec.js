@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const userController_1 = require("../userController");
 const mssql_1 = __importDefault(require("mssql"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
+const authController_1 = require("../authController");
 describe('UserController Tests', () => {
     it('registers a user', () => __awaiter(void 0, void 0, void 0, function* () {
         const req = {};
@@ -33,7 +34,7 @@ describe('UserController Tests', () => {
             json: jest.fn()
         };
         // Call the loginUserController function
-        yield (0, userController_1.loginUserController)(req, res);
+        yield (0, authController_1.loginUserController)(req, res);
         // Adjust the expectation to match the error message
         expect(res.json).toHaveBeenCalledWith({ error: "You need to verify your email to login. Check your inbox" });
     }));
@@ -63,7 +64,7 @@ describe('validateUser', () => {
         jest.clearAllMocks();
     });
     it('should return an error if request body is missing or empty', () => __awaiter(void 0, void 0, void 0, function* () {
-        yield (0, userController_1.validateUser)(req, res);
+        yield (0, authController_1.validateUser)(req, res);
         expect(res.status).toHaveBeenCalledWith(400);
         expect(res.json).toHaveBeenCalledWith({ error: 'Request body is missing or empty' });
     }));
@@ -71,7 +72,7 @@ describe('validateUser', () => {
         // Mock request object with correct userID and OTP
         const req = { body: { userID: 'user123', OTP: 'validOTP' } };
         const res = { json: jest.fn() }; // Mock response object
-        yield (0, userController_1.validateUser)(req, res);
+        yield (0, authController_1.validateUser)(req, res);
         // Assert that the response contains the success message
         expect(res.json).toHaveBeenCalledWith({ success: "Email successfully validated and OTP deleted" });
     }));
@@ -79,7 +80,7 @@ describe('validateUser', () => {
         // Mock request object with incorrect OTP
         const req = { body: { userID: 'user123', OTP: 'invalidOTP' } };
         const res = { json: jest.fn() }; // Mock response object
-        yield (0, userController_1.validateUser)(req, res);
+        yield (0, authController_1.validateUser)(req, res);
         // Assert that the response contains the error message for invalid OTP
         expect(res.json).toHaveBeenCalledWith({ error: "Invalid OTP" });
     }));
@@ -87,7 +88,7 @@ describe('validateUser', () => {
         // Mock request object with unknown user
         const req = { body: { userID: 'unknownUser', OTP: 'validOTP' } };
         const res = { json: jest.fn() }; // Mock response object
-        yield (0, userController_1.validateUser)(req, res);
+        yield (0, authController_1.validateUser)(req, res);
         // Assert that the response contains the error message for user not found
         expect(res.json).toHaveBeenCalledWith({ error: "User not found" });
     }));
@@ -100,7 +101,7 @@ describe('validateUser', () => {
         mockMssql.connect.mockImplementation(() => {
             throw new Error('Internal server error');
         });
-        yield (0, userController_1.validateUser)(req, res);
+        yield (0, authController_1.validateUser)(req, res);
         // Assert that the response contains the error message for internal server error
         expect(res.json).toHaveBeenCalledWith({ error: "Internal server error" });
     }));
@@ -145,7 +146,7 @@ describe('loginUserController', () => {
         });
         // Mock bcrypt compare to return true
         bcrypt_1.default.compare.mockResolvedValue(true);
-        yield (0, userController_1.loginUserController)(req, res);
+        yield (0, authController_1.loginUserController)(req, res);
         // Expectations
         expect(res.json).toHaveBeenCalledWith({
             message: 'User Logged in successfully',
@@ -154,5 +155,5 @@ describe('loginUserController', () => {
             token: expect.any(String),
         });
     }));
-    // Add more test cases for other scenarios (e.g., user not found, incorrect password, etc.)
+    // To add test cases for other scenarios ( user not found, incorrect password, etc.)
 });

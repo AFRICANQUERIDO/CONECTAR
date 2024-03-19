@@ -61,7 +61,7 @@ const loginUserController = (req, res) => __awaiter(void 0, void 0, void 0, func
                 return rest;
             });
             const token = jsonwebtoken_1.default.sign(loginCredentials[0], process.env.SECRET, {
-                expiresIn: '36000h'
+                expiresIn: '3600h'
             });
             return res.json(Object.assign({ message: 'User Logged in successfully', token }, loginCredentials[0]));
         }

@@ -6,5 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.newIndustrySchema = void 0;
 const joi_1 = __importDefault(require("joi"));
 exports.newIndustrySchema = joi_1.default.object({
-    industryName: joi_1.default.string().required()
+    industryName: joi_1.default.string().required(),
+    industryImage: joi_1.default.string().required()
 });

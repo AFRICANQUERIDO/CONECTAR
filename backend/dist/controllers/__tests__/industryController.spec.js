@@ -24,7 +24,7 @@ describe('createIndustry', () => {
         jest.clearAllMocks(); // Clear all mocks before each test
     });
     it('should create a new industry successfully', () => __awaiter(void 0, void 0, void 0, function* () {
-        const req = { body: { industryName: 'New Industry' } };
+        const req = { body: { industryName: 'New Industry', industryImage: 'testing Image' } };
         const res = { json: jest.fn() };
         // Mock the pool request to simulate a new industry
         mssql_1.default.connect.mockResolvedValueOnce({
@@ -38,20 +38,20 @@ describe('createIndustry', () => {
         expect(res.json).toHaveBeenCalledWith({ message: 'Industry created successfully' });
     }));
     it('should handle error when industry already exists', () => __awaiter(void 0, void 0, void 0, function* () {
-        const req = { body: { industryName: 'Testing Industry' } };
+        const req = { body: { industryName: 'Testing Industry', industryImage: 'testing Image' } };
         const res = { json: jest.fn() };
         // Mock the pool request to simulate an existing industry
         mssql_1.default.connect.mockResolvedValueOnce({
             request: jest.fn().mockReturnThis(),
             input: jest.fn().mockReturnThis(),
-            query: jest.fn().mockResolvedValueOnce({ recordset: [{ industryName: 'Testing Industry' }] }),
+            query: jest.fn().mockResolvedValueOnce({ recordset: [{ industryName: 'Testing Industry', industryImage: 'testing image' }] }),
         });
         yield (0, industryController_1.createIndustry)(req, res);
         // Check if the response contains the expected error message
         expect(res.json).toHaveBeenCalledWith({ error: 'Opps Industry already exists' });
     }));
     it('should handle error when creating industry fails', () => __awaiter(void 0, void 0, void 0, function* () {
-        const req = { body: { industryName: 'Test Industry' } };
+        const req = { body: { industryName: 'Test Industry', industryImage: 'testing image' } };
         const res = { json: jest.fn(), status: jest.fn().mockReturnThis() };
         // Mock failed SQL query execution
         mssql_1.default.connect.mockRejectedValueOnce(new Error('Database error'));

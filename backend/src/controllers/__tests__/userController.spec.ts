@@ -1,34 +1,43 @@
 import { Request, Response } from "express";
-import { registerUserController, loginUserController, validateUser } from '../userController';
+import { registerUserController } from '../userController';
 import mssql from 'mssql'
 import bcrypt from 'bcrypt'
+import { loginUserController, validateUser } from "../authController";
+import { any } from "joi";
 
 describe('UserController Tests', () => {
+   let req :Request;
+
+    beforeEach(() => {
+   const res = {
+      json: jest.fn()
+    } :response;
+  });
+
+
     it('registers a user', async () => {
-        const req = {} as Request;
-        const res = { json: jest.fn() } as unknown as Response;
-        req.body = { Name: 'John Doe', email: 'john@example.com', password: 'StrongPassword12345' };
+        req.body = { Name: 'John Doe', email: 'john@example.com', password: 'Password@12345' };
 
         await registerUserController(req, res);
 
-        // Adjust the expectation to match the error message
         expect(res.json).toHaveBeenCalledWith({ error: "Email is already registered" });
     });
+  
     it('should request OTP before login user', async () => {
-        // Mock the request and response objects
-        const req = {
-            body: { email: 'john@example.com', password: 'StrongPassword12345' }
+        const req: Request = {
+          body: { email: 'correctemail@example.com', password: 'Password@12345' }
         } as Request;
-        const res = {
-            json: jest.fn()
-        } as unknown as Response;
-
-        // Call the loginUserController function
+    
+        const userRecord = [{ email: 'correctemail@example.com', password: '$2b$10$rQ4D2fEgIDSWfUz5l6/viOK5yB1LP4ITe7iP4pVkq4DNmPzZ0OIMy', isVerified: false }];
+        const mockedRecordset = { recordset: userRecord };
+        const mockedRequest = jest.fn().mockResolvedValueOnce(mockedRecordset);
+        const mockedPool = { request: mockedRequest };
+        jest.spyOn(mssql, 'connect').mockResolvedValueOnce(mockedPool as never);
+    
         await loginUserController(req, res);
-
-        // Adjust the expectation to match the error message
+    
         expect(res.json).toHaveBeenCalledWith({ error: "You need to verify your email to login. Check your inbox" });
-    });
+      });
 
 })
 
@@ -180,5 +189,5 @@ describe('loginUserController', () => {
 
     });
 
-    // Add more test cases for other scenarios (e.g., user not found, incorrect password, etc.)
+    // To add test cases for other scenarios ( user not found, incorrect password, etc.)
 });

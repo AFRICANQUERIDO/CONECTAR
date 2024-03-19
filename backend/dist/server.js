@@ -31,6 +31,8 @@ const cors_1 = __importDefault(require("cors"));
 const authRouter_1 = __importDefault(require("./routes/authRouter"));
 const express_1 = __importStar(require("express"));
 const industryRouter_1 = __importDefault(require("./routes/industryRouter"));
+// import http from 'http'
+// import WebSocket from 'ws'
 const app = (0, express_1.default)();
 // Websockets section starts here
 // const server = http.createServer(express)

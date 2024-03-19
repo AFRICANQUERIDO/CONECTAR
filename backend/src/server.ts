@@ -4,9 +4,11 @@ import cors from 'cors'
 import userRouter from './routes/authRouter'
 import express, { NextFunction, Request,Response, json } from 'express'
 import industryRouter from './routes/industryRouter';
-import http from 'http'
-import WebSocket from 'ws'
+// import http from 'http'
+// import WebSocket from 'ws'
+
 const app = express()
+
 
 // Websockets section starts here
 // const server = http.createServer(express)

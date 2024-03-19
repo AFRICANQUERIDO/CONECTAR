@@ -1,0 +1,5 @@
+CREATE OR ALTER PROCEDURE getOneUser(@userID VARCHAR(100))
+AS
+BEGIN   
+    SELECT * FROM UserDetails WHERE userID = @userID
+END

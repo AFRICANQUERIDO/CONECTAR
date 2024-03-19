@@ -16,7 +16,7 @@ export const verifyToken = (req: ExtendeUser, res: Response, next: NextFunction)
 
         // check for provided token
         if (!token) {
-            return res.status(404).json({
+            return res.json({
                 message: "An authentication token is required"
             })
         }

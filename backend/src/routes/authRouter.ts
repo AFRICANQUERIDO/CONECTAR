@@ -1,10 +1,12 @@
 import { Router } from "express";
-import { checkUserDetails, deleteUserController, fetchAllUSersController, getSingleUserController, getUserDetails, loginUserController, registerUserController, resetPasswordController, updateUserController, validateUser } from "../controllers/userController";
+import {  deleteUserController, fetchAllUSersController, getSingleUserController, getUserDetails,  registerUserController, resetPasswordController, setRole, updateUserController } from "../controllers/userController";
 import { verifyToken } from "../middlewares/verifyToken";
+import { checkUserDetails, loginUserController, validateUser } from "../controllers/authController";
 
 
 const userRouter = Router()
 
+userRouter.post('/role/:id', setRole);
 userRouter.post('/register', registerUserController)
 // userRouter.post('/', generateOTP)
 userRouter.put('/validate', validateUser)
@@ -14,7 +16,7 @@ userRouter.get('/checkdetails', verifyToken, checkUserDetails)
 userRouter.post('/resetPassword', verifyToken, resetPasswordController)
 userRouter.put('/update/:userID', updateUserController)
 userRouter.delete('/delete/:userID', deleteUserController)
-userRouter.get('/singleUser/:userID', verifyToken,getSingleUserController)
+userRouter.get('/:userID', verifyToken,getSingleUserController)
 userRouter.get('/', fetchAllUSersController)
 
 export default userRouter

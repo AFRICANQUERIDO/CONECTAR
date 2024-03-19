@@ -1,11 +1,26 @@
+###set Role
+POST http://localhost:4500/users/role/dc66b82a-b996-40e3-a387-1d9a213f95d3
+Content-Type: application/json
+
+{
+  "role":"customer"
+}
 ### register user
 POST http://localhost:4500/users/register
 Content-Type: application/json
 
+# {
+#   "Name": " Sharon Cherotich ",
+#   "email": "sharoncherotich112@gmail.com",
+#   "password": "Strong@Password123",
+#   "role":"customer"
+# }
+
 {
-  "Name": " Sharon Cherotich ",
-  "email": "sharoncherotich112@gmail.com",
-  "password": "StrongPassword123"
+  "Name": " Jane Ngene",
+  "email": "janengene12@gmail.com",
+  "password": "Jane@1234",
+  "role":"customer"
 }
 
 
@@ -37,8 +52,13 @@ Content-Type: application/json
 GET  http://localhost:4500/users
 Content-Type: application/json
  
+
+### One user details
+GET http://localhost:4500/users/dc66b82a-b996-40e3-a387-1d9a213f95d3
+Content-Type: application/json
+
 ### Delete user
-DELETE http://localhost:4500/users/delete/5af88f03-7c21-41de-819a-a340105a69c1
+DELETE http://localhost:4500/users/delete/dc66b82a-b996-40e3-a387-1d9a213f95d3
 
  
 ### Industries
@@ -47,7 +67,8 @@ POST  http://localhost:4500/industry
 Content-Type: application/json
 
 {
-"industryName":"Data Analysis"
+"industryName":"Education",
+"industryImage":"this is an image"
 }
  
 ### getAll
@@ -55,10 +76,10 @@ GET http://localhost:4500/industry/
 Content-Type: application/json
 
 ### getOne
-GET http://localhost:4500/industry/
+GET http://localhost:4500/industry/baacb12b-90c6-4661-bc28-641932a35234
  
 ### Delete industry
-DELETE   http://localhost:4500/products/1fc7b941-0af0-4370-9ca9-1f6297606b66
+DELETE   http://localhost:4500/industy/f4981088-9310-4235-ac3d-98a6a009131c
 Content-Type: application/json
  
  

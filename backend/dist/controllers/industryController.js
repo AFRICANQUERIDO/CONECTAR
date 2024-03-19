@@ -19,7 +19,7 @@ const industry_validator_1 = require("../validators/industry.validator");
 const sqlConfig_1 = require("../config/sqlConfig");
 const createIndustry = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { industryName } = req.body;
+        const { industryName, industryImage } = req.body;
         // Validate the incoming request body
         const { error } = industry_validator_1.newIndustrySchema.validate(req.body);
         if (error) {
@@ -41,6 +41,7 @@ const createIndustry = (req, res) => __awaiter(void 0, void 0, void 0, function*
         const result = yield pool.request()
             .input("industryID", mssql_1.default.VarChar, id)
             .input("industryName", mssql_1.default.VarChar, industryName)
+            .input("industryImage", mssql_1.default.VarChar, industryImage)
             .execute('createIndustry');
         if (result.rowsAffected[0] > 0) {
             // Return success message if the industry is created successfully
@@ -74,18 +75,24 @@ exports.getAllIndustries = getAllIndustries;
 const updateIndustry = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const id = req.params.id;
-        const { industryName } = req.body;
+        const { industryName, industryImage } = req.body;
         const pool = yield mssql_1.default.connect(sqlConfig_1.sqlConfig);
-        let result = (yield pool.request()
+        const result = yield pool.request()
             .input("industryID", id)
             .input("industryName", mssql_1.default.VarChar, industryName)
-            .execute('updateIndustry')).rowsAffected;
+            .input("industryImage", mssql_1.default.VarChar, industryImage)
+            .execute('updateIndustry');
         console.log(result);
-        return res.json({
-            message: "Industry updated successfully"
-        });
+        if (result.rowsAffected[0] > 0) {
+            return res.json({ message: "Industry updated successfully" });
+        }
+        else {
+            return res.json({ error: "Failed to update industry" });
+        }
     }
     catch (error) {
+        console.error("Error updating industry:", error);
+        return res.status(500).json({ error: "Internal server error" });
     }
 });
 exports.updateIndustry = updateIndustry;

@@ -2,5 +2,5 @@ CREATE OR ALTER PROCEDURE getAllUsers
 
 AS
 BEGIN
-    SELECT * FROM Users 
+    SELECT * FROM UserDetails 
 END 

@@ -9,7 +9,7 @@ BEGIN
         email,
         role
     FROM
-        Users
+        UserDetails
     WHERE
         userID = @userID;
 END;
