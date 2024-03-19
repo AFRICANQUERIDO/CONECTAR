@@ -17,25 +17,25 @@ const mssql_1 = __importDefault(require("mssql"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const authController_1 = require("../authController");
 describe('UserController Tests', () => {
+    let req;
+    let res = {
+        json: jest.fn()
+    };
     it('registers a user', () => __awaiter(void 0, void 0, void 0, function* () {
-        const req = {};
-        const res = { json: jest.fn() };
-        req.body = { Name: 'John Doe', email: 'john@example.com', password: 'StrongPassword12345' };
+        req.body = { Name: 'John Doe', email: 'john@example.com', password: 'Password@12345' };
         yield (0, userController_1.registerUserController)(req, res);
-        // Adjust the expectation to match the error message
         expect(res.json).toHaveBeenCalledWith({ error: "Email is already registered" });
     }));
     it('should request OTP before login user', () => __awaiter(void 0, void 0, void 0, function* () {
-        // Mock the request and response objects
         const req = {
-            body: { email: 'john@example.com', password: 'StrongPassword12345' }
+            body: { email: 'correctemail@example.com', password: 'Password@12345' }
         };
-        const res = {
-            json: jest.fn()
-        };
-        // Call the loginUserController function
+        const userRecord = [{ email: 'correctemail@example.com', password: '$2b$10$rQ4D2fEgIDSWfUz5l6/viOK5yB1LP4ITe7iP4pVkq4DNmPzZ0OIMy', isVerified: false }];
+        const mockedRecordset = { recordset: userRecord };
+        const mockedRequest = jest.fn().mockResolvedValueOnce(mockedRecordset);
+        const mockedPool = { request: mockedRequest };
+        jest.spyOn(mssql_1.default, 'connect').mockResolvedValueOnce(mockedPool);
         yield (0, authController_1.loginUserController)(req, res);
-        // Adjust the expectation to match the error message
         expect(res.json).toHaveBeenCalledWith({ error: "You need to verify your email to login. Check your inbox" });
     }));
 });

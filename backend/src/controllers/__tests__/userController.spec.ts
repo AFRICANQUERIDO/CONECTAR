@@ -8,11 +8,10 @@ import { any } from "joi";
 describe('UserController Tests', () => {
    let req :Request;
 
-    beforeEach(() => {
-   const res = {
+   let res = {
       json: jest.fn()
-    } :response;
-  });
+    } as unknown as Response;
+
 
 
     it('registers a user', async () => {

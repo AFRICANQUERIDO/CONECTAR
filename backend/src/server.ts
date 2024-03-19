@@ -1,9 +1,10 @@
 require('dotenv').config();
 
 import cors from 'cors'
-import userRouter from './routes/authRouter'
 import express, { NextFunction, Request,Response, json } from 'express'
+import userRouter from './routes/authRouter'
 import industryRouter from './routes/industryRouter';
+import sectorRouter from './routes/sectorRouter';
 // import http from 'http'
 // import WebSocket from 'ws'
 
@@ -41,6 +42,7 @@ app.use(json())
 
 app.use('/users', userRouter)
 app.use('/industry', industryRouter)
+app.use('/sector', sectorRouter)
 
 app.use((error:Error, request:Request, response:Response, next:NextFunction)=>{
     response.json({

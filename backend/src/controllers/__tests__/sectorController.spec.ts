@@ -32,7 +32,7 @@ describe('Sector Controller', () => {
   });
 
   it('should retrieve sectors by industry ID', async () => {
-    const req: Request = { params: { industryId: "exampleIndustryId" } } as Request;
+    const req: Request = { params: { industryId: "exampleIndustryId" } } as unknown as Request;
     const mockSectors = [{ sectorId: '1', sectorName: 'Sector 1' }, { sectorId: '2', sectorName: 'Sector 2' }];
     const mockedRecordset = { recordset: mockSectors };
     const mockedRequest = jest.fn().mockResolvedValueOnce(mockedRecordset);
@@ -44,5 +44,40 @@ describe('Sector Controller', () => {
     expect(res.json).toHaveBeenCalledWith({ sectors: mockSectors });
   });
 
-  // To add tests for updateSector and deleteSector endpoints in a similar manner
+//   it('should update an existing sector', async () => {
+//     const req: Request = {
+//         params: { id: 'exampleSectorId' },
+//         body: {
+//           industryId: 'exampleIndustryId',
+//           sectorName: 'Updated Sector'
+//         }
+//       };
+
+//     const mockedInput = jest.fn().mockReturnThis();
+//     const mockedExecute = jest.fn().mockResolvedValueOnce({ rowsAffected: [1] });
+//     const mockedRequest = { input: mockedInput, execute: mockedExecute };
+//     const mockedPool = { request: jest.fn().mockReturnValue(mockedRequest) };
+//     jest.spyOn(mssql, 'connect').mockResolvedValueOnce(mockedPool as never);
+
+//     await updateSector(req, res);
+
+//     expect(res.json).toHaveBeenCalledWith({ message: 'Sector updated successfully' });
+//   });
+
+//   it('should delete an existing sector', async () => {
+
+//     let req: Request = {
+//         params: { id: 'exampleSectorId' }
+//       };
+
+//     const mockedInput = jest.fn().mockReturnThis();
+//     const mockedExecute = jest.fn().mockResolvedValueOnce({ rowsAffected: [1] });
+//     const mockedRequest = { input: mockedInput, execute: mockedExecute };
+//     const mockedPool = { request: jest.fn().mockReturnValue(mockedRequest) };
+//     jest.spyOn(mssql, 'connect').mockResolvedValueOnce(mockedPool as never);
+
+//     await deleteSector(req, res);
+
+//     expect(res.json).toHaveBeenCalledWith({ message: 'Sector deleted successfully' });
+//   });
 });

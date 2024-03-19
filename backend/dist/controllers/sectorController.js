@@ -16,18 +16,44 @@ exports.deleteSector = exports.updateSector = exports.getAllSectorsByIndustry = 
 const uuid_1 = require("uuid");
 const mssql_1 = __importDefault(require("mssql"));
 const sqlConfig_1 = require("../config/sqlConfig");
-// Function to create a new sector for a specific industry
 const createSector = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { sectorName, industryID } = req.body;
         const pool = yield mssql_1.default.connect(sqlConfig_1.sqlConfig);
+        // Check if the industry exists
+        const industryExistsQuery = `
+            SELECT COUNT(*) AS industryCount
+            FROM industry
+            WHERE industryID = @industryID;
+        `;
+        const industryExistsResult = yield pool.request()
+            .input('industryID', mssql_1.default.VarChar, industryID)
+            .query(industryExistsQuery);
+        const industryCount = industryExistsResult.recordset[0].industryCount;
+        if (industryCount === 0) {
+            return res.status(404).json({ error: 'Industry not found' });
+        }
+        // Check if the sector name already exists in any industry
+        const sectorExistsQuery = `
+            SELECT COUNT(*) AS sectorCount
+            FROM sectors
+            WHERE sectorName = @sectorName;
+        `;
+        const sectorExistsResult = yield pool.request()
+            .input('sectorName', mssql_1.default.VarChar, sectorName)
+            .query(sectorExistsQuery);
+        const sectorCount = sectorExistsResult.recordset[0].sectorCount;
+        if (sectorCount > 0) {
+            return res.status(400).json({ error: 'Sector name already exists' });
+        }
+        // If the industry exists and the sector name is unique, proceed with sector creation
         const sectorID = (0, uuid_1.v4)();
-        const result = yield pool.request()
+        const createSectorResult = yield pool.request()
             .input('sectorID', mssql_1.default.VarChar, sectorID)
             .input('sectorName', mssql_1.default.VarChar, sectorName)
             .input('industryID', mssql_1.default.VarChar, industryID)
             .execute('createSector');
-        if (result.rowsAffected[0] > 0) {
+        if (createSectorResult.rowsAffected[0] > 0) {
             return res.json({ message: 'Sector created successfully' });
         }
         else {
@@ -44,12 +70,33 @@ const getAllSectorsByIndustry = (req, res) => __awaiter(void 0, void 0, void 0, 
     try {
         const { industryID } = req.params;
         const pool = yield mssql_1.default.connect(sqlConfig_1.sqlConfig);
-        const allSectors = (yield pool.request()
+        // Check if the industry exists
+        const industryExistsQuery = `
+            SELECT COUNT(*) AS industryCount
+            FROM Industry
+            WHERE id = @industryID;
+        `;
+        const industryExistsResult = yield pool.request()
             .input('industryID', mssql_1.default.VarChar, industryID)
-            .execute('getAllSectorsByIndustry')).recordset;
+            .query(industryExistsQuery);
+        const industryCount = industryExistsResult.recordset[0].industryCount;
+        if (industryCount === 0) {
+            return res.status(404).json({ error: 'Industry not found' });
+        }
+        // Fetch all sectors belonging to the industry
+        const allSectorsQuery = `
+            SELECT *
+            FROM Sector
+            WHERE industryID = @industryID;
+        `;
+        const allSectorsResult = yield pool.request()
+            .input('industryID', mssql_1.default.VarChar, industryID)
+            .query(allSectorsQuery);
+        const allSectors = allSectorsResult.recordset;
         return res.json({ sectors: allSectors });
     }
     catch (error) {
+        console.error('Error fetching sectors by industry:', error);
         return res.status(500).json({ error: 'Internal server error' });
     }
 });

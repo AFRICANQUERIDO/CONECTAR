@@ -28,9 +28,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 require('dotenv').config();
 const cors_1 = __importDefault(require("cors"));
-const authRouter_1 = __importDefault(require("./routes/authRouter"));
 const express_1 = __importStar(require("express"));
+const authRouter_1 = __importDefault(require("./routes/authRouter"));
 const industryRouter_1 = __importDefault(require("./routes/industryRouter"));
+const sectorRouter_1 = __importDefault(require("./routes/sectorRouter"));
 // import http from 'http'
 // import WebSocket from 'ws'
 const app = (0, express_1.default)();
@@ -55,6 +56,7 @@ app.use((0, cors_1.default)());
 app.use((0, express_1.json)());
 app.use('/users', authRouter_1.default);
 app.use('/industry', industryRouter_1.default);
+app.use('/sector', sectorRouter_1.default);
 app.use((error, request, response, next) => {
     response.json({
         message: error.message
