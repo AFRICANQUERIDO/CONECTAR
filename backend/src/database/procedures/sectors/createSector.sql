@@ -5,7 +5,7 @@ CREATE OR ALTER PROCEDURE createSector(
 )
 AS
 BEGIN
-    INSERT INTO sectors(sectorID,sectorName,industryID)
+    INSERT INTO Sector(sectorID,sectorName,industryID)
     VALUES(@sectorID,@sectorName,@industryID)
 END
 

@@ -29,7 +29,7 @@ export const createSector = async (req: Request, res: Response) => {
         // Check if the sector name already exists in any industry
         const sectorExistsQuery = `
             SELECT COUNT(*) AS sectorCount
-            FROM sectors
+            FROM Sector
             WHERE sectorName = @sectorName;
         `;
         const sectorExistsResult = await pool.request()
@@ -83,7 +83,7 @@ export const getAllSectorsByIndustry = async (req: Request, res: Response) => {
         // Fetch all sectors belonging to the industry
         const allSectorsQuery = `
             SELECT *
-            FROM sectors
+            FROM Sector
             WHERE industryID = @industryID;
         `;
         const allSectorsResult = await pool.request()

@@ -65,7 +65,7 @@ Content-Type: application/json
 "industryImage":"this is an image"
 }
  
-### getAll
+### getAll industries
 GET http://localhost:4500/industry/
 Content-Type: application/json
 
@@ -84,11 +84,11 @@ POST  http://localhost:4500/sector/create
 Content-Type: application/json
 
 {
-"sectorName":"",
-"industryID":"baacb12b-90c6-4661-bc28-64135234"
+"sectorName":"Nurse",
+"industryID":"04f513cb-bf34-4b6c-bc3e-521d6894f7f3"
 }
  
 ### Get sector by industry
-GET http://localhost:4500/sector/b83c0ed7-2df5-431c-872b-2aee755bf0b8
+GET http://localhost:4500/sector/04f513cb-bf34-4b6c-bc3e-521d6894f7f3
 Content-Type: application/json
 

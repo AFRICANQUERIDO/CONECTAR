@@ -3,7 +3,7 @@ CREATE  OR ALTER PROCEDURE getAllSectorsByIndustry
 AS
 BEGIN
     SELECT s.*
-    FROM sectors s
+    FROM Sector s
     WHERE s.industryID = @industryID;
 END;
 

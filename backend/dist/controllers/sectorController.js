@@ -36,7 +36,7 @@ const createSector = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         // Check if the sector name already exists in any industry
         const sectorExistsQuery = `
             SELECT COUNT(*) AS sectorCount
-            FROM sectors
+            FROM Sector
             WHERE sectorName = @sectorName;
         `;
         const sectorExistsResult = yield pool.request()
@@ -86,7 +86,7 @@ const getAllSectorsByIndustry = (req, res) => __awaiter(void 0, void 0, void 0, 
         // Fetch all sectors belonging to the industry
         const allSectorsQuery = `
             SELECT *
-            FROM sectors
+            FROM Sector
             WHERE industryID = @industryID;
         `;
         const allSectorsResult = yield pool.request()
