@@ -1,11 +1,12 @@
 require('dotenv').config();
 
 import cors from 'cors'
-import express, { NextFunction, Request,Response, json } from 'express'
+import express, { NextFunction, Request, Response, json } from 'express'
 import userRouter from './routes/authRouter'
 import industryRouter from './routes/industryRouter';
 import sectorRouter from './routes/sectorRouter';
 import gigRouter from './routes/gigRouter';
+import orderRouter from './routes/orderRouter';
 // import http from 'http'
 // import WebSocket from 'ws'
 
@@ -25,7 +26,7 @@ const app = express()
 //         wss.clients.forEach(async function each(client){
 //             if(client !== ws && client.readyState === WebSocket.OPEN){
 //                 console.log(data);
-                
+
 //                 client.send(data, {binary: isBinary})
 //             }
 //         })
@@ -45,15 +46,16 @@ app.use('/users', userRouter)
 app.use('/industry', industryRouter)
 app.use('/sector', sectorRouter)
 app.use('/gigs', gigRouter)
+app.use('/orders', orderRouter)
 
-app.use((error:Error, request:Request, response:Response, next:NextFunction)=>{
+app.use((error: Error, request: Request, response: Response, next: NextFunction) => {
     response.json({
-        message:error.message
+        message: error.message
     })
 })
 
 let port = 4500
 
-app.listen(port,()=>{
+app.listen(port, () => {
     console.log(`Listening to port ${port}`)
 })

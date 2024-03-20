@@ -1,0 +1,10 @@
+CREATE TABLE Reviews (
+    reviewID INT PRIMARY KEY IDENTITY,
+    orderID VARCHAR(100) NOT NULL,
+    userID VARCHAR(100) NOT NULL,
+    rating VARCHAR(100) NOT NULL,
+    reviewText VARCHAR(500) NOT NULL,
+    createdAt DATETIME DEFAULT GETDATE(),
+    FOREIGN KEY (orderID) REFERENCES Orders(orderID),
+    FOREIGN KEY (userID) REFERENCES UserDetails(userID)
+);

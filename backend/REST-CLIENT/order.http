@@ -1,0 +1,41 @@
+###CREATE AN ORDER
+POST http://localhost:4500/orders/create
+Content-Type: application/json
+
+{
+    "userID": "aaaecb53-2d2a-406a-9630-2135a087b8d9",
+    "gigID":"09283830-9409-46a7-a6da-834f5a06e997",
+    "orderDescription":"Testing the default status setting",
+    "startDate":"2022-05-08",
+    "endDate":"2022-05-10",
+    "quantity":1,
+    "totalAmount":15,
+    "status":"pending"
+}
+
+###GET ALL ORDERS
+GET http://localhost:4500/orders
+
+### GET A USER ORDERS
+GET http://localhost:4500/orders/aaaecb53-2d2a-406a-9630-2135a087b8d9
+
+
+### GET ORDERS BY STATUS
+GET http://localhost:4500/orders/status/pending
+
+
+### UPDATE AN ORDER
+PUT http://localhost:4500/orders/update/7f601b55-942b-448f-a261-67c2258baa70
+Content-Type: application/json
+
+{
+    "orderDescription":"Testing updating an order",
+    "startDate":"2022-05-08",
+    "endDate":"2022-05-10",
+    "quantity":1,
+    "totalAmount":10,
+    "status":"pending"
+}
+
+###CANCEL AN ORDER
+PUT http://localhost:4500/orders/cancel/7f601b55-942b-448f-a261-67c2258baa70

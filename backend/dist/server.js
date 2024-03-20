@@ -33,6 +33,7 @@ const authRouter_1 = __importDefault(require("./routes/authRouter"));
 const industryRouter_1 = __importDefault(require("./routes/industryRouter"));
 const sectorRouter_1 = __importDefault(require("./routes/sectorRouter"));
 const gigRouter_1 = __importDefault(require("./routes/gigRouter"));
+const orderRouter_1 = __importDefault(require("./routes/orderRouter"));
 // import http from 'http'
 // import WebSocket from 'ws'
 const app = (0, express_1.default)();
@@ -59,6 +60,7 @@ app.use('/users', authRouter_1.default);
 app.use('/industry', industryRouter_1.default);
 app.use('/sector', sectorRouter_1.default);
 app.use('/gigs', gigRouter_1.default);
+app.use('/orders', orderRouter_1.default);
 app.use((error, request, response, next) => {
     response.json({
         message: error.message

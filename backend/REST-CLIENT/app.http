@@ -25,11 +25,11 @@ Content-Type: application/json
 
 
 ### validate user
-PUT http://localhost:4500/users/validate/aaaecb53-2d2a-406a-9630-2135a087b8d9
+PUT http://localhost:4500/users/validate/db77512b-35ed-48d2-93d4-024bb4df4335
 Content-Type: application/json
 
 {
-  "OTP": "4235"  
+  "OTP": "3357"  
 }
 
 
@@ -38,8 +38,8 @@ POST http://localhost:4500/users/login
 Content-Type: application/json
 
 {
-   "email":"kingangiduncan47@gmail.com",
-  "password": "Duncun@123"
+   "email":"kenidashakt@gmail.com",
+  "password": "pauline@123"
 }
 
 

@@ -56,3 +56,27 @@ export const getAllGigsByUser = async (req: Request, res: Response) => {
         return res.status(500).json({ error: 'Internal server error' });
     }
 };
+
+export const getGigsByIndustry = async (req: Request, res: Response) => {
+    try {
+        const { industryID } = req.params; // Extract the industry ID from req.params
+
+        const pool = await mssql.connect(sqlConfig);
+        const result = await pool.request()
+            .input('industryID', mssql.VarChar, industryID)
+            .query(`
+                SELECT *
+                FROM GigsWithUserDetailsAndIndustrySector
+                WHERE industryID = @industryID
+            `);
+
+        if (result.recordset.length > 0) {
+            return res.json(result.recordset);
+        } else {
+            return res.status(404).json({ error: 'No gigs found for the specified industry.' });
+        }
+    } catch (error) {
+        console.error('Error fetching gigs by industry:', error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+};

@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAllGigsByUser = exports.getAllgigs = exports.createGig = void 0;
+exports.getGigsByIndustry = exports.getAllGigsByUser = exports.getAllgigs = exports.createGig = void 0;
 const uuid_1 = require("uuid");
 const mssql_1 = __importDefault(require("mssql"));
 const sqlConfig_1 = require("../config/sqlConfig");
@@ -71,3 +71,27 @@ const getAllGigsByUser = (req, res) => __awaiter(void 0, void 0, void 0, functio
     }
 });
 exports.getAllGigsByUser = getAllGigsByUser;
+const getGigsByIndustry = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { industryID } = req.params; // Extract the industry ID from req.params
+        const pool = yield mssql_1.default.connect(sqlConfig_1.sqlConfig);
+        const result = yield pool.request()
+            .input('industryID', mssql_1.default.VarChar, industryID)
+            .query(`
+                SELECT *
+                FROM GigsWithUserDetailsAndIndustrySector
+                WHERE industryID = @industryID
+            `);
+        if (result.recordset.length > 0) {
+            return res.json(result.recordset);
+        }
+        else {
+            return res.status(404).json({ error: 'No gigs found for the specified industry.' });
+        }
+    }
+    catch (error) {
+        console.error('Error fetching gigs by industry:', error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+});
+exports.getGigsByIndustry = getGigsByIndustry;
