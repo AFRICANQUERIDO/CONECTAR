@@ -1,7 +1,8 @@
-export interface gig{
-    gigID:string,
-    gigName:string,
-    industryID:string,
-    sectorID:string,
+export interface gig {
+    gigID: string,
+    gigName: string,
+    gigDescription: string,
+    gigImage: string,
+    rate: string,
     userID:string
 }

@@ -17,7 +17,7 @@ export const loginUserController = async (req: Request, res: Response) => {
       const user = (await pool.request().input('email', mssql.VarChar, email)
       .input('password', mssql.VarChar, password).execute('loginUser'))
       .recordset
-      console.log(user);
+      // console.log(user);
   
       if (user[0]?.email == email) {
         const correctPWD = await bcrypt.compare(password, user[0]?.password);

@@ -1,12 +1,14 @@
+
 ### create gig
 POST http://localhost:4500/gigs/create
-Content-Type: application/application/json
+Content-Type: application/json
 
 {
-    "gigName": "Testing Gig",
-    "industryID": "04f513cb-bf34-4b6c-bc3e-521d6894f7f3",
-    "sectorID": "1d484ac0-452a-4c47-89f9-4a073cd95873",
-    "userID": "aaaecb53-2d2a-406a-9630-2135a087b8d9"  
+"gigName": "Testing Gig ",  
+"gigImage":"image will go here",
+"gigDescription": "I will offer you these services",
+"rate" :"$15/hour",
+"userID":"aaaecb53-2d2a-406a-9630-2135a087b8d9"
 }
 
 ### get all gigs
@@ -14,5 +16,5 @@ GET http://localhost:4500/gigs
 Content-Type: application/json
 
 ### get gig by id
-GET http://localhost:4500/gigs/aaaecb53-2d2a-406a-9630-2135a087b8d9
+GET http://localhost:4500/gigs/09283830-9409-46a7-a6da-834f5a06e997
 Content-Type: application/json

@@ -12,7 +12,7 @@ CREATE TABLE Sector(
 -- ADD CONSTRAINT fk_gigID FOREIGN KEY (gigID) REFERENCES gigs(gigID);
 
 
-
+select * from Sector
 
 
 

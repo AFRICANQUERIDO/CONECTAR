@@ -39,7 +39,7 @@ const loginUserController = (req, res) => __awaiter(void 0, void 0, void 0, func
         const user = (yield pool.request().input('email', mssql_1.default.VarChar, email)
             .input('password', mssql_1.default.VarChar, password).execute('loginUser'))
             .recordset;
-        console.log(user);
+        // console.log(user);
         if (((_a = user[0]) === null || _a === void 0 ? void 0 : _a.email) == email) {
             const correctPWD = yield bcrypt_1.default.compare(password, (_b = user[0]) === null || _b === void 0 ? void 0 : _b.password);
             if (user.length < 1) {

@@ -7,7 +7,7 @@ BEGIN
     SET NOCOUNT ON;
 
     SELECT *
-    FROM gigs
+    FROM Gig
     WHERE userID = @userID;
 END;
 

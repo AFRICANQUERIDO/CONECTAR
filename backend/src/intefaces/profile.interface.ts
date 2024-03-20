@@ -1,15 +1,17 @@
-  
-    
-export interface profileInterface {
-    photo:string;
-    role: string;
-    experience: string;
-    location:string
+interface ProfileInterface {
+    userID: string;
+    profile_pic: string;
+    phone_number: string;
+    DOB: string; 
+    gender: string;
     education: string;
-    languages: string;
-    skills: string;
-    description: string;
-    hourlyRate: string;
-    isWelcomed: boolean;
-    isDeleted: boolean;
+    experience: string;
+    language: string;
+    about: string;
+    nickname: string;
+    country: string;
+    city: string;
+    industry: string;
+    OTP: string;
+    role: string;
 }

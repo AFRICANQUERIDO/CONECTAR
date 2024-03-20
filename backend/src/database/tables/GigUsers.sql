@@ -1,0 +1,43 @@
+-- CREATE VIEW GigDetailsWithUser AS
+-- SELECT 
+--     GigDetails.*,
+--     UserDetails.*
+-- FROM 
+--     GigDetails
+-- JOIN 
+--     UserDetails ON GigDetails.userID = UserDetails.userID
+
+--     -- SELECT * FROM GigDetails
+
+
+
+-- CREATE VIEW GigDetailsWithUser AS
+-- SELECT 
+--     GigDetails.GigID,
+--     GigDetails.GigName,
+--     GigDetails.GigDescription,
+--     GigDetails.GigImage,
+--     GigDetails.IndustryName,
+--     GigDetails.SectorName,
+--     UserDetails.UserID,
+--     UserDetails.Name,
+--     UserDetails.Email,
+--     UserDetails.Password,
+--     UserDetails.Profile_pic,
+--     UserDetails.PhoneNumber,
+--     UserDetails.DOB,
+--     UserDetails.Gender,
+--     UserDetails.Education,
+--     UserDetails.Experience,
+--     UserDetails.Language,
+--     UserDetails.About,
+--     UserDetails.Nickname,
+--     UserDetails.Country,
+--     UserDetails.City,
+--     UserDetails.Industry,
+--     UserDetails.OTP,
+--     UserDetails.Role,
+-- FROM 
+--     GigDetails
+-- JOIN 
+--     UserDetails ON GigDetails.userID = UserDetails.userID;
