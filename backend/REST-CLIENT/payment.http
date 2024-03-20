@@ -1,0 +1,33 @@
+### PAYMENT TESTING
+
+### Create Payment
+
+POST http://localhost:4500/payment/payment
+Content-Type: application/json
+
+{
+    "orderID":"d46d513f-acc8-491f-b88c-180a6c482578",
+    "amount": 2000,
+    "source": "tok_visa",
+    "description": "Test Payment"
+}
+
+
+### Get Payment
+
+GET http://localhost:4500/payment/:paymentId
+
+### Update Payment
+
+PUT http://localhost:4500/payment/:paymentId
+Content-Type: application/json
+
+{
+    "amount": 1500,
+    "description": "Updated payment"
+}
+
+### Delete Payment
+
+DELETE http://localhost:4500/payment/:paymentId
+

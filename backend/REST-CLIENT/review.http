@@ -1,0 +1,22 @@
+### CREATE REVIEW
+POST http://localhost:4500/reviews
+Content-Type: application/json
+
+{
+ "rating": 5,
+ "reviewText": "Amazing jobbb",
+ "orderID":"7f601b55-942b-448f-a261-67c2258baa70",
+ "userID":"aaaecb53-2d2a-406a-9630-2135a087b8d9"
+}
+
+
+### GET ALL REVIEWS
+GET http://localhost:4500/reviews
+
+
+
+### GET ALL REVIEWS BY ORDER STATUS
+GET http://localhost:4500/reviews/status/pending
+
+### GET RATING PER GIG
+GET http://localhost:4500/reviews/gig/rating

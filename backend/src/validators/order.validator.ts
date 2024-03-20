@@ -8,5 +8,7 @@ export const orderSchema = Joi.object({
     endDate: Joi.string().required(),
     quantity: Joi.number().integer().required(),
     totalAmount: Joi.number().integer().required(),
-    status: Joi.string().required()
+    status: Joi.string().required(),
+    // source: Joi.string().required()
+
 });

@@ -5,7 +5,7 @@ Content-Type: application/json
 {
     "userID": "aaaecb53-2d2a-406a-9630-2135a087b8d9",
     "gigID":"09283830-9409-46a7-a6da-834f5a06e997",
-    "orderDescription":"Testing the default status setting",
+    "orderDescription":"Testing payment",
     "startDate":"2022-05-08",
     "endDate":"2022-05-10",
     "quantity":1,

@@ -1,5 +1,5 @@
-CREATE TABLE Reviews (
-    reviewID INT PRIMARY KEY IDENTITY,
+CREATE TABLE ReviewsTable (
+    reviewID VARCHAR(100) PRIMARY KEY NOT NULL,
     orderID VARCHAR(100) NOT NULL,
     userID VARCHAR(100) NOT NULL,
     rating VARCHAR(100) NOT NULL,
@@ -8,3 +8,4 @@ CREATE TABLE Reviews (
     FOREIGN KEY (orderID) REFERENCES Orders(orderID),
     FOREIGN KEY (userID) REFERENCES UserDetails(userID)
 );
+

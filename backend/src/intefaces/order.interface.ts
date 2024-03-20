@@ -4,7 +4,7 @@ export interface Order{
      orderDescription:string,
      startDate:string,
      endDate:string,
-    quantity:string,
-    totalAmount:string,
+    quantity:number,
+    totalAmount:number,
     status:string
 }

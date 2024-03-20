@@ -7,6 +7,8 @@ import industryRouter from './routes/industryRouter';
 import sectorRouter from './routes/sectorRouter';
 import gigRouter from './routes/gigRouter';
 import orderRouter from './routes/orderRouter';
+import reviewRouter from './routes/reviewsRouter';
+import paymentRouter from './routes/paymentRouter';
 // import http from 'http'
 // import WebSocket from 'ws'
 
@@ -47,6 +49,8 @@ app.use('/industry', industryRouter)
 app.use('/sector', sectorRouter)
 app.use('/gigs', gigRouter)
 app.use('/orders', orderRouter)
+app.use('/reviews',reviewRouter)
+app.use('/payment', paymentRouter)
 
 app.use((error: Error, request: Request, response: Response, next: NextFunction) => {
     response.json({

@@ -13,5 +13,6 @@ exports.orderSchema = joi_1.default.object({
     endDate: joi_1.default.string().required(),
     quantity: joi_1.default.number().integer().required(),
     totalAmount: joi_1.default.number().integer().required(),
-    status: joi_1.default.string().required()
+    status: joi_1.default.string().required(),
+    // source: Joi.string().required()
 });
