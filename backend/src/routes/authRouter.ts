@@ -3,6 +3,7 @@ import { deleteUserController, fetchAllUSersController, getSingleUserController,
 import { verifyToken } from "../middlewares/verifyToken";
 import { checkUserDetails, loginUserController, validateUser } from "../controllers/authController";
 import { createProfile } from "../controllers/profile.controller";
+import { verifyAdminToken } from "../middlewares/verifyRoleToken";
 
 
 const userRouter = Router()
@@ -12,13 +13,13 @@ userRouter.post('/register', registerUserController)
 // userRouter.post('/', generateOTP)
 userRouter.put('/validate/:id', validateUser)
 userRouter.post('/login', loginUserController)
-userRouter.get('/userDetails', verifyToken, getUserDetails)
+userRouter.put('/profile',verifyToken, createProfile)
 userRouter.get('/checkdetails', verifyToken, checkUserDetails)
 userRouter.post('/resetPassword', verifyToken, resetPasswordController)
-userRouter.delete('/delete/:userID', verifyToken, deleteUserController)
 userRouter.get('/:userID', verifyToken, getSingleUserController)
-userRouter.get('/', fetchAllUSersController)
-userRouter.put('/profile',verifyToken, createProfile)
+userRouter.delete('/delete/:userID', verifyAdminToken, deleteUserController)
+userRouter.get('/', verifyAdminToken,fetchAllUSersController)
+userRouter.get('/userDetails', verifyAdminToken, getUserDetails)
 
 // userRouter.put('/update/:userID', updateUserController)
 

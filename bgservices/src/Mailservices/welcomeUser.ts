@@ -3,6 +3,7 @@ import ejs from 'ejs';
 import { sendMail } from '../Helpers/emailHelpers';
 import bcrypt from 'bcrypt';
 import { sqlConfig1 } from '../config/sqlconfig';
+import Connection from '../dbhelper/dbhelper';
 
 // Function to send a welcome email to users who haven't been welcomed yet
 export const sendWelcomeEmails = async () => {
@@ -109,7 +110,7 @@ export const sendOTPEmails = async () => {
 
 
 // Function to render an email template
-const renderEmailTemplate = async (templatePath: string, templateData: any) => {
+export const renderEmailTemplate = async (templatePath: string, templateData: any) => {
     try {
         return await ejs.renderFile(templatePath, templateData);
     } catch (error) {
@@ -127,7 +128,7 @@ export const generateOTP = () => {
 
 
 // Function to save hashed OTP in the Users table
-const saveOTPRecord = async (userID: string, hashedOTP: string) => {
+export const saveOTPRecord = async (userID: string, hashedOTP: string) => {
     try {
         const pool = await mssql.connect(sqlConfig1);
 
@@ -146,4 +147,6 @@ const saveOTPRecord = async (userID: string, hashedOTP: string) => {
     }
 };
 
+
+const dbHelpers = new Connection();
 

@@ -62,10 +62,15 @@ const loginUserController = (req, res) => __awaiter(void 0, void 0, void 0, func
                 const { password } = records, rest = __rest(records, ["password"]);
                 return rest;
             });
+            // console.log(loginCredentials[0].userID)
             const token = jsonwebtoken_1.default.sign(loginCredentials[0], process.env.SECRET, {
                 expiresIn: '36000h'
             });
-            return res.json(Object.assign({ message: 'User Logged in successfully', token }, loginCredentials[0]));
+            return res.json({
+                message: 'User Logged in successfully',
+                token,
+                userID: loginCredentials[0].userID
+            });
         }
         else {
             return res.json({

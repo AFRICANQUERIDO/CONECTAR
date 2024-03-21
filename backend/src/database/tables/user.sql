@@ -24,7 +24,7 @@ CREATE TABLE UserDetails(
 
 select * from UserDetails
 
--- UPDATE UserDetails SET role='Admin' where email='janengene12@gmail.com' 
+UPDATE UserDetails SET isVerified = 1 where email='sharoncherotich112@gmail.com' 
 
 -- DROP TABLE Users
 ALTER TABLE UserDetails ADD profile_id VARCHAR(255) NULL;

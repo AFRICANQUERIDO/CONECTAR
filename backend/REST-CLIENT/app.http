@@ -38,8 +38,8 @@ POST http://localhost:4500/users/login
 Content-Type: application/json
 
 {
-   "email":"kenidashakt@gmail.com",
-  "password": "pauline@123"
+   "email":"kingangiduncan47@gmail.com",
+  "password": "Duncun@123"
 }
 
 
@@ -70,6 +70,8 @@ token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiJhYWFlY2I1My0yZDJhLTQw
 ### Get all Users
 GET  http://localhost:4500/users
 Content-Type: application/json
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiJhYWFlY2I1My0yZDJhLTQwNmEtOTYzMC0yMTM1YTA4N2I4ZDkiLCJOYW1lIjoiRHVuY2FuIEtpbmdhbmdpIiwiZW1haWwiOiJraW5nYW5naWR1bmNhbjQ3QGdtYWlsLmNvbSIsInBob25lX251bWJlciI6IjA3MjAwMDAwIiwiRE9CIjoiMjAtMi0yMDAyIiwiZ2VuZGVyIjoibWFsZSIsImVkdWNhdGlvbiI6ImJhY2hlbG9yIiwiZXhwZXJpZW5jZSI6IjN5ZWFyIiwibGFuZ3VhZ2UiOiJFbmdsaXNoIiwiYWJvdXQiOiJUaGlzIGlzIGFuIGFib3V0Iiwibmlja25hbWUiOiJEdW5jYW4iLCJjb3VudHJ5Ijoia2VueWEiLCJjaXR5IjoibmFpcm9iaSIsImluZHVzdHJ5IjoiRWR1Y2F0aW9uIiwicHJvZmlsZV9waWMiOiJpbWFnZSIsIk9UUCI6IiQyYiQwNCRvdDcwejU1bTNFY2xpbUp5TEZEYjgubmtacTJZYWo0a0dPSDd0SXUxdnZQZnp5VkNjcmxsRyIsInJvbGUiOiJzcGVjaWFsaXN0Iiwid2VsY29tZWQiOnRydWUsImlzVmVyaWZpZWQiOnRydWUsInByb2ZpbGVfaWQiOm51bGwsImlhdCI6MTcxMTA0MDgwMCwiZXhwIjoxODQwNjQwODAwfQ.sWMWMZAxlcAzw-h_U0HknJ5XCGc2sDpNKu4a2Gjuyzk
+
  
 
 ### One user details

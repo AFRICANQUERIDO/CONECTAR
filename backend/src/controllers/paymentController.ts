@@ -34,12 +34,18 @@ export const processPayment = async (req: Request, res: Response) => {
             throw new Error('Database pool is not initialized.');
         }
         const orderResults = await pool.query(`SELECT * FROM Orders WHERE orderID = '${paymentDetails.orderID}'`);
-        const orderAmount = orderResults.recordset[0].totalAmount;
         
-       // Check if the payment amount matches the order amount
+        // const OrderPaid = orderResults.recordset[0].status;
+
+        if(orderResults.recordset.length > 0){
+            return res.status(400).json({ error: 'Order is already paid. Another payment is not required.' });
+        }
+        
+        // Check if the payment amount matches the order amount
+        const orderAmount = orderResults.recordset[0].totalAmount;
        if (amount !== orderAmount) {
         return res.status(400).json({ error: 'Payment amount does not match order amount' });
-    }
+            }
 
         // Call the stored procedure to insert payment data
         await pool.request()
@@ -55,7 +61,10 @@ export const processPayment = async (req: Request, res: Response) => {
     } catch (error) {
         // Handle charge failure
         console.error('Error processing payment:', error);
-        res.status(500).json({ error: 'Payment failed' });
+
+        let message = 'An error occurred while processing your payment.'
+        
+        res.status(500).json({ error: message });
     }
 };
 

@@ -1,10 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
+const verifyToken_1 = require("../middlewares/verifyToken");
 const gigController_1 = require("../controllers/gigController");
+const verifyRoleToken_1 = require("../middlewares/verifyRoleToken");
 const gigRouter = (0, express_1.Router)();
-gigRouter.post('/create', gigController_1.createGig);
-gigRouter.get('/:userID', gigController_1.getAllGigsByUser);
-gigRouter.get('/', gigController_1.getAllgigs);
-gigRouter.get('/:/industyyID', gigController_1.getGigsByIndustry);
+gigRouter.post('/create', verifyRoleToken_1.verifySpecialistToken, gigController_1.createGig);
+gigRouter.get('/:userID', verifyToken_1.verifyToken, gigController_1.getAllGigsByUser);
+gigRouter.get('/', verifyToken_1.verifyToken, gigController_1.getAllgigs);
+gigRouter.get('/filter/:industryID', verifyToken_1.verifyToken, gigController_1.getGigsByIndustry);
 exports.default = gigRouter;
