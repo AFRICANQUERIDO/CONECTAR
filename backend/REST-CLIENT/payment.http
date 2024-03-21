@@ -1,21 +1,22 @@
 ### PAYMENT TESTING
 
 ### Create Payment
-
 POST http://localhost:4500/payment/payment
 Content-Type: application/json
 
 {
-    "orderID":"d46d513f-acc8-491f-b88c-180a6c482578",
-    "amount": 2000,
+    "orderID":"972273d8-bdb3-4153-8dad-aba7cdacad4e",
+    "amount": 500000,
     "source": "tok_visa",
-    "description": "Test Payment"
+    "description": "Testing another Payment saving to db"
 }
 
 
-### Get Payment
 
-GET http://localhost:4500/payment/:paymentId
+###GET ALL PAYMENTS BY ORDER
+GET http://localhost:4500/payment/972273d8-bdb3-4153-8dad-aba7cdacad4e
+
+
 
 ### Update Payment
 

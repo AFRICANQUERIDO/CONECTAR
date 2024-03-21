@@ -1,5 +1,6 @@
-
 import { Request, Response } from "express";
+import mssql from "mssql";
+import { sqlConfig } from "../config/sqlConfig";
 require('dotenv').config();
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
@@ -7,7 +8,7 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 // Controller function to process payments
 export const processPayment = async (req: Request, res: Response) => {
     try {
-        const { amount, source, description } = req.body;
+        const { amount, source, description, orderID } = req.body; // Removed 'customer' from here
 
         // Create a charge using the Stripe SDK
         const charge = await stripe.charges.create({
@@ -16,16 +17,39 @@ export const processPayment = async (req: Request, res: Response) => {
             source,
             description,
         });
-
+        
+ 
         // Handle successful charge
         const paymentDetails = {
             paymentId: charge.id,
             amount: charge.amount,
             currency: charge.currency,
             description: charge.description,
-            customer: charge.customer,
-            // Add any other relevant payment details here
+            orderID: orderID // Assuming orderID is included in req.body
         };
+
+        const pool = await mssql.connect(sqlConfig);
+        
+        if (!pool) {
+            throw new Error('Database pool is not initialized.');
+        }
+        const orderResults = await pool.query(`SELECT * FROM Orders WHERE orderID = '${paymentDetails.orderID}'`);
+        const orderAmount = orderResults.recordset[0].totalAmount;
+        
+       // Check if the payment amount matches the order amount
+       if (amount !== orderAmount) {
+        return res.status(400).json({ error: 'Payment amount does not match order amount' });
+    }
+
+        // Call the stored procedure to insert payment data
+        await pool.request()
+            .input('paymentID', paymentDetails.paymentId)
+            .input('orderID', paymentDetails.orderID)
+            .input('totalAmount', paymentDetails.amount)
+            .input('paymentDate', new Date()) 
+            .input('status', 'paid') // Add default status here
+            .input('paymentMethod', 'Stripe') // Add default payment method here
+            .execute('InsertPayment');
 
         res.status(200).json({ message: 'Payment successful', payment: paymentDetails });
     } catch (error) {
@@ -35,4 +59,21 @@ export const processPayment = async (req: Request, res: Response) => {
     }
 };
 
+export const getPaymentsByOrderID = async (req: Request, res: Response) => {
+    try {
+        const { orderID } = req.params; // Assuming orderID is passed as a route parameter
+        
+        const pool = await mssql.connect(sqlConfig);
 
+        const result = await pool.request()
+            .input('orderID', mssql.VarChar, orderID)
+            .query('SELECT * FROM Payment WHERE orderID = @orderID');
+
+        const payments = result.recordset;
+
+        res.status(200).json({ payments });
+    } catch (error) {
+        console.error('Error fetching payments:', error);
+        res.status(500).json({ error: 'Failed to fetch payments' });
+    }
+};
