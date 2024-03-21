@@ -1,7 +1,13 @@
 import mssql from 'mssql'
 import { sqlConfig1 } from '../config/sqlconfig';
 
+
+
+
 export default class Connection {
+    getUserByEmail(email: any) {
+        throw new Error("Method not implemented.");
+    }
 
     private pool: Promise<mssql.ConnectionPool>
 

@@ -14,8 +14,8 @@ const configurations: mail_configs = {
     port: 587,
     requireTLS: true,
     auth: {
-        user: process.env.EMAIL_USER || "wangaripauline303@gmail.com",
-        pass: process.env.EMAIL_PASSWORD || "sspvenqhbjoimwvd"
+        user: process.env?.['EMAIL_USERNAME'] as string,
+        pass: process.env?.['EMAIL_PASSWORD'] as string
     }
 };
 

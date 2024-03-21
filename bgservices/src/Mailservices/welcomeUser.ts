@@ -148,5 +148,4 @@ export const saveOTPRecord = async (userID: string, hashedOTP: string) => {
 };
 
 
-const dbHelpers = new Connection();
 

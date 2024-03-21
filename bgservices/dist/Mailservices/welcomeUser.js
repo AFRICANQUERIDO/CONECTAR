@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.generateOTP = exports.sendOTPEmails = exports.sendWelcomeEmails = void 0;
+exports.saveOTPRecord = exports.generateOTP = exports.renderEmailTemplate = exports.sendOTPEmails = exports.sendWelcomeEmails = void 0;
 const mssql_1 = __importDefault(require("mssql"));
 const ejs_1 = __importDefault(require("ejs"));
 const emailHelpers_1 = require("../Helpers/emailHelpers");
@@ -26,7 +26,7 @@ const sendWelcomeEmails = () => __awaiter(void 0, void 0, void 0, function* () {
         const users = (yield pool.request().query('SELECT * FROM UserDetails WHERE welcomed = 0')).recordset;
         for (const user of users) {
             const emailTemplateData = { Name: user.Name };
-            const emailContent = yield renderEmailTemplate('Template/welcomeUser.ejs', emailTemplateData);
+            const emailContent = yield (0, exports.renderEmailTemplate)('Template/welcomeUser.ejs', emailTemplateData);
             const mailOptions = {
                 from: "wangaripauline303@gmail.com",
                 to: user.email,
@@ -89,7 +89,7 @@ const sendOTPEmails = () => __awaiter(void 0, void 0, void 0, function* () {
             const hashedOTP = yield bcrypt_1.default.hash(OTP, 1);
             console.log(hashedOTP);
             const emailTemplateData = { OTP: OTP }; // Pass otp variable to the template data
-            const emailContent = yield renderEmailTemplate('Template/OTP.ejs', emailTemplateData);
+            const emailContent = yield (0, exports.renderEmailTemplate)('Template/OTP.ejs', emailTemplateData);
             const mailOptions = {
                 from: "wangaripauline303@gmail.com",
                 to: email,
@@ -97,7 +97,7 @@ const sendOTPEmails = () => __awaiter(void 0, void 0, void 0, function* () {
                 html: emailContent // Use emailContent generated from the template
             };
             yield (0, emailHelpers_1.sendMail)(mailOptions);
-            yield saveOTPRecord(userID, hashedOTP); // Pass userID along with hashedOTP
+            yield (0, exports.saveOTPRecord)(userID, hashedOTP); // Pass userID along with hashedOTP
             console.log(`OTP email sent to ${email}`);
         }
     }
@@ -120,6 +120,7 @@ const renderEmailTemplate = (templatePath, templateData) => __awaiter(void 0, vo
         throw error;
     }
 });
+exports.renderEmailTemplate = renderEmailTemplate;
 // Function to generate a random OTP within a specified range
 const generateOTP = () => {
     const min = 1000; // Minimum value for the OTP
@@ -144,3 +145,4 @@ const saveOTPRecord = (userID, hashedOTP) => __awaiter(void 0, void 0, void 0, f
         throw error;
     }
 });
+exports.saveOTPRecord = saveOTPRecord;

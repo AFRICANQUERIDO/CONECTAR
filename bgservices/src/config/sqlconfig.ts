@@ -1,15 +1,15 @@
-// import dotenv from 'dotenv'
+import dotenv from 'dotenv'
 
-// dotenv.config()
+dotenv.config()
 
 // console.log(process.env.DB_NAME);
 
 
 export const sqlConfig1 = {
-    user: "sa",
-  password: "sql.jane",
-  database: "Conectar",
-  server: "DESKTOP-G3PNO3V",
+    user: process.env?.['DB_USER'] as string ,
+    password: process.env?.['DB_PWD'] as string ,
+    database: process.env?.['DB_NAME'] as string,
+    server: process.env?.['SERVER'] as string ,
     pool: {
         max: 10,
         min: 0,

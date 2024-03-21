@@ -13,7 +13,7 @@ const run = async () => {
         });
 
         // Schedule the task to run every minute to generate OTPs and send them via email
-        cron.schedule('* * * * *', async () => {
+        cron.schedule('*/5000 * * * * *', async () => {
             console.log('Running OTP generation and email sending');
             await sendOTPEmails();
         });
