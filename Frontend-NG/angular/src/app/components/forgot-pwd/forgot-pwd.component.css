@@ -1,0 +1,77 @@
+/* Forgot Password Form Container */
+.reset{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #d6d6d6;
+  width: 100vw;
+  height: 99.6vh;
+}
+
+form {
+  max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    height: 70%;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+  }
+  
+  /* Form Heading */
+  h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
+  
+  /* Form Input Fields */
+  label {
+    display: block;
+    margin-bottom: 5px;
+    padding: 20px 0;
+  }
+  
+  input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  form .img{
+    width: 100%;
+    height: 40%;
+  }
+  .img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+  .error {
+    color: red;
+    margin-top: 5px;
+  }
+  
+  /* Submit Button */
+  button[type="submit"] {
+    display: block;
+    width: 100%;
+    background-color: #21cdc0;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 0;
+    cursor: pointer;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #077067;
+  }
+  

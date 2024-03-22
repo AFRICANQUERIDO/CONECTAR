@@ -1,0 +1,25 @@
+<div class="mb-3">
+    <ngb-rating [formControl]="ctrl" />
+
+    <div class="form-text">
+        <ng-container *ngIf="ctrl.valid; else invalidRating">
+            <div class="text-success">Thanks!</div>
+        </ng-container>
+        <ng-template #invalidRating>
+            <div class="text-danger">Please rate us</div>
+        </ng-template>
+    </div>
+</div>
+
+<!-- Description Section -->
+<div class="mb-3">
+    <label for="description" class="form-label">Description</label>
+    <textarea id="description" class="form-control" formControlName="description" rows="4" placeholder="Enter your description here"></textarea>
+</div>
+
+<hr />
+<pre>Model: <b>{{ ctrl.value }}</b></pre>
+<!-- <button class="btn btn-sm btn-outline-{{ ctrl.disabled ? 'danger' : 'success' }} me-2" (click)="toggle()">
+    {{ ctrl.disabled ? 'control disabled' : ' control enabled' }}
+</button> -->
+<button class="btn btn-sm btn-outline-primary me-2" (click)="ctrl.setValue(null)">Clear</button>

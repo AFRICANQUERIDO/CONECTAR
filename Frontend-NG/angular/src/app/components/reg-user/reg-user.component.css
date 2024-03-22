@@ -1,0 +1,150 @@
+.page {
+  height: 99.6vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #d6d6d6;
+}
+
+.content-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 70%;
+  height: 70%;
+  border-radius: 5px;
+}
+
+.img {
+  flex: 1;
+  height: 100%;
+  filter: drop-shadow(10px 10px 10px rgba(0, 0, 0.5, 0.5));
+}
+
+.img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.content {
+  filter: drop-shadow(5px 5px 5px rgba(0, 0, 0.5, 0.5));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  height: 100%;
+  background-color: #737a8c;
+  color: white;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  max-width: 400px;
+  gap: 30px;
+}
+
+.form-group {
+  position: relative;
+}
+
+.form-title {
+  color: white;
+  font-size: small;
+  text-align: right;
+}
+
+.form-link {
+  color: #21cdc0;
+  text-decoration: none;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.form-link:hover {
+  text-decoration: underline;
+}
+
+.title {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #1e1e1f;
+}
+
+.input-container {
+  position: relative;
+}
+
+.toggle-password {
+  position: absolute;
+  top: 70%;
+  right: 20px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #888;
+}
+
+.form-submit {
+  background-color: #21cdc0;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+.form-submit:hover {
+  background-color: #05385a;
+}
+
+.error-msg {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.successmsg {
+  color: green;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+/* responsiveness */
+@media (max-width: 768px) {
+  .img {
+    display: none;
+  }
+
+  .content-wrapper {
+    justify-content: center;
+  }
+
+  .content {
+    width: 100%;
+    padding: 20px;
+    border-radius: 0;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  .form-input,
+  .form-submit {
+    width: 100%;
+  }
+}

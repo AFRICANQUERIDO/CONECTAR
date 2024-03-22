@@ -1,0 +1,16 @@
+<div class="reset">
+<form [formGroup]="forgotPasswordForm" (ngSubmit)="onSubmit()">
+    <h2>Forgot Password</h2>
+    <div class="img">
+    <img src="../../../assets/istockphoto-1492139928-1024x1024.jpg" alt="image"></div>
+    <div>
+      <label for="email">Email</label>
+      <input type="email" id="email" formControlName="email" placeholder="Email" />
+      <div *ngIf="forgotPasswordForm.get('email')?.invalid && forgotPasswordForm.get('email')?.touched" class="error">
+        Please enter a valid email address
+      </div>
+    </div>
+    <button type="submit" [disabled]="forgotPasswordForm.invalid">Submit</button>
+  </form>
+</div>
+  

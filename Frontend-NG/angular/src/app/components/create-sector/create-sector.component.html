@@ -1,0 +1,29 @@
+<section>
+<div class="cont-wrapper">
+    <div *ngIf="visible2" class="successDiv" style="color: green; text-align: center; width: 100%; font-size: 14px;">{{successMsg}}</div> 
+    <div *ngIf="visible" class="errorDiv" style="color: red; text-align: center;">{{errorMsg}}</div>  
+    
+    <h2>Create Sector</h2>
+    <form [formGroup]="sectorForm" (ngSubmit)="addSector()">
+        <!-- Dropdown/Select Input for Industry Selection -->
+        <div class="dropdown">
+            <label for="industrySelect">Select Industry:</label>
+            <select id="industrySelect" formControlName="industrySelect" required>
+                <option *ngFor="let industry of industries" [value]="industry.id">{{ industry.name }}</option>
+            </select>
+        </div>
+        <!-- Input for Sector Name -->
+        <div class="input">
+            <label for="sectorName">Sector Name:</label>
+            <input type="text" id="sectorName" formControlName="sectorName" data-cy="sectorName" required>
+        </div>
+        <!-- Input for Sector Description -->
+        <div class="input">
+            <label for="sectorDescription">Sector Description:</label>
+            <textarea id="sectorDescription" formControlName="sectorDescription" data-cy="sectorDescription" required></textarea>
+        </div>
+        <!-- Submit Button -->
+        <button type="submit">Create Sector</button>
+    </form>
+</div>
+</section>

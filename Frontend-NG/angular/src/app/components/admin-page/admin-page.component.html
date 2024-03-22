@@ -1,0 +1,76 @@
+<div class="admin-wrapper">
+  <!-- <div class="adminPage"> -->
+  <div class="side-barr">
+    <div class="sidebar1">
+      <!-- <ul> -->
+        <li routerLink="cust-dashboard" routerLinkActive="active">
+          <i class="fa-solid fa-table-columns"></i>DASHBOARD
+        </li>
+        <li routerLink="all-users" routerLinkActive="active">
+          <i class="fa-solid fa-users"></i>USERS
+        </li>
+        <li routerLink="create-ind" routerLinkActive="active">
+          <i class="fa-solid fa-layer-group"></i>INDUSTRIES
+        </li>
+        <li routerLink="order-list" routerLinkActive="active">
+          <i class="fa-solid fa-clipboard-list"></i>MESSAGE
+        </li>
+      <!-- </ul> -->
+
+    </div>
+    <div class="sidebar2">
+      <li><i class="fa-solid fa-gear"></i>PROFILE</li>
+      <li><i class="fa-solid fa-phone"></i>CONTACT</li>
+      <li (click)="logout()">
+        <i class="fa-solid fa-right-from-bracket"></i>LOGOUT
+      </li>
+    </div>
+  </div>
+  <div
+    class="modal-wrapper"
+    *ngIf="isSidebarOpen"
+    (click)="toggleSidebar()"
+    [class.hidden]="!isSidebarOpen"
+  >
+    <div class="sidebar-modal" (click)="$event.stopPropagation()">
+      <ul>
+        <li (click)="logout()">
+          <i class="fa-solid fa-right-from-bracket"></i>Logout
+        </li>
+        <li routerLink="dashboard">
+          <i class="fa-solid fa-table-columns"></i>Dashboard
+        </li>
+        <li routerLink="all-products">
+          <i class="fa-solid fa-mug-hot"></i>CATEGORIES
+        </li>
+        <li routerLink="order-list">
+          <i class="fa-solid fa-clipboard-list"></i>MESSAGES
+        </li>
+        <li><i class="fa-solid fa-gear"></i>Profile</li>
+        <li><i class="fa-solid fa-phone"></i>Contact Us</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="cont">
+    <div class="cont-nav-bar">
+      <div class="nav-toggle-bar" (click)="toggleSidebar()">
+        <i class="fa-solid fa-bars"></i>
+      </div>
+      <!-- <h1>Hello</h1> -->
+      <div class="search-icon" (click)="toggleSearchDiv()">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </div>
+      <div class="search-div" *ngIf="isSearchDivVisible">
+        <input type="text" placeholder="Search here" />
+        <i (click)="performSearch()" class="fa-solid fa-magnifying-glass"></i>
+      </div>
+      <div class="account">
+        <h3>Admin</h3>
+      </div>
+    </div>
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

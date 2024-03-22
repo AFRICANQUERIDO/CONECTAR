@@ -1,0 +1,128 @@
+<form [formGroup]="detailsForm" (ngSubmit)="onSubmit()">
+  <!-- Personal Details -->
+  <h2>Personal Details</h2>
+  <div>
+    <label for="name">Name</label>
+    <input type="text" id="name" formControlName="name" placeholder="Name" />
+  </div>
+  <div>
+    <label for="email">Email</label>
+    <input
+      type="email"
+      id="email"
+      formControlName="email"
+      placeholder="Email"
+    />
+  </div>
+  <div>
+    <label for="phone">Phone Number</label>
+    <input
+      type="tel"
+      id="phone"
+      formControlName="phone"
+      placeholder="Phone Number"
+    />
+  </div>
+  <div>
+    <label for="dob">Date of Birth</label>
+    <input
+      type="text"
+      id="dob_dd"
+      formControlName="dob_dd"
+      placeholder="DD"
+      maxlength="2"
+      style="width: 50px"
+    />
+    /
+    <input
+      type="text"
+      id="dob_mm"
+      formControlName="dob_mm"
+      placeholder="MM"
+      maxlength="2"
+      style="width: 50px"
+    />
+    /
+    <input
+      type="text"
+      id="dob_yyyy"
+      formControlName="dob_yyyy"
+      placeholder="YYYY"
+      maxlength="4"
+      style="width: 70px"
+    />
+  </div>
+  <div class="gender-container">
+    <label>Gender</label>
+    <div class="radio-options">
+      <input type="radio" id="male" formControlName="gender" value="male" />
+      <label for="male">Male</label>
+      <input type="radio" id="female" formControlName="gender" value="female" />
+      <label for="female">Female</label>
+    </div>
+  </div>
+
+  <div>
+    <label for="qualification">Highest Qualification</label>
+    <input
+      type="text"
+      id="qualification"
+      formControlName="qualification"
+      placeholder="Qualification"
+    />
+  </div>
+  <div>
+    <label for="experience">Experience</label>
+    <input
+      type="text"
+      id="experience"
+      formControlName="experience_years"
+      placeholder="Years of Experience"
+    />
+  </div>
+  <div>
+    <label for="languages">Languages Known</label>
+    <input
+      type="text"
+      id="languages"
+      formControlName="languages"
+      placeholder="Languages Known"
+    />
+  </div>
+  <div>
+    <label for="about">About</label>
+    <textarea
+      id="about"
+      formControlName="about"
+      placeholder="Write something about you..."
+    ></textarea>
+  </div>
+
+  <!-- Address Information -->
+  <h2>Address Information</h2>
+  <div>
+    <label for="city">City</label>
+    <input type="text" id="city" formControlName="city" placeholder="City" />
+  </div>
+  <div>
+    <label for="address1">Address Line 1</label>
+    <input
+      type="text"
+      id="address1"
+      formControlName="address1"
+      placeholder="House No./Street"
+    />
+  </div>
+  <div>
+    <label for="address2">Address Line 2 (Optional)</label>
+    <input
+      type="text"
+      id="address2"
+      formControlName="address2"
+      placeholder="Apartment/Unit"
+    />
+  </div>
+
+  <!-- Proceed Button -->
+  <button type="submit">Proceed</button>
+</form>

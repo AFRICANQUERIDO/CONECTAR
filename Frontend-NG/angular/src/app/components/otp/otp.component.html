@@ -1,0 +1,68 @@
+<div class="otp-wrapper">
+  <div class="otp-form">
+      <div class="img">
+        <img
+          src="../../../assets/istockphoto-1492139928-1024x1024.jpg"
+          alt="image"
+        />
+      </div>
+      <form [formGroup]="otpForm" (ngSubmit)="onOtpSubmit()">
+        <h2>Verification</h2>
+        <div *ngIf="otpForm.get('otp') && otpForm.get('otp')?.invalid && otpForm.get('otp')?.touched">
+          OTP is required
+        </div>
+        <!-- Display error message -->
+        <div *ngIf="errorMsg" class="error-msg">
+          {{ errorMsg }}
+        </div>
+        <!-- Display success message -->
+        <div *ngIf="successMsg" class="success-msg">
+          {{ successMsg }}
+        </div>
+        <div class="form-group">
+        <p>Please enter the OTP sent to your email</p>
+        <div class="form-group otp-inputs">
+          <input
+            type="text"
+            formControlName="digit1"
+            id="digit1"
+            placeholder="_"
+            maxlength="1"
+          />
+          <input
+            type="text"
+            formControlName="digit2"
+            id="digit2"
+            placeholder="_"
+            maxlength="1"
+          />
+          <input
+            type="text"
+            formControlName="digit3"
+            id="digit3"
+            placeholder="_"
+            maxlength="1"
+          />
+          <input
+            type="text"
+            formControlName="digit4"
+            id="digit4"
+            placeholder="_"
+            maxlength="1"
+          />
+        </div>
+        <!-- <input type="text" formControlName="otp" id="otp" placeholder="Enter OTP" /> -->
+        <div
+          *ngIf="
+            otpForm.get('otp') &&
+            otpForm.get('otp')?.invalid &&
+            otpForm.get('otp')?.touched
+          "
+        >
+          OTP is required
+        </div>
+      </div>
+      <button type="submit">Confirm OTP</button>
+    </form>
+  </div>
+</div>

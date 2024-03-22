@@ -1,0 +1,296 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.menu_navigate {
+    position: fixed;
+    color: #fff;
+    width: 90px;
+    background-color: #213360;
+    padding: 10px;
+    right: -1rem;
+    top: 50%;
+    transform: rotate(-90deg);
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 100;
+}
+
+.menu_items {
+    position: absolute;
+    right: -20rem;
+    top: 40%;
+    background-color: #000916;
+    z-index: 200;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    box-shadow: 0 0 10px cyan;
+    transition: 650ms right ease-in-out;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    border-radius: .4rem;
+}
+
+.menu_items_active {
+    right: -1rem;
+}
+
+.menu_items_off {
+    right: -20rem;
+}
+
+.menu_items li {
+    padding: 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+    box-shadow: 0 0 10px cyan;
+    color: cyan;
+}
+
+.page_wrapper {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-areas: "list active active active active";
+    background-color: #000916;
+    padding: 0 20px 0 0;
+}
+
+.Other_converstation_list {
+    height: 100vh;
+    grid-area: list;
+    border-right: 1px solid #cccccc7a;
+    padding-right: 10px;
+    overflow-y: auto;
+
+}
+
+.active_converation {
+    min-height: 100vh;
+    grid-area: active;
+}
+
+.chat_item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+    padding: 10px 1px;
+    border-bottom: 1px solid white;
+    height: 100%;
+    overflow-y: auto;
+    cursor: pointer;
+}
+
+.chat_item img {
+    width: 60px;
+}
+
+.username_lastMessage {
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+}
+
+.username_lastMessage .username {
+    font-weight: bold;
+    color: #fff;
+}
+
+.username_lastMessage .last_message {
+    font-size: small;
+}
+
+.title_search_user {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: center;
+    text-align: center;
+}
+
+.title_search_user h2 {
+    color: #fff;
+}
+
+.title_search_user input {
+    padding: 10px;
+    width: 90%;
+    margin: auto;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+}
+
+.active_converation {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-areas: "messages messages messages messages profile_details profile_details";
+}
+
+.messages_container {
+    grid-area: messages;
+    position: relative;
+    height: 100%;
+    background-color: #213360;
+    overflow: hidden;
+}
+
+.input_container {
+    position: fixed;
+    bottom: 1rem;
+    left: 45%;
+    transform: translateX(-50%);
+    width: 80vh;
+    background-color: #000916;
+    display: flex;
+    height: 40px;
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.input_container input {
+    width: 100%;
+    flex: 5;
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    padding-left: 10px;
+    outline: none;
+}
+
+.input_container input::placeholder {
+    color: #fff;
+}
+
+.input_container button {
+    flex: 1;
+    background: transparent;
+    border: none;
+    border-left: 1px solid #ccc;
+}
+
+.input_container .send_icon {
+    color: #fff;
+}
+
+.about_client_profile {
+    grid-area: profile_details;
+}
+
+.conversation_header {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    padding-left: 30px;
+    color: #fff;
+}
+
+.conversation_header .last_seen {
+    font-style: italic;
+    font-size: small;
+}
+
+.messages {
+    padding: 10px;
+    background-color: #fff;
+    width: 100%;
+    height: 100%;
+    border-radius: 1rem 1rem 0 0;
+    height: 78%;
+    overflow: auto;
+}
+
+.message_bubble * {
+    color: #fff;
+}
+
+.message_bubble {
+    border-radius: 1rem;
+    background-color: #000916;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+    width: 70%;
+    margin-bottom: .2rem;
+}
+
+.time_stamp {
+    text-align: right;
+    font-size: small;
+    font-style: italic;
+}
+
+.mymessage {
+    border-radius: 1rem;
+    border-bottom-right-radius: 0;
+    margin-left: auto;
+}
+
+.clientmessage {
+    border-radius: 1rem;
+    border-bottom-left-radius: 0;
+    margin-left: unset;
+    background-color: #213360;
+}
+
+.clientmessage .time_stamp {
+    text-align: left;
+}
+
+.user_information {
+    height: 100%;
+    border-left: 1px solid #cccccc7a;
+    padding-left: 10px;
+}
+
+.user_information * {
+    color: #fff;
+}
+
+.about_client_profile {
+    text-align: center;
+    color: #fff;
+}
+
+.user_information img {
+    width: 120px;
+    margin: auto;
+}
+
+.profile_menu {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+}
+
+.profile_menu li {
+    width: 100%;
+    border: .5px solid #ccc;
+    border-radius: .5rem;
+}
+
+.profile_menu .profile_item {
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+}
+
+.more_about .qualifications {
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    cursor: pointer;
+}

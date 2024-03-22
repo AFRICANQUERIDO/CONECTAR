@@ -1,0 +1,100 @@
+<div class="page">
+  <div class="content-wrapper">
+    <div class="img">
+      <img
+        src="../../../assets/istockphoto-1492139928-1024x1024.jpg"
+        alt="image"
+      />
+    </div>
+    <div class="content">
+      <form
+        [formGroup]="registerForm"
+        (ngSubmit)="registerUser()"
+        class="form-container"
+      >
+        <div>
+          <h2 class="form-title">
+            {{ title }}
+            <a class="form-link" routerLink="/login">Proceed to login?</a>
+          </h2>
+        </div>
+        <div *ngIf="msgVisible" class="errorMsg">{{ errorMsg }}</div>
+        <div *ngIf="msgVisible2" class="successMsg">{{ successMsg }}</div>
+
+        <div class="form-group">
+          <div class="title"><i class="fa-solid fa-user"></i> Full Name</div>
+          <input type="text" formControlName="Name" class="form-input" placeholder="Full Name" />
+          <div
+            *ngIf="
+              registerForm.get('Name')?.invalid &&
+              registerForm.get('Name')?.touched
+            "
+          >
+            Name is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="title">
+            <i class="fa-solid fa-square-envelope"></i> Business email
+          </div>
+          <input type="email" formControlName="email" class="form-input" placeholder="Business email"/>
+          <div
+            *ngIf="
+              registerForm.get('email')?.invalid &&
+              registerForm.get('email')?.touched
+            "
+          >
+            Email is required
+          </div>
+        </div>
+
+        <!-- <div class="form-group">
+        <div class="title"><i class="fa-solid fa-phone"></i> Phone_number</div>
+          <input type="text" formControlName="phone_number" class="form-input">
+          <div *ngIf="registerForm.get('phone_number')?.invalid && registerForm.get('phone_number')?.touched">Phone number is required</div>
+      </div>  -->
+
+        <div class="form-group">
+          <div class="input-container">
+            <div class="title"><i class="fa-solid fa-lock"></i> Password</div>
+            <ng-template #tipContent>
+              <ul>
+                <li>At least 8 characters</li>
+                <li>Contain letters</li>
+                <li>Contain numbers</li>
+                <li>And special characters</li>
+              </ul>
+            </ng-template>
+            <input
+              type="password"
+              formControlName="password"
+              class="form-input"
+              placeholder="Password"
+              placement="end"
+              [ngbTooltip]="tipContent"
+            />
+            <i
+              class="fas fa-eye-slash toggle-password"
+              (click)="togglePasswordVisibility()"
+            ></i>
+          </div>
+
+          <div
+            *ngIf="
+              registerForm.get('password')?.invalid &&
+              registerForm.get('password')?.touched
+            "
+            class="error-msg"
+          >
+            Password is required
+          </div>
+        </div>
+
+        <div class="form-group" id="reg-btn-section">
+          <input routerLink="/otp" type="submit" class="form-submit" value="Send OTP" />
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

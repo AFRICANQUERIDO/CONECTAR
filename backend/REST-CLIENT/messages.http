@@ -56,6 +56,9 @@ Content-Type: application/json
   }
 }
 
+###Get all messages
+GET http://localhost:4500/message
+
 ### Get messages by chatId
 GET http://localhost:4500/message/get-by-id/6f915d4f-24a0-45bf-b92a-e514fe7e3605
 

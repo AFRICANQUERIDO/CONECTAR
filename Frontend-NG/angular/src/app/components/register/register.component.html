@@ -1,0 +1,23 @@
+<!-- register.component.html -->
+<section>
+    <div class="container">
+
+        <div class="pages">
+            <div class="tabs-btn">
+                <button (click)="onTabClick('reg-user')" [class.active]="activeTab == 'reg-user'" class="tabs">Sign Up
+                    as User</button>
+                <button (click)="onTabClick('reg-specialist')" [class.active]="activeTab =='reg-specialist'"
+                    class="tabs">Sign Up as Specialist</button>
+            </div>
+
+
+            <div class="reg-user" *ngIf="activeTab =='reg-user'">
+                <app-reg-user></app-reg-user>
+            </div>
+            <div class="reg-specialist" *ngIf="activeTab =='reg-specialist'">
+                <app-reg-specialist></app-reg-specialist>
+            </div>
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</section>

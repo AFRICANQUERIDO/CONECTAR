@@ -1,0 +1,260 @@
+<!-- <div class="specialist-details">
+    <h1>Specialist Details</h1>
+    <div class="specialist-card" *ngFor="let specialist of specialists">
+      <div class="specialist-header">
+        <img [src]="specialist.imageUrl" alt="Specialist Image" class="specialist-image" />
+      </div>
+      <div class="specialist-info">
+        <h2>{{ specialist.name }}</h2>
+        <p><strong>Rating:</strong> {{ specialist.rating }}</p>
+        <p><strong>Experience:</strong> {{ specialist.experience }} years</p>
+        <p><strong>Highest Education:</strong> {{ specialist.highestEducation }}</p>
+        <p><strong>Rate per Hour:</strong> {{ specialist.ratePerHour }}</p>
+      </div>
+    </div>
+  </div>
+   -->
+
+   <!-- <div class="specialist-details">
+  <h1>Specialist Details</h1>
+  <div class="specialist-card" *ngFor="let specialist of specialists">
+    <div class="specialist-header">
+      <img src="https://via.placeholder.com/300" alt="Specialist Image" class="specialist-image" />
+    </div>
+    <div class="specialist-info">
+      <h2>{{ specialist.name }}</h2>
+      <p><i class="fa-solid fa-star"></i> Rating: {{ specialist.rating }}</p>
+      <p><i class="fa-solid fa-calendar-alt"></i> Experience: {{ specialist.experience }} years</p>
+      <p><i class="fa-solid fa-graduation-cap"></i> Highest Education: {{ specialist.highestEducation }}</p>
+      <p><i class="fa-solid fa-money-bill"></i> Rate per Hour: ${{ specialist.ratePerHour }}</p>
+    </div>
+  </div>
+</div> -->
+
+
+
+
+
+<div class="container">
+
+  <!-- Card deck -->
+  <div class="card-deck row">
+  
+    <div class="col-xs-12 col-sm-6 col-md-4">
+    <!-- Card -->
+    <div class="card">
+  
+      <!--Card image-->
+      <div class="view overlay">
+        <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/16.jpg" alt="Card image cap">
+        <a href="#!">
+          <div class="mask rgba-white-slight"></div>
+        </a>
+      </div>
+  
+      <!--Card content-->
+      <div class="card-body">
+  
+        <!--Title-->
+        <h4 class="card-title">1 Card title</h4>
+        <!--Text-->
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+        <button type="button" class="btn btn-light-blue btn-md">Read more</button>
+  
+      </div>
+  
+    </div>
+    <!-- Card -->
+    </div>
+  
+    <div class="col-xs-12 col-sm-6 col-md-4">
+    <!-- Card -->
+    <div class="card mb-4">
+  
+      <!--Card image-->
+      <div class="view overlay">
+        <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/14.jpg" alt="Card image cap">
+        <a href="#!">
+          <div class="mask rgba-white-slight"></div>
+        </a>
+      </div>
+  
+      <!--Card content-->
+      <div class="card-body">
+  
+        <!--Title-->
+        <h4 class="card-title">2 Card title</h4>
+        <!--Text-->
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+        <button type="button" class="btn btn-light-blue btn-md">Read more</button>
+  
+      </div>
+  
+    </div>
+    <!-- Card -->
+  </div>
+  
+  <div class="col-xs-12 col-sm-6 col-md-4">
+    <!-- Card -->
+    <div class="card mb-4">
+  
+      <!--Card image-->
+      <div class="view overlay">
+        <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/15.jpg" alt="Card image cap">
+        <a href="#!">
+          <div class="mask rgba-white-slight"></div>
+        </a>
+      </div>
+  
+      <!--Card content-->
+      <div class="card-body">
+  
+        <!--Title-->
+        <h4 class="card-title">3 Card title</h4>
+        <!--Text-->
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+        <button type="button" class="btn btn-light-blue btn-md">Read more</button>
+  
+      </div>
+  
+    </div>
+    <!-- Card -->
+  </div>
+  
+  <div class="col-xs-12 col-sm-6 col-md-4">
+    <!-- Card -->
+    <div class="card">
+  
+      <!--Card image-->
+      <div class="view overlay">
+        <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/16.jpg" alt="Card image cap">
+        <a href="#!">
+          <div class="mask rgba-white-slight"></div>
+        </a>
+      </div>
+  
+      <!--Card content-->
+      <div class="card-body">
+  
+        <!--Title-->
+        <h4 class="card-title">4 Card title</h4>
+        <!--Text-->
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+        <button type="button" class="btn btn-light-blue btn-md">Read more</button>
+  
+      </div>
+  
+    </div>
+    <!-- Card -->
+  </div>
+   
+  <div class="col-xs-12 col-sm-6 col-md-4">
+    <!-- Card -->
+    <div class="card mb-4">
+  
+      <!--Card image-->
+      <div class="view overlay">
+        <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/14.jpg" alt="Card image cap">
+        <a href="#!">
+          <div class="mask rgba-white-slight"></div>
+        </a>
+      </div>
+  
+      <!--Card content-->
+      <div class="card-body">
+  
+        <!--Title-->
+        <h4 class="card-title">5 Card title</h4>
+        <!--Text-->
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+        <button type="button" class="btn btn-light-blue btn-md">Read more</button>
+  
+      </div>
+  
+    </div>
+    <!-- Card -->
+  </div>
+  
+  <div class="col-xs-12 col-sm-6 col-md-4">  
+    <!-- Card -->
+    <div class="card mb-4">
+  
+      <!--Card image-->
+      <div class="view overlay">
+        <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/15.jpg" alt="Card image cap">
+        <a href="#!">
+          <div class="mask rgba-white-slight"></div>
+        </a>
+      </div>
+  
+      <!--Card content-->
+      <div class="card-body">
+  
+        <!--Title-->
+        <h4 class="card-title">6 Card title</h4>
+        <!--Text-->
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+        <button type="button" class="btn btn-light-blue btn-md">Read more</button>
+  
+      </div>
+  
+    </div>
+    <!-- Card -->
+  </div>
+  
+  <div class="col-xs-12 col-sm-6 col-md-4">
+    <!-- Card -->
+    <div class="card mb-4">
+  
+      <!--Card image-->
+      <div class="view overlay">
+        <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/15.jpg" alt="Card image cap">
+        <a href="#!">
+          <div class="mask rgba-white-slight"></div>
+        </a>
+      </div>
+  
+      <!--Card content-->
+      <div class="card-body">
+  
+        <!--Title-->
+        <h4 class="card-title">Jane Doe</h4>
+        
+        <div class="information-wrapper">
+          <div class="information">
+            <div class="rating">
+
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+            </div>
+            <div class="other">
+              <p><i class="fa-solid fa-toolbox"></i> <span>3 year</span></p>
+              <p><i class="fa-solid fa-graduation-cap"></i> <span>B.Tech</span></p>  
+            </div>
+          </div>
+          <div class="rate-section">
+            <p>Online</p>
+            <p>$1000/hr</p>
+          </div>
+        </div>
+        <button type="button" class="btn btn-light-blue btn-md">View Specialist</button>
+  
+      </div>
+  
+    </div>
+    <!-- Card -->
+  </div>  
+  
+    
+  </div>
+  <!-- Card deck -->
+    
+  </div>

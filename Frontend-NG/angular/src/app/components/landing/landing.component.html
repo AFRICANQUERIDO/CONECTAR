@@ -1,0 +1,242 @@
+<section  ngbScrollSpy >
+  <!-- navbar starts here -->
+ 
+  <!-- <section>
+    <div class="logo">
+      <img src="../../../assets/conectar-high-resolution-logo.png" alt="logo">
+      <div class="title">
+        <span>C</span>
+        <span>O</span>
+        <span>N</span>
+        <span>E</span>
+        <span>C</span>
+        <span>T</span>
+        <span>A</span>
+        <span>R</span>
+      </div>
+
+    </div>
+    <ul class="nav" class="nav-link" >
+      <li routerLink="/login"> Home</li>
+      <li routerLink="/register">Sign up</li>
+      <li routerLink="/login"> Login</li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#why">Why Us</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#faq">FAQ</a></li>
+  
+</ul>
+  </section> 
+     -->
+     <app-navbar></app-navbar>
+
+     
+<div class="section" >
+  <!-- hero image section starts here -->
+      <div class="hero-image">
+        <div class="hero-info">
+          <h1>
+            Connecting Experts, Igniting Solutions: Your Gateway to Specialized
+            Knowledge!
+          </h1>
+          <p>
+            An online marketplace that connects freelancers and business owners
+            around the world with easy-to-do affordable tasks.
+          </p>
+          <div class="home-btn">
+            <button>BROWSE SERVICES</button>
+          </div>
+        </div>
+        <div class="hero-pic">
+          <img src="../../../assets/alexandru-acea-GhwCef9VRr4-unsplash.jpg" alt="" />
+        </div>
+      </div>
+      <!-- services section starts here -->
+      <div class="services-wrapper" ngbScrollSpyFragment="basic-1">
+        <div class="serve-title">
+          <span>S</span>
+          <span>E</span>
+          <span>R</span>
+          <span>V</span>
+          <span>I</span>
+          <span>C</span>
+          <span>E</span>
+          <span>S</span>
+        </div>
+
+        <div class="services">
+          <button class="view-all-button">View All Services</button>
+          <div class="cards">
+            <div class="card">
+              <img src="../../../assets/bruno-rodrigues-279xIHymPYY-unsplash.jpg" alt="Doctor" />
+              <div class="details-card">
+                <h3>MEDICAL</h3>
+              </div>
+            </div>
+            <div class="card">
+              <img src="../../../assets/maximalfocus-VT4rx775FT4-unsplash.jpg" alt="Doctor" />
+              <div class="details-card">
+                <h3>ANALYSIS</h3>
+              </div>
+            </div>
+            <div class="card">
+              <img src="../../../assets/christina-wocintechchat-com-5UHFPbvBBzY-unsplash.jpg" alt="Doctor" />
+              <div class="details-card">
+                <h3>WEB DESIGN</h3>
+              </div>
+            </div>
+            <div class="card">
+              <img src="../../../assets/istockphoto-1457085689-1024x1024.jpg" alt="Doctor" />
+              <div class="details-card">
+                <h3>CARE GIVER</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- WHY US SECTION -->
+      <div class="why" ngbScrollSpyFragment="basic-2">
+        <h1>Hire top-level specialists at affordable costs.</h1>
+        <p>Post jobs, find your perfect match and get the work done</p>
+        <div class="btn-why">
+          <button routerLink="/welcome">GET STARTED</button>
+        </div>
+      </div>
+
+      <!-- Reviews section starts here -->
+
+      <div class="Review-Cards" ngbScrollSpyFragment="basic-3">
+        <div class="title">
+          <span>R</span>
+          <span>E</span>
+          <span>V</span>
+          <span>I</span>
+          <span>E</span>
+          <span>W</span>
+          <span>S</span>
+        </div>
+        <div class="carousel">
+          <ngb-carousel>
+            <ng-template ngbSlide>
+              <div class="review-container">
+                <div class="Review-Card">
+                  <h1>TESTIMONIALS</h1>
+                  <i class="fa-solid fa-quote-right"></i>
+                  <img src="../../../assets/bruno-rodrigues-279xIHymPYY-unsplash.jpg" alt="" />
+                  <h3>John Doe</h3>
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Repudiandae eveniet explicabo, officiis ex commodi optio
+                    voluptates, exercitationem deserunt quae sint fugiat ratione
+                    illo fuga? Mollitia tempora officiis odit eligendi sit.
+                  </p>
+                  <div class="stars">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                  </div>
+                </div>
+                <i class="fa-solid fa-quote-left"></i>
+              </div>
+            </ng-template>
+
+            <ng-template ngbSlide>
+              <div class="review-container">
+                <i class="fa-solid fa-quote-left"></i>
+                <div class="Review-Card">
+                  <h1>TESTIMONIALS</h1>
+                  <img src="../../../assets/christina-wocintechchat-com-55EpT8edO8Q-unsplash.jpg" alt="" />
+                  <h3>Ken Doe</h3>
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Repudiandae eveniet explicabo, officiis ex commodi optio
+                    voluptates, exercitationem deserunt quae sint fugiat ratione
+                    illo fuga? Mollitia tempora officiis odit eligendi sit.
+                  </p>
+                  <div class="stars">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                  </div>
+                </div>
+                <i class="fa-solid fa-quote-right"></i>
+              </div>
+            </ng-template>
+          </ngb-carousel>
+        </div>
+      </div>
+
+      <!-- FAQ section starts here -->
+
+      <div id="FAQ" ngbScrollSpyFragment="basic-4">
+        <div class="heading-section">
+          <h2 class="lead text-muted">Frequently asked questions</h2>
+        </div>
+
+        <div class="accordion-section">
+          <div ngbAccordion [closeOthers]="true">
+            <div ngbAccordionItem [collapsed]="items[0] !== 'Job rates'">
+              <h2 ngbAccordionHeader>
+                <button ngbAccordionButton>
+                  <i class="accordion-icon fas" [ngClass]="{
+                  'fa-plus': !itemCollapsed,
+                  'fa-minus': itemCollapsed
+                }"></i>
+                  {{ items[0] }}
+                </button>
+              </h2>
+              <div ngbAccordionCollapse>
+                <div ngbAccordionBody>
+                  <ng-template>
+                    In order to maintain a world-class 24/7 platform with a fully
+                    staffed administration team, we must charge fees.
+                  </ng-template>
+                </div>
+              </div>
+            </div>
+
+            <div ngbAccordionItem [collapsed]="true">
+              <h2 ngbAccordionHeader>
+                <button ngbAccordionButton>
+                  <i class="accordion-icon fas" [ngClass]="{
+                  'fa-plus': !itemCollapsed,
+                  'fa-minus': itemCollapsed
+                }"></i>
+                  {{ items[1] }}
+                </button>
+              </h2>
+              <div ngbAccordionCollapse>
+                <div ngbAccordionBody>
+                  {{ info1 }}
+                </div>
+              </div>
+            </div>
+
+            <div ngbAccordionItem [collapsed]="true">
+              <h2 ngbAccordionHeader>
+                <button ngbAccordionButton>
+                  <i class="accordion-icon fas" [ngClass]="{
+                  'fa-plus': !itemCollapsed,
+                  'fa-minus': itemCollapsed
+                }"></i>
+                  {{ items[2] }}
+                </button>
+              </h2>
+              <div ngbAccordionCollapse>
+                <div ngbAccordionBody>
+                  {{ info2 }}
+                </div>
+              </div>
+            </div>
+
+            <!-- more  -->
+          </div>
+        </div>
+      </div>
+      <app-footer></app-footer>
+      </div>
+  </section>

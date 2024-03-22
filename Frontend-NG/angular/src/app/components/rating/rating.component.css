@@ -1,0 +1,23 @@
+/* Description Section */
+.mb-3 {
+    margin-bottom: 1.5rem; /* Adjust margin bottom as needed */
+}
+
+.form-label {
+    margin-bottom: 0.5rem; /* Adjust margin bottom as needed */
+    font-weight: bold; /* Make label bold */
+}
+
+textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ced4da; /* Adjust border color */
+    border-radius: 0.25rem;
+    resize: vertical; /* Allow vertical resizing */
+}
+
+textarea:focus {
+    outline: none; /* Remove outline when focused */
+    border-color: #80bdff; /* Change border color when focused */
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Add focus shadow */
+}

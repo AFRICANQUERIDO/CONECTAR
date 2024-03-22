@@ -1,0 +1,26 @@
+<app-navbar></app-navbar>
+<section class="details">
+    <div class="messages">
+      <!-- Error and success messages -->
+      <div *ngIf="errorDiv" class="error-msg" id="message">{{errorMsg}}</div>
+      <div *ngIf="successDiv" class="success-msg" id="message">{{successMsg}}</div>
+    </div>
+    <div class="forms-wrapper">
+      <!-- Form for selecting the role -->
+      <form [formGroup]="roleForm" class="role-form">
+        <div class="input-div">
+          <!-- Radio button for selecting the role as a user -->
+          <input type="radio" formControlName="role" value="Customer" (click)="selectCustomer()">
+          <p>Looking for a specialist to get the job done?</p>
+          <button class="button" data-cy="role-btn-link" routerLink="/reg-user">Proceed as Customer</button>
+        </div>
+        <div class="input-div">
+          <!-- Radio button for selecting the role as a specialist -->
+          <input type="radio" formControlName="role" value="specialist" (click)="selectSpeciliast()">
+          <p>Looking forward to be hired?</p>
+          <button class="button" data-cy="role-btn-link" routerLink="/reg-user">Proceed as specialist</button>
+        </div>
+      </form>
+    </div>
+  </section>
+<app-footer></app-footer>

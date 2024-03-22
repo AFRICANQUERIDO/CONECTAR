@@ -1,0 +1,52 @@
+<footer class="footer">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-links">
+        <p>Explore Conectar:</p>
+        <nav>
+          <ul>
+            <li><a href="https://www.conectarwebsite.com"> Home</a></li>
+            <li>
+              <a href="https://www.conectarwebsite.com/about">About Us</a>
+            </li>
+            <li>
+              <a href="https://www.conectarwebsite.com/contact">Contact Us</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div class="social-media">
+        <p>Connect with us:</p>
+        <ng-template #EmailContent>
+            <p>conectar2gmail.com</p>
+        </ng-template>          
+        <ng-template #TwitterContent>
+            <p>Conectar_Twitter</p>
+        </ng-template>          
+        <ng-template #FBContent>
+            <p>Conectar_Facebook</p>
+        </ng-template>          
+        <ng-template #IGContent>
+            <p>Conectar_Instagram</p>
+        </ng-template>          
+            <ul>
+              <li>
+                <a routerLink="/landing" [ngbTooltip]="EmailContent"><i class="fa-solid fa-envelope"></i></a>
+              </li>
+              <li>
+                <a [ngbTooltip]="TwitterContent"><i class="fa-brands fa-twitter"></i></a>
+              </li>
+              <li>
+                <a ngbTooltip="FBContent"><i class="fa-brands fa-facebook"></i></a>
+              </li>
+              <li>
+                <a  ngbTooltip="IGContent"><i class="fa-brands fa-instagram"></i></a>
+              </li>
+            </ul>
+      </div>
+    </div>
+    <div class="copyright">
+      <p>&copy; 2024 Conectar. All rights reserved.</p>
+    </div>
+  </div>
+</footer>

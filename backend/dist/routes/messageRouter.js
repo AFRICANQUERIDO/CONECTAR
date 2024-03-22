@@ -4,6 +4,7 @@ const express_1 = require("express");
 const messageController_1 = require("../controllers/messageController");
 const messageRouter = (0, express_1.Router)();
 messageRouter.post('/create', messageController_1.createMessage);
+messageRouter.get('/', messageController_1.getAllMessages);
 messageRouter.get('/get-by-id/:id', messageController_1.getMessageByChatId);
 messageRouter.put('/update/:id', messageController_1.updateMessage);
 messageRouter.delete('/delete/:id', messageController_1.deleteMessage);

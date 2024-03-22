@@ -1,0 +1,71 @@
+<div class="menu_navigate" (click)="manageSideMenu(true)">
+    menu
+</div>
+<div class="menu_items {{sideMenu ?'menu_items_active':'menu_items_off'}}">
+<li>Back Home</li>
+<li>my profile</li>
+</div>
+<!-- <p-toast></p-toast> -->
+
+
+<div class="page_wrapper" (click)="manageSideMenu(false)">
+
+<div class="Other_converstation_list">
+    <div class="title_search_user">
+        <h2>Messages</h2>
+        <input type="text" placeholder="search user">
+    </div>
+    <ul>
+        <li class="chat_item" *ngFor="let convesation of convestationList" (click)="OpenChat(convesation)">
+             <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="" class="user_dp">
+            <div class="username_lastMessage">
+                <span class="username">{{convesation.nickname}}</span>
+                <span class="last_message">{{convesation.last_message}}</span>
+            </div>
+             
+        </li>
+    </ul>
+</div>
+<div class="active_converation">
+    <div class="messages_container">
+        <div class="conversation_header">
+            <div class="username">
+                <h2>{{activeUser.nickname}}</h2>
+                <div class="last_seen">
+                    last seen: 16:41 pm
+                </div>
+            
+            </div>
+            <div class=""><span class="material-icons">more_vert</span></div>
+        </div>
+        <div class="messages">
+            <div class="message_bubble mymessage {{isMyMessage(message) ?'mymessage':'clientmessage'}}" *ngFor="let message of AllMessages">
+                <span>{{message.message}}</span>
+                <span class="time_stamp">{{getFormatedDate(message)}}</span>
+            </div>
+        </div>
+
+        <div class="input_container">
+            <input type="text" placeholder="type message.." [(ngModel)]="message">
+              <button class="sender_btn" (click)="sendMessage()"><span class="material-icons send_icon">send</span></button>
+
+        </div>
+    </div>
+
+    <div class="about_client_profile">
+        <div class="user_information">
+              <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="" class="user_dp">
+              <h2>{{activeUser.nickname}}</h2>
+              <ul class="profile_menu">
+                <li><div class="profile_item" (click)="toggleQualifications()"><span>About Client</span><span class="material-icons">expand_more</span></div>
+              <div class="more_about">
+                <div class="qualifications" *ngIf="showQualifications"><span>Qualifications</span> <span class="material-icons">link</span></div>
+              </div>
+                </li> 
+                <li><div class="profile_item"><span>Create Order</span> <span class="material-icons">work</span></div> </li>
+              </ul>
+        </div>
+    </div>
+
+</div>
+</div>

@@ -1,0 +1,83 @@
+app-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Adjust as needed */
+  }
+  
+/* Styles for the details section */
+.details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 70px;
+  }
+  
+  /* Styles for error and success messages */
+  .messages {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .error-msg, .success-msg {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+  
+  .error-msg {
+    background-color: #f8d7da;
+    color: #721c24;
+  }
+  
+  .success-msg {
+    background-color: #d4edda;
+    color: #155724;
+  }
+  
+  /* Styles for the forms */
+  .forms-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .role-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .input-div {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  /* Styles for the radio buttons */
+  .input-div input[type="radio"] {
+    margin-right: 10px;
+  }
+  
+  /* Styles for the buttons */
+  .button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #21cdc0;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .button:hover {
+    background-color: #07685e;
+  }
+  app-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; 
+  }
+  

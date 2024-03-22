@@ -1,0 +1,85 @@
+<div class="admin-wrapper">
+    <!-- <div class="adminPage"> -->
+      <div class="sidebar">
+        <ul>
+            <ul>
+                <li (click)="logout()">
+                  <i class="fa-solid fa-right-from-bracket"></i>LOGOUT
+                </li>
+                <li routerLink="dashboard">
+                    <i class="fa-solid fa-table-columns"></i>SERVICES
+                  </li>
+                <li routerLink="dashboard">
+                  <i class="fa-solid fa-table-columns"></i>DASHBOARD
+                </li>
+                <li routerLink="all-products">
+                  <i class="fa-solid fa-mug-hot"></i>MY ORDERS
+                </li>
+    
+                <li routerLink="order-list">
+                  <i class="fa-solid fa-clipboard-list"></i>WALLET
+                </li>
+                <li routerLink="order-list">
+                  <i class="fa-solid fa-clipboard-list"></i>MESSAGES
+                </li>
+                <li><i class="fa-solid fa-gear"></i>Account Settings</li>
+                <li><i class="fa-solid fa-phone"></i>Contact Us</li>
+            </ul>
+            </ul>
+      </div>
+      <div
+        class="modal-wrapper"
+        *ngIf="isSidebarOpen"
+        (click)="toggleSidebar()"
+        [class.hidden]="!isSidebarOpen"
+      >
+        <div class="sidebar-modal" (click)="$event.stopPropagation()">
+          <ul>
+            <li (click)="logout()">
+              <i class="fa-solid fa-right-from-bracket"></i>LOGOUT
+            </li>
+            <li routerLink="dashboard">
+                <i class="fa-solid fa-table-columns"></i>SERVICES
+              </li>
+            <li routerLink="dashboard">
+              <i class="fa-solid fa-table-columns"></i>DASHBOARD
+            </li>
+            <li routerLink="all-products">
+              <i class="fa-solid fa-mug-hot"></i>MY ORDERS
+            </li>
+
+            <li routerLink="order-list">
+              <i class="fa-solid fa-clipboard-list"></i>WALLET
+            </li>
+            <li routerLink="order-list">
+              <i class="fa-solid fa-clipboard-list"></i>MESSAGES
+            </li>
+          </ul>
+        </div>
+      </div>
+  
+      <div class="cont">
+        <div class="navbar">
+          <!-- <h1>Welcome {{ user.firstName | titlecase }}</h1> -->
+          <h1>Welcome</h1>
+          <div class="nav-toggle-bar" (click)="toggleSidebar()">
+            <i class="fa-solid fa-bars"></i>
+          </div>
+          <!-- <h1>Hello</h1> -->
+          <div class="search-icon" (click)="toggleSearchDiv()">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </div>
+          <div class="search-div" *ngIf="isSearchDivVisible">
+            <input type="text" placeholder="Search here" />
+            <i (click)="performSearch()" class="fa-solid fa-magnifying-glass"></i>
+          </div>
+          <div class="account">
+            <h3>Customer</h3>
+          </div>
+        </div>
+        <div class="content">
+          <router-outlet></router-outlet>
+        </div>
+    </div>
+  </div>
+  
