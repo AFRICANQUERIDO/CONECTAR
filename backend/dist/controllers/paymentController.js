@@ -17,7 +17,6 @@ const mssql_1 = __importDefault(require("mssql"));
 const sqlConfig_1 = require("../config/sqlConfig");
 require('dotenv').config();
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-// Controller function to process payments
 const processPayment = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { amount, source, description, orderID } = req.body; // Removed 'customer' from here

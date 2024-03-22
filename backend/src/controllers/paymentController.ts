@@ -5,7 +5,6 @@ require('dotenv').config();
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
-// Controller function to process payments
 export const processPayment = async (req: Request, res: Response) => {
     try {
         const { amount, source, description, orderID } = req.body; // Removed 'customer' from here
