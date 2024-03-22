@@ -9,6 +9,8 @@ import gigRouter from './routes/gigRouter';
 import orderRouter from './routes/orderRouter';
 import reviewRouter from './routes/reviewsRouter';
 import paymentRouter from './routes/paymentRouter';
+import messageRouter from './routes/messageRouter';
+import chatRouter from './routes/chatRouter';
 // import http from 'http'
 // import WebSocket from 'ws'
 
@@ -48,6 +50,8 @@ app.use('/users', userRouter)
 app.use('/industry', industryRouter)
 app.use('/sector', sectorRouter)
 app.use('/gigs', gigRouter)
+app.use('/conversation', chatRouter)
+app.use('/message', messageRouter)
 app.use('/orders', orderRouter)
 app.use('/reviews',reviewRouter)
 app.use('/payment', paymentRouter)

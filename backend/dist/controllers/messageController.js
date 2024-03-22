@@ -12,9 +12,32 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteMessage = exports.updateMessage = exports.createMessage = exports.getMessageByChatId = exports.getAllMessages = void 0;
+exports.deleteMessage = exports.updateMessage = exports.getMessageByChatId = exports.getAllMessages = exports.createMessage = void 0;
 const mssql_1 = __importDefault(require("mssql"));
 const sqlConfig_1 = require("../config/sqlConfig");
+const uuid_1 = require("uuid");
+const createMessage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { newMessage } = req.body;
+    if (!newMessage || !newMessage.author_email || !newMessage.chatId || !newMessage.message) {
+        return res.status(400).json({ error: 'Missing required fields in the request body' });
+    }
+    const messageId = (0, uuid_1.v4)();
+    try {
+        const pool = yield mssql_1.default.connect(sqlConfig_1.sqlConfig);
+        yield pool.request()
+            .input('messageId', mssql_1.default.VarChar, messageId)
+            .input('author_email', mssql_1.default.VarChar, newMessage.author_email)
+            .input('chatId', mssql_1.default.VarChar, newMessage.chatId)
+            .input('message', mssql_1.default.VarChar, newMessage.message)
+            .query('INSERT INTO Message (messageId, author_email, chatId, message) VALUES (@messageId, @author_email, @chatId, @message)');
+        res.status(201).json({ messageId, message: 'Message created successfully' });
+    }
+    catch (error) {
+        console.error('Error creating message:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+exports.createMessage = createMessage;
 const getAllMessages = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const pool = yield mssql_1.default.connect(sqlConfig_1.sqlConfig);
@@ -49,26 +72,6 @@ const getMessageByChatId = (req, res) => __awaiter(void 0, void 0, void 0, funct
     }
 });
 exports.getMessageByChatId = getMessageByChatId;
-const createMessage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { newMessage } = req.body;
-    if (!newMessage || !newMessage.author_email || !newMessage.chatId || !newMessage.message) {
-        return res.status(400).json({ error: 'Missing required fields in the request body' });
-    }
-    try {
-        const pool = yield mssql_1.default.connect(sqlConfig_1.sqlConfig);
-        yield pool.request()
-            .input('author_email', newMessage.author_email)
-            .input('chatId', newMessage.chatId)
-            .input('message', newMessage.message)
-            .query('INSERT INTO Message (author_email, chatId, message) VALUES (@author_email, @chatId, @message)');
-        res.status(201).json({ message: 'Message created successfully' });
-    }
-    catch (error) {
-        console.error('Error creating message:', error);
-        res.status(500).json({ error: 'Internal server error' });
-    }
-});
-exports.createMessage = createMessage;
 const updateMessage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const messageId = req.params.id;
     const updatedMessage = req.body;
@@ -78,8 +81,8 @@ const updateMessage = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             .input('author_email', updatedMessage.author_email)
             .input('chatId', updatedMessage.chatId)
             .input('message', updatedMessage.message)
-            .input('id', messageId)
-            .query('UPDATE Message SET author_email = @author_email, chatId = @chatId, message = @message WHERE id = @id');
+            .input('messageId', messageId)
+            .query('UPDATE Message SET author_email = @author_email, chatId = @chatId, message = @message WHERE messageId = @messageId');
         res.status(200).json({ message: 'Message updated successfully' });
     }
     catch (error) {
@@ -94,7 +97,7 @@ const deleteMessage = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         const pool = yield mssql_1.default.connect(sqlConfig_1.sqlConfig);
         yield pool.request()
             .input('id', messageId)
-            .query('DELETE FROM Message WHERE id = @id');
+            .query('DELETE FROM Message WHERE messageId = @messageId');
         res.status(200).json({ message: 'Message deleted successfully' });
     }
     catch (error) {

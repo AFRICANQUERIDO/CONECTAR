@@ -1,44 +1,10 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
+const messageController_1 = require("../controllers/messageController");
 const messageRouter = (0, express_1.Router)();
-messageRouter.post('/create', messageController);
-messageRouter.get('/get-by-id/:id', getMessageByChatId);
-messageRouter.post("/create", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        console.log(req.body);
-        yield messageController.createMessage(req, res);
-    }
-    catch (error) {
-        console.error('Error:', error);
-        res.status(500).json({ error: 'Internal server error' });
-    }
-}));
-messageRouter.put("/update/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        yield messageController.updateMessage(req, res);
-    }
-    catch (error) {
-        console.error('Error:', error);
-        res.status(500).json({ error: 'Internal server error' });
-    }
-}));
-messageRouter.delete("/delete/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        yield messageController.deleteMessage(req, res);
-    }
-    catch (error) {
-        console.error('Error:', error);
-        res.status(500).json({ error: 'Internal server error' });
-    }
-}));
+messageRouter.post('/create', messageController_1.createMessage);
+messageRouter.get('/get-by-id/:id', messageController_1.getMessageByChatId);
+messageRouter.put('/update/:id', messageController_1.updateMessage);
+messageRouter.delete('/delete/:id', messageController_1.deleteMessage);
 exports.default = messageRouter;

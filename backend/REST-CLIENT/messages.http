@@ -1,0 +1,66 @@
+### Create a new conversation
+POST http://localhost:4500/conversation/create
+Content-Type: application/json
+
+{
+  "profile_pic": "image for profile 1",
+  "last_message": "Hello, how are you?",
+  "nickname": "User1",
+  "sender_email": "user1@example.com",
+  "receiver_email": "user2@example.com"
+}
+
+### Get current users conversation list
+GET http://localhost:4500/conversation/my-conversation
+
+### Get conversation by ID
+GET http://localhost:4500/conversation/get-by-id/6f915d4f-24a0-45bf-b92a-e514fe7e3605
+
+### Update conversation by ID
+PUT http://localhost:4500/conversation/update/6f915d4f-24a0-45bf-b92a-e514fe7e3605
+Content-Type: application/json
+
+{
+  "profile_pic": "Updated user's profile picture URL",
+  "last_message": "Updated last message content",
+  "nickname": "Updated user's nickname",
+  "sender_email": "Updated sender's email",
+  "receiver_email": "Updated receiver's email"
+}
+
+### Delete conversation by ID
+DELETE http://localhost:4500/conversation/delete/:id
+
+### Get conversations by email
+GET http://localhost:4500/conversation/get-by-email/:email
+
+
+
+### Create a new message
+POST http://localhost:4500/message/create
+Content-Type: application/json
+
+{
+  "newMessage": {
+    "author_email": "user1@example.com",
+    "chatId": "6f915d4f-24a0-45bf-b92a-e514fe7e3605",
+    "message": "Message content"
+  }
+}
+
+### Get messages by chatId
+GET http://localhost:4500/message/get-by-id/6f915d4f-24a0-45bf-b92a-e514fe7e3605
+
+
+### Update a message by messageId
+PUT http://localhost:4500/message/update/62e720c8-83b5-494b-817b-114247904051
+Content-Type: application/json
+
+{
+  "author_email": "Updated author's email",
+  "chatId": "6f915d4f-24a0-45bf-b92a-e514fe7e3605",
+  "message": "Updated message content"
+}
+
+### Delete a message by messageId
+DELETE http://localhost:4500/message/:id

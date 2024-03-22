@@ -1,6 +1,31 @@
 import { Request, Response } from "express";
 import mssql from 'mssql'
 import { sqlConfig } from "../config/sqlConfig";
+import { v4 } from 'uuid'; 
+
+
+export const createMessage = async (req: Request, res: Response) => {
+    const { newMessage } = req.body;
+    if (!newMessage || !newMessage.author_email || !newMessage.chatId || !newMessage.message) {
+        return res.status(400).json({ error: 'Missing required fields in the request body' });
+    }
+    const messageId = v4(); 
+
+    try {
+        const pool = await mssql.connect(sqlConfig);
+        await pool.request()
+            .input('messageId', mssql.VarChar, messageId) 
+            .input('author_email', mssql.VarChar, newMessage.author_email)
+            .input('chatId',mssql.VarChar, newMessage.chatId)
+            .input('message', mssql.VarChar,newMessage.message)
+            .query('INSERT INTO Message (messageId, author_email, chatId, message) VALUES (@messageId, @author_email, @chatId, @message)');
+        res.status(201).json({ messageId, message: 'Message created successfully' });
+    } catch (error) {
+        console.error('Error creating message:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
 
 export const getAllMessages = async (req: Request, res: Response) => {
     try {
@@ -34,25 +59,7 @@ export const getAllMessages = async (req: Request, res: Response) => {
     }
 
 
-    export const createMessage = async (req: Request, res: Response) => {
-
-        const { newMessage } = req.body;
-        if (!newMessage || !newMessage.author_email || !newMessage.chatId || !newMessage.message) {
-            return res.status(400).json({ error: 'Missing required fields in the request body' });
-        }
-        try {
-            const pool = await mssql.connect(sqlConfig);
-            await pool.request()
-                .input('author_email', newMessage.author_email)
-                .input('chatId', newMessage.chatId)
-                .input('message', newMessage.message)
-                .query('INSERT INTO Message (author_email, chatId, message) VALUES (@author_email, @chatId, @message)');
-            res.status(201).json({ message: 'Message created successfully' });
-        } catch (error) {
-            console.error('Error creating message:', error);
-            res.status(500).json({ error: 'Internal server error' });
-        }
-    }
+    
 
     export const updateMessage = async (req: Request, res: Response) => {
         const messageId = req.params.id;
@@ -63,8 +70,8 @@ export const getAllMessages = async (req: Request, res: Response) => {
                 .input('author_email', updatedMessage.author_email)
                 .input('chatId', updatedMessage.chatId)
                 .input('message', updatedMessage.message)
-                .input('id', messageId)
-                .query('UPDATE Message SET author_email = @author_email, chatId = @chatId, message = @message WHERE id = @id');
+                .input('messageId', messageId)
+                .query('UPDATE Message SET author_email = @author_email, chatId = @chatId, message = @message WHERE messageId = @messageId');
             res.status(200).json({ message: 'Message updated successfully' });
         } catch (error) {
             console.error('Error updating message:', error);
@@ -78,7 +85,7 @@ export const getAllMessages = async (req: Request, res: Response) => {
             const pool = await mssql.connect(sqlConfig);
             await pool.request()
                 .input('id', messageId)
-                .query('DELETE FROM Message WHERE id = @id');
+                .query('DELETE FROM Message WHERE messageId = @messageId');
             res.status(200).json({ message: 'Message deleted successfully' });
         } catch (error) {
             console.error('Error deleting message:', error);

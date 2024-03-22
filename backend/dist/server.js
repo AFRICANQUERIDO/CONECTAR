@@ -36,6 +36,8 @@ const gigRouter_1 = __importDefault(require("./routes/gigRouter"));
 const orderRouter_1 = __importDefault(require("./routes/orderRouter"));
 const reviewsRouter_1 = __importDefault(require("./routes/reviewsRouter"));
 const paymentRouter_1 = __importDefault(require("./routes/paymentRouter"));
+const messageRouter_1 = __importDefault(require("./routes/messageRouter"));
+const chatRouter_1 = __importDefault(require("./routes/chatRouter"));
 // import http from 'http'
 // import WebSocket from 'ws'
 const app = (0, express_1.default)();
@@ -62,6 +64,8 @@ app.use('/users', authRouter_1.default);
 app.use('/industry', industryRouter_1.default);
 app.use('/sector', sectorRouter_1.default);
 app.use('/gigs', gigRouter_1.default);
+app.use('/conversation', chatRouter_1.default);
+app.use('/message', messageRouter_1.default);
 app.use('/orders', orderRouter_1.default);
 app.use('/reviews', reviewsRouter_1.default);
 app.use('/payment', paymentRouter_1.default);
