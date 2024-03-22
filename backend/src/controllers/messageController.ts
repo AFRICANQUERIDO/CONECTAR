@@ -3,12 +3,36 @@ import mssql from 'mssql'
 import { sqlConfig } from "../config/sqlConfig";
 import { v4 } from 'uuid'; 
 
+const checkUserExists = async (authorEmail: string): Promise<boolean> => {
+    try {
+        const pool = await mssql.connect(sqlConfig);
+        const result = await pool.request()
+            .input('author_email', mssql.VarChar, authorEmail)
+            .query('SELECT COUNT(*) AS count FROM UserDetails WHERE email = @author_email');
+        return result.recordset[0].count > 0;
+    } catch (error) {
+        console.error('Error checking user existence:', error);
+        throw error;
+    }
+}
 
 export const createMessage = async (req: Request, res: Response) => {
     const { newMessage } = req.body;
     if (!newMessage || !newMessage.author_email || !newMessage.chatId || !newMessage.message) {
         return res.status(400).json({ error: 'Missing required fields in the request body' });
     }
+
+    // Check if the author exists in the system
+    try {
+        const authorExists = await checkUserExists(newMessage.author_email);
+        if (!authorExists) {
+            return res.status(404).json({ error: 'Author does not exist' });
+        }
+    } catch (error) {
+        console.error('Error creating message:', error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+
     const messageId = v4(); 
 
     try {
@@ -16,8 +40,8 @@ export const createMessage = async (req: Request, res: Response) => {
         await pool.request()
             .input('messageId', mssql.VarChar, messageId) 
             .input('author_email', mssql.VarChar, newMessage.author_email)
-            .input('chatId',mssql.VarChar, newMessage.chatId)
-            .input('message', mssql.VarChar,newMessage.message)
+            .input('chatId', mssql.VarChar, newMessage.chatId)
+            .input('message', mssql.VarChar, newMessage.message)
             .query('INSERT INTO Message (messageId, author_email, chatId, message) VALUES (@messageId, @author_email, @chatId, @message)');
         res.status(201).json({ messageId, message: 'Message created successfully' });
     } catch (error) {

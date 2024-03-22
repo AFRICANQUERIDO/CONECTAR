@@ -6,8 +6,8 @@ Content-Type: application/json
   "profile_pic": "image for profile 1",
   "last_message": "Hello, how are you?",
   "nickname": "User1",
-  "sender_email": "user1@example.com",
-  "receiver_email": "user2@example.com"
+  "sender_email": "janengene12@gmail.com",
+  "receiver_email": "kingangiduncan47@gmail.com"
 }
 
 ### Get current users conversation list
@@ -40,11 +40,19 @@ GET http://localhost:4500/conversation/get-by-email/:email
 POST http://localhost:4500/message/create
 Content-Type: application/json
 
+# {
+#   "newMessage": {
+#     "author_email": "janengene12@gmail.com",
+#     "chatId": "02793553-6800-42da-8edd-7af0b764b6b3",
+#     "message": "Hello, Kenedy"
+#   }
+# }
+
 {
   "newMessage": {
-    "author_email": "user1@example.com",
-    "chatId": "6f915d4f-24a0-45bf-b92a-e514fe7e3605",
-    "message": "Message content"
+    "author_email": "kingangiduncan47@gmail.com",
+    "chatId": "02793553-6800-42da-8edd-7af0b764b6b3",
+    "message": "Hello, Kingangi"
   }
 }
 
@@ -57,9 +65,9 @@ PUT http://localhost:4500/message/update/62e720c8-83b5-494b-817b-114247904051
 Content-Type: application/json
 
 {
-  "author_email": "Updated author's email",
-  "chatId": "6f915d4f-24a0-45bf-b92a-e514fe7e3605",
-  "message": "Updated message content"
+  "author_email": "kingangiduncan47@gmail.com",
+  "chatId": "e31372ff-5652-4e3a-982b-e8b2e20b243e",
+  "message": "Hi, Updated message content"
 }
 
 ### Delete a message by messageId

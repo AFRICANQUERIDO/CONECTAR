@@ -22,13 +22,21 @@ const createConversation = (req, res) => __awaiter(void 0, void 0, void 0, funct
     if (!profile_pic || !last_message || !nickname || !sender_email || !receiver_email) {
         return res.status(400).json({ error: 'Missing required fields in the request body' });
     }
-    // Validate email addresses
-    // const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    // if (!emailRegex.test(sender_email) || !emailRegex.test(receiver_email)) {
-    //     return res.status(400).json({ error: 'Invalid email format for sender or receiver' });
-    // }
+    // Check if sender and receiver emails exist in the system
     try {
         const pool = yield mssql_1.default.connect(sqlConfig_1.sqlConfig);
+        // Check if sender exists
+        const senderExistsQuery = yield pool.request()
+            .input('senderEmail', sender_email)
+            .query('SELECT COUNT(*) AS count FROM UserDetails WHERE email = @senderEmail');
+        // Check if receiver exists
+        const receiverExistsQuery = yield pool.request()
+            .input('receiverEmail', receiver_email)
+            .query('SELECT COUNT(*) AS count FROM UserDetails WHERE email = @receiverEmail');
+        // If sender or receiver does not exist, return error
+        if (senderExistsQuery.recordset[0].count === 0 || receiverExistsQuery.recordset[0].count === 0) {
+            return res.status(404).json({ error: 'Sender or receiver email does not exist in the system' });
+        }
         // Check if conversation already exists between sender and receiver
         const existingConversation = yield pool.request()
             .input('senderEmail', sender_email)
@@ -37,7 +45,7 @@ const createConversation = (req, res) => __awaiter(void 0, void 0, void 0, funct
         if (existingConversation.recordset.length > 0) {
             // Conversation already exists, return existing chatId
             const chatId = existingConversation.recordset[0].chatId;
-            return res.status(200).json({ error: "conversation exists" });
+            return res.status(200).json({ error: "conversation exists", chatId });
         }
         // Conversation does not exist, proceed to create a new one
         const chatId = (0, uuid_1.v4)();

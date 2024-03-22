@@ -16,10 +16,34 @@ exports.deleteMessage = exports.updateMessage = exports.getMessageByChatId = exp
 const mssql_1 = __importDefault(require("mssql"));
 const sqlConfig_1 = require("../config/sqlConfig");
 const uuid_1 = require("uuid");
+const checkUserExists = (authorEmail) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const pool = yield mssql_1.default.connect(sqlConfig_1.sqlConfig);
+        const result = yield pool.request()
+            .input('author_email', mssql_1.default.VarChar, authorEmail)
+            .query('SELECT COUNT(*) AS count FROM UserDetails WHERE email = @author_email');
+        return result.recordset[0].count > 0;
+    }
+    catch (error) {
+        console.error('Error checking user existence:', error);
+        throw error;
+    }
+});
 const createMessage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { newMessage } = req.body;
     if (!newMessage || !newMessage.author_email || !newMessage.chatId || !newMessage.message) {
         return res.status(400).json({ error: 'Missing required fields in the request body' });
+    }
+    // Check if the author exists in the system
+    try {
+        const authorExists = yield checkUserExists(newMessage.author_email);
+        if (!authorExists) {
+            return res.status(404).json({ error: 'Author does not exist' });
+        }
+    }
+    catch (error) {
+        console.error('Error creating message:', error);
+        return res.status(500).json({ error: 'Internal server error' });
     }
     const messageId = (0, uuid_1.v4)();
     try {
