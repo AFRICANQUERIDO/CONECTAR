@@ -17,7 +17,7 @@ userRouter.get('/checkdetails', verifyToken_1.verifyToken, authController_1.chec
 userRouter.post('/resetPassword', verifyToken_1.verifyToken, userController_1.resetPasswordController);
 userRouter.get('/:userID', verifyToken_1.verifyToken, userController_1.getSingleUserController);
 userRouter.delete('/delete/:userID', verifyRoleToken_1.verifyAdminToken, userController_1.deleteUserController);
-userRouter.get('/', verifyRoleToken_1.verifyAdminToken, userController_1.fetchAllUSersController);
+userRouter.get('/', verifyToken_1.verifyToken, userController_1.fetchAllUSersController);
 userRouter.get('/userDetails', verifyRoleToken_1.verifyAdminToken, userController_1.getUserDetails);
 // userRouter.put('/update/:userID', updateUserController)
 exports.default = userRouter;

@@ -24,13 +24,14 @@ export interface updatedUser{
     password:string
 }
 export interface ViewUsers {
-    user_id:string;
+    userID:string;
     name: string;
     email: string;
+    role:string;
   }
 
-  export interface UserResponse{
-    email: string
+export interface UserResponse{
+email: string
 firstName: string
 lastName: string
 message: string

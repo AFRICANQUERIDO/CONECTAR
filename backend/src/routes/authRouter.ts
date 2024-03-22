@@ -18,7 +18,7 @@ userRouter.get('/checkdetails', verifyToken, checkUserDetails)
 userRouter.post('/resetPassword', verifyToken, resetPasswordController)
 userRouter.get('/:userID', verifyToken, getSingleUserController)
 userRouter.delete('/delete/:userID', verifyAdminToken, deleteUserController)
-userRouter.get('/', verifyAdminToken,fetchAllUSersController)
+userRouter.get('/', verifyToken,fetchAllUSersController)
 userRouter.get('/userDetails', verifyAdminToken, getUserDetails)
 
 // userRouter.put('/update/:userID', updateUserController)
