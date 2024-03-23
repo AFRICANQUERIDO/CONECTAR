@@ -18,11 +18,12 @@ export class AllUsersComponent {
     this.fetchUsers();
   }
 
-  fetchUsers(): void {
+  fetchUsers(){
     this.userService.getAllUsers().subscribe(
-      data => {
-        this.users = data.users;
-        this.error = data.error;
+      res => {
+        console.log(res)
+        this.users = res.users;
+        // this.error = res.error;
       },
       error => {
         console.error('Error fetching users:', error);

@@ -157,12 +157,7 @@ export const resetPassword = async (req: Request, res: Response) => {
     const pool = await mssql.connect(sqlConfig);
 
     const checkEmail = `
-            SELECT 
-                CASE
-                    WHEN EXISTS (SELECT 1 FROM Specialist WHERE email = @email) THEN 1
-                    WHEN EXISTS (SELECT 1 FROM Clients WHERE email = @email) THEN 1
-                    ELSE 0
-                END AS userExists
+SELECT * FROM Users WHERE email = @email) 
         `;
 
     const emailCheckResult = await pool.request()

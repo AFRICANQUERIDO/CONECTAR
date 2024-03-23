@@ -25,14 +25,14 @@ export class LoginComponent implements OnInit {
  title = "Don't have account?"
   constructor(private formBuilder: FormBuilder, private userService: UserServiceService, private authService:AuthServiceService, private router: Router) { }
 
-  ngOnInit(): void {
+  ngOnInit(){
     this.loginForm = this.formBuilder.group({
-      Name: ['', Validators.required],
+      email: ['', Validators.required],
       password: ['', Validators.required]
     });
   }
 
-  loginUser(): void {
+  loginUser(){
     if (this.loginForm.valid) {
       const userDetails: loginDetails = {
         email: this.loginForm.value.email,
@@ -42,6 +42,7 @@ export class LoginComponent implements OnInit {
       this.userService.loginUser(userDetails).subscribe(
         res => {
           if (res) {
+            console.log(res)
             localStorage.setItem('token', res.token);
             this.authService.setUser(res);
 

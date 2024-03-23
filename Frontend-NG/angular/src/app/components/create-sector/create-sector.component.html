@@ -9,7 +9,8 @@
         <div class="dropdown">
             <label for="industrySelect">Select Industry:</label>
             <select id="industrySelect" formControlName="industrySelect" required>
-                <option *ngFor="let industry of industries" [value]="industry.id">{{ industry.name }}</option>
+                <option>--Select industry--</option>
+                <option *ngFor="let industry of industriesArray" [value]="industry.industryID">{{ industry.industryName }}</option>
             </select>
         </div>
         <!-- Input for Sector Name -->

@@ -25,7 +25,7 @@ export interface updatedUser{
 }
 export interface ViewUsers {
     userID:string;
-    name: string;
+    Name: string;
     email: string;
     role:string;
   }

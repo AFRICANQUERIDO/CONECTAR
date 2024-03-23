@@ -6,7 +6,17 @@
     border-radius: 5px;
     background-color: #f9f9f9;
 }
-
+.select-box{
+    border-radius: 10px;
+    background-color: #DEE8FB;
+    border: none;
+    height: 4vh;
+    width: 12vw;
+    padding-inline: 1vw;
+}
+.select-box:focus{
+    outline: none;
+}
 .successDiv,
 .errorDiv {
     margin-bottom: 10px;

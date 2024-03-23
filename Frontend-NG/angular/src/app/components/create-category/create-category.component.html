@@ -1,33 +1,48 @@
-<div class="cont-wrapper">
-    <div *ngIf="visible2" class="successDiv" style="color: green; text-align: center; width: 100%; font-size: 14px;">{{successMsg}}</div> 
-    <div *ngIf="visible" class="errorDiv" style="color: red; text-align: center;">{{errorMsg}}</div>  
-    
-    <h2>Create Industry</h2>
-    <form [formGroup]="industryForm" (ngSubmit)="addIndustry()">
-        <!-- Input for Industry Name -->
-        <div>
-            <label for="industryName">Industry Name:</label>
-            <input type="text" id="industryName" formControlName="industryName" data-cy="industryName" required>
-        </div>
-        <!-- Input for Industry Image -->
-        <div class="image-upload-section">
+<div class="wrapper">
+  <div
+    *ngIf="visible2"
+    class="successDiv"
+    style="color: green; text-align: center; width: 100%; font-size: 14px"
+  >
+    {{ successMsg }}
+  </div>
+  <div *ngIf="visible" class="errorDiv" style="color: red; text-align: center">
+    {{ errorMsg }}
+  </div>
+
+  <h2>Create Industry</h2>
+  <div class="form-div" [formGroup]="industryForm" (ngSubmit)="addIndustry()">
+    <!-- Input for Industry Name -->
+    <div>
+      <label for="industryName">Industry Name:</label>
+      <input
+        type="text"
+        id="industryName"
+        formControlName="industryName"
+        data-cy="industryName"
+        required
+      />
+    </div>
+    <!-- Input for Industry Image -->
+    <!-- <div class="image-upload-section">
             <label for="industryImage">Industry Image:</label>
             <div id="drop-area" (click)="fileInput.click()">
               <i class="fa-thin fa-image"></i>
               <p>Drop an image here or browse</p>
-            </div>
-            <input
-              type="file"
-              #fileInput
-              id="industryName"
-              formControlName="industryImage"
-            data-cy="industryImage"
-              accept="image/*"
-              required
-            />
-          </div>
-    
-        <!-- Submit Button -->
-        <button type="submit">Create Category</button>
-    </form>
+            </div> -->
+    <div>
+      <label for="industryImage">Industry Image:</label>
+      <input
+        type="text"
+        id="industryName"
+        formControlName="industryImage"
+        data-cy="industryImage"
+        required
+      />
+    </div>
+    <!-- </div> -->
+
+    <!-- Submit Button -->
+    <button type="submit">Create Category</button>
+  </div>
 </div>

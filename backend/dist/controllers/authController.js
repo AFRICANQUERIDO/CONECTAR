@@ -159,12 +159,7 @@ const resetPassword = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         const { email, password } = req.body;
         const pool = yield mssql_1.default.connect(sqlConfig_1.sqlConfig);
         const checkEmail = `
-            SELECT 
-                CASE
-                    WHEN EXISTS (SELECT 1 FROM Specialist WHERE email = @email) THEN 1
-                    WHEN EXISTS (SELECT 1 FROM Clients WHERE email = @email) THEN 1
-                    ELSE 0
-                END AS userExists
+SELECT * FROM Users WHERE email = @email) 
         `;
         const emailCheckResult = yield pool.request()
             .input("email", email)

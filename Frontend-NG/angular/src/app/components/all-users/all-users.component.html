@@ -2,27 +2,34 @@
     <!--for demo wrap-->
     <h1>All Users</h1>
     <div class="tbl-header">
+      <div class="filter">
+        Filter
+        <select class="select-box">
+            <option value="">Type of User</option>
+            <option value="specialist">Specialist</option>
+            <option value="user">User</option>
+        </select>
+    </div>
       <table cellpadding="0" cellspacing="0" border="0">
         <thead>
           <tr>
-            <th></th>
-            <th>Company</th>
-            <th>Price</th>
-            <th>Change</th>
-            <th>Change %</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Actions</th>
+            <th>Actions</th>
           </tr>
         </thead>
       </table>
     </div>
     <div class="tbl-content">
-      <table cellpadding="0" cellspacing="0" border="0">
-        <tbody *ngFor="let user of users">
-          <tr >
-            <td>{{user.name}}</td>
-            <td>AUSTRALIAN COMPANY </td>
-            <td></td>
-            <td></td>
-            <td></td>
+      <table cellpadding="0" cellspacing="0">
+        <tbody >
+          <tr *ngFor="let user of users" >
+            <td>{{user.Name}}</td>
+            <td>{{user.email}} </td>
+            <td>{{user.role}}</td>
+            <td> <i class="fa-solid fa-trash"></i></td>
           </tr>
          
         </tbody>
@@ -32,7 +39,7 @@
   
   
   <!-- follow me template -->
-  <div class="made-with-love">
+  <div class="made-for-you">
 
     <p>All right reserved by conectar</p>
   </div>

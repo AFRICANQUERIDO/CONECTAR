@@ -48,6 +48,16 @@ Content-Type: application/json
 }
 
 
+### Reset Password
+PUT http://localhost:4500/users/resetPWD
+Content-Type: application/json
+
+{
+  "email":"janengene122gmail.com",
+  "password":"Jane@123"
+}
+
+
 ###Create profile
 PUT http://localhost:4500/users/profile
 Content-Type: application/json
@@ -88,47 +98,3 @@ DELETE http://localhost:4500/users/delete/267d74d3-0977-467f-9485-d78b343b42d5
 token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiJhYWFlY2I1My0yZDJhLTQwNmEtOTYzMC0yMTM1YTA4N2I4ZDkiLCJOYW1lIjoiRHVuY2FuIEtpbmdhbmdpIiwiZW1haWwiOiJraW5nYW5naWR1bmNhbjQ3QGdtYWlsLmNvbSIsInBob25lX251bWJlciI6bnVsbCwiRE9CIjpudWxsLCJnZW5kZXIiOm51bGwsImVkdWNhdGlvbiI6bnVsbCwiZXhwZXJpZW5jZSI6bnVsbCwibGFuZ3VhZ2UiOm51bGwsImFib3V0IjpudWxsLCJuaWNrbmFtZSI6bnVsbCwiY291bnRyeSI6bnVsbCwiY2l0eSI6bnVsbCwiaW5kdXN0cnkiOm51bGwsInByb2ZpbGVfcGljIjpudWxsLCJPVFAiOiIkMmIkMDQkb3Q3MHo1NW0zRWNsaW1KeUxGRGI4Lm5rWnEyWWFqNGtHT0g3dEl1MXZ2UGZ6eVZDY3JsbEciLCJyb2xlIjoiU3BlY2lhbGlzdCIsIndlbGNvbWVkIjp0cnVlLCJpc1ZlcmlmaWVkIjp0cnVlLCJwcm9maWxlX2lkIjpudWxsLCJpYXQiOjE3MTA5MzM4MDAsImV4cCI6MTg0MDUzMzgwMH0.AT66Yb4cAk15dkcvOqJXW3nit6r-qe5bw1omwVA2J2A
 
  
-
-### Industries
-# Create industry
-POST  http://localhost:4500/industry
-Content-Type: application/json
-
-{
-"industryName":"Education",
-"industryImage":"this is an image"
-}
- 
-### getAll industries
-GET http://localhost:4500/industry/
-Content-Type: application/json
-
-### getOne
-GET http://localhost:4500/industry/baacb12b-90c6-4661-bc28-641932a35234
- 
-### Delete industry
-DELETE   http://localhost:4500/industy/f4981088-9310-4235-ac3d-98a6a009131c
-Content-Type: application/json
- 
- 
-###Sectors section
-
-#create a sector
-POST  http://localhost:4500/sector/create
-Content-Type: application/json
-
-# {
-# "sectorName":"Nurse",
-# "industryID":"04f513cb-bf34-4b6c-bc3e-521d6894f7f3"
-# }
-
-{
-"sectorName":"MUSIC TUTOR",
-"industryID":"b83c0ed7-2df5-431c-872b-2aee755bf0b8"
-}
- 
-### Get sector by industry
-GET http://localhost:4500/sector/04f513cb-bf34-4b6c-bc3e-521d6894f7f3
-Content-Type: application/json
-
-

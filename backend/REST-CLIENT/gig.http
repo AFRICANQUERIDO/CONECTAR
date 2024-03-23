@@ -1,4 +1,52 @@
 
+### Industries
+# Create industry
+POST  http://localhost:4500/industry
+Content-Type: application/json
+
+{
+"industryName":"Education",
+"industryImage":"this is an image"
+}
+ 
+### getAll industries
+GET http://localhost:4500/industry/
+Content-Type: application/json
+
+### getOne
+GET http://localhost:4500/industry/baacb12b-90c6-4661-bc28-641932a35234
+ 
+### Delete industry
+DELETE   http://localhost:4500/industy/f4981088-9310-4235-ac3d-98a6a009131c
+Content-Type: application/json
+ 
+ 
+###Sectors section
+
+#create a sector
+POST  http://localhost:4500/sector/create
+Content-Type: application/json
+
+# {
+# "sectorName":"Nurse",
+# "industryID":"04f513cb-bf34-4b6c-bc3e-521d6894f7f3"
+# }
+
+{
+"sectorName":"MUSIC TUTOR",
+"industryID":"b83c0ed7-2df5-431c-872b-2aee755bf0b8"
+}
+ 
+### Get sector by industry
+GET http://localhost:4500/sector/04f513cb-bf34-4b6c-bc3e-521d6894f7f3
+Content-Type: application/json
+
+
+
+
+
+
+
 ### create gig
 POST http://localhost:4500/gigs/create
 Content-Type: application/json

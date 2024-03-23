@@ -3,6 +3,7 @@
     max-height: max-content;
     /* width:98.9vw;  */
     display: flex;
+    height:100%;
 }
 
 .side-barr {
@@ -72,8 +73,6 @@
 
 .cont {
     width: 100%;
-    /* background-image: url(../../../assets/blue-toned-set-triangular-paper-sheets-with-copy-space.jpg); */
-    /* max-height: max-content; */
     background-repeat: none;
     background-size: cover;
 }
