@@ -63,7 +63,7 @@ export class AllUsersComponent implements OnInit{
   }
 
 
-  confirmDeleteUser(userId: string): void {
+  confirmDeleteUser(userID: string): void {
     Swal.fire({
       title: 'Are you sure?',
       text: 'You are about to delete this user.',
@@ -74,7 +74,7 @@ export class AllUsersComponent implements OnInit{
       confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.deleteUser(userId);
+        this.deleteUser(userID);
       }
     });
   }

@@ -35,22 +35,25 @@ export const routes: Routes = [
     { path: 'calender', component: CalenderComponent },
     { path: 'forgot', component: ForgotPwdComponent },
     { path: 'otp', component: OtpComponent },
-    
-    { path: 'spec-profile', component:SpecialistsProfileComponent },
+
+    { path: 'spec-profile', component: SpecialistsProfileComponent },
     { path: 'spec-detail/:id', component: SpecialistDetailsComponent },
+    // {path:'spec-de'}
     // { path: 'cust-detail', component: CustomerDetailsComponent },
     { path: 'cust-detail/:id', component: CustomerDetailsComponent },
     { path: 'rating', component: RatingComponent },
     { path: 'role', component: JoinAsComponent },
-    {path:'cust-dashboard',component:CustDashboardComponent},
-    {path:'cust-page', component:CustomerPageComponent},
-    {path:'message', component:MessagesComponent},
-    { path: 'admin', component: AdminPageComponent,
-children:[
-    {path:'create-ind', component:CreateCategoryComponent},
-    {path:'create-sector', component:CreateSectorComponent},
-    {path:'all-users', component:AllUsersComponent},
-] },
+    { path: 'cust-dashboard', component: CustDashboardComponent },
+    { path: 'cust-page', component: CustomerPageComponent },
+    { path: 'message', component: MessagesComponent },
+    {
+        path: 'admin', component: AdminPageComponent,
+        children: [
+            { path: 'create-ind', component: CreateCategoryComponent },
+            { path: 'create-sector', component: CreateSectorComponent },
+            { path: 'all-users', component: AllUsersComponent },
+        ]
+    },
 
     { path: '**', component: WildCardComponent }
 ];

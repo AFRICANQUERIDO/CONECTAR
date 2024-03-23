@@ -20,4 +20,8 @@ export class GigsService {
   createSector(sector_details:sector) {
     return this.http.post<{message:string, error:string}>(`http://localhost:4500/sector/create`,sector_details)
   }
+
+  getSectorsByIndustry(industryID: string) {
+    return this.http.get<sector[]>(`http://localhost:4500/sector/${industryID}`);
+  }
 }

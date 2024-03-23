@@ -77,7 +77,8 @@ export const registerUserController = async (req: Request, res: Response) => {
       .execute('registerUser')).recordset
 
     return res.json({
-      message: 'User registered successfully'
+      message: 'User registered successfully',
+      results
     })
   } catch (error) {
     return res.json({

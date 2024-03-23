@@ -43,6 +43,11 @@ export class SpecialistDetailsComponent {
       console.log(this.industriesArray)
     })
   }
+  // onIndustryChange(industryId: any): void {
+  //   this.userService.getSectorsForIndustry(industryId).subscribe(data => {
+  //     this.sectorsArray = data; // Assuming API response is an array of sectors
+  //   });
+  // }
   
   onSubmit() {
     if (this.detailsForm.valid) {

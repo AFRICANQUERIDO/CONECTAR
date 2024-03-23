@@ -80,7 +80,8 @@ const registerUserController = (req, res) => __awaiter(void 0, void 0, void 0, f
             .input('password', mssql_1.default.VarChar, hashedpwd)
             .execute('registerUser')).recordset;
         return res.json({
-            message: 'User registered successfully'
+            message: 'User registered successfully',
+            results
         });
     }
     catch (error) {
