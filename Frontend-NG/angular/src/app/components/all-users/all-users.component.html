@@ -1,46 +1,49 @@
 <section>
-    <!--for demo wrap-->
-    <h1>All Users</h1>
-    <div class="tbl-header">
-      <div class="filter">
-        Filter
-        <select class="select-box">
-            <option value="">Type of User</option>
-            <option value="specialist">Specialist</option>
-            <option value="user">User</option>
-        </select>
+  <!--for demo wrap-->
+  <h1>All Users</h1>
+  <div class="tbl-header">
+    <div class="filter">
+      Filter
+      <select class="select-box">
+        <option value="">Type of User</option>
+        <option value="specialist">Specialist</option>
+        <option value="user">User</option>
+      </select>
     </div>
-      <table cellpadding="0" cellspacing="0" border="0">
-        <thead>
-          <tr>
-            <th>No.</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Role</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-      </table>
-    </div>
-    <div class="tbl-content">
-      <table cellpadding="0" cellspacing="0">
-        <tbody >
-          <tr *ngFor="let user of users" >
-            <td>{{}}</td>
-            <td>{{user.Name}}</td>
-            <td>{{user.email}} </td>
-            <td>{{user.role}}</td>
-            <td> <i class="fa-solid fa-trash"></i></td>
-          </tr>
-         
-        </tbody>
-      </table>
-    </div>
-  </section>
-  
-  
-  <!-- follow me template -->
-  <div class="made-for-you">
-
-    <p>All right reserved by conectar</p>
+    <table cellpadding="0" cellspacing="0" border="0">
+      <thead>
+        <tr>
+          <th>No.</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+    </table>
   </div>
+  <div class="tbl-content">
+    <table cellpadding="0" cellspacing="0">
+      <tbody>
+        <tr *ngFor="let user of users; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ user.Name }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.role }}</td>
+          <td>
+            <i
+              class="fa-solid fa-trash"
+              (click)="deleteUser(user.userID)"
+              style="color: red"
+            ></i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- follow me template -->
+<div class="made-for-you">
+  <p>All right reserved by conectar</p>
+</div>

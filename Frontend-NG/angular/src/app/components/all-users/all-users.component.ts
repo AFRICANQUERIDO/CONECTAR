@@ -3,6 +3,8 @@ import { ViewUsers } from '../../intefaces/user.interface';
 import { UserServiceService } from '../../services/user-service.service';
 import { AuthServiceService } from '../../services/auth-service.service';
 import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-all-users',
@@ -58,4 +60,35 @@ export class AllUsersComponent implements OnInit{
       console.error('Token not found in local storage');
       this.error = 'Token not found in local storage';
     }
-  }}
+  }
+
+
+  confirmDeleteUser(userId: string): void {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You are about to delete this user.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.deleteUser(userId);
+      }
+    });
+  }
+  
+  deleteUser(userID: string) {
+    this.userService.deleteUser(userID).subscribe(
+      () => {
+        this.users = this.users.filter(user => user.userID !== userID);
+        console.log('User deleted successfully');
+      },
+      (error) => {
+        console.error('Error deleting user:', error);
+        
+      }
+    );
+  }
+}

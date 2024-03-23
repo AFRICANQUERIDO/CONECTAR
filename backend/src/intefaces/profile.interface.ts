@@ -12,6 +12,7 @@ interface ProfileInterface {
     country: string;
     city: string;
     industry: string;
+    sector:string;
     OTP: string;
     role: string;
 }

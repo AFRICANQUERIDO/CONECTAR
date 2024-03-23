@@ -58,13 +58,12 @@ Content-Type: application/json
 }
 
 
-###Create profile
-PUT http://localhost:4500/users/profile
+###Create profile details
+PUT http://localhost:4500/users/profile/aaaecb53-2d2a-406a-9630-2135a087b8d9
 Content-Type: application/json
 token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiJhYWFlY2I1My0yZDJhLTQwNmEtOTYzMC0yMTM1YTA4N2I4ZDkiLCJOYW1lIjoiRHVuY2FuIEtpbmdhbmdpIiwiZW1haWwiOiJraW5nYW5naWR1bmNhbjQ3QGdtYWlsLmNvbSIsInBob25lX251bWJlciI6bnVsbCwiRE9CIjpudWxsLCJnZW5kZXIiOm51bGwsImVkdWNhdGlvbiI6bnVsbCwiZXhwZXJpZW5jZSI6bnVsbCwibGFuZ3VhZ2UiOm51bGwsImFib3V0IjpudWxsLCJuaWNrbmFtZSI6bnVsbCwiY291bnRyeSI6bnVsbCwiY2l0eSI6bnVsbCwiaW5kdXN0cnkiOm51bGwsInByb2ZpbGVfcGljIjpudWxsLCJPVFAiOiIkMmIkMDQkb3Q3MHo1NW0zRWNsaW1KeUxGRGI4Lm5rWnEyWWFqNGtHT0g3dEl1MXZ2UGZ6eVZDY3JsbEciLCJyb2xlIjoiU3BlY2lhbGlzdCIsIndlbGNvbWVkIjp0cnVlLCJpc1ZlcmlmaWVkIjp0cnVlLCJwcm9maWxlX2lkIjpudWxsLCJpYXQiOjE3MTA5MzM4MDAsImV4cCI6MTg0MDUzMzgwMH0.AT66Yb4cAk15dkcvOqJXW3nit6r-qe5bw1omwVA2J2A
 
 {
-"userID":"aaaecb53-2d2a-406a-9630-2135a087b8d9",
 "role":"specialist",
 "profile_pic":"image",
 "phone_number":"07200000",

@@ -94,7 +94,7 @@ async function checkIfEmailExists(email: string): Promise<boolean> {
   const result = await pool
     .request()
     .input('email', mssql.VarChar, email)
-    .query('SELECT COUNT(*) AS count FROM Userdetails WHERE email = @email');
+    .query('SELECT COUNT(*) AS count FROM UserDetails WHERE email = @email');
 
   return result.recordset[0].count > 0;
 }

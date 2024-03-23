@@ -12,7 +12,7 @@ userRouter.post('/register', userController_1.registerUserController);
 // userRouter.post('/', generateOTP)
 userRouter.put('/validate/:id', authController_1.validateUser);
 userRouter.post('/login', authController_1.loginUserController);
-userRouter.put('/profile', verifyToken_1.verifyToken, profile_controller_1.createProfile);
+userRouter.put('/profile/:id', verifyToken_1.verifyToken, profile_controller_1.createProfile);
 userRouter.get('/checkdetails', verifyToken_1.verifyToken, authController_1.checkUserDetails);
 userRouter.put('/resetPWD', verifyToken_1.verifyToken, userController_1.resetPasswordController);
 userRouter.get('/:userID', verifyToken_1.verifyToken, userController_1.getSingleUserController);

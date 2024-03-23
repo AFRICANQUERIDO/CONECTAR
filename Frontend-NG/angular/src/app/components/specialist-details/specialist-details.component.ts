@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { industry } from '../../intefaces/industry';
+import { GigsService } from '../../services/gigs.service';
 
 @Component({
   selector: 'app-specialist-details',
@@ -11,13 +13,14 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 })
 export class SpecialistDetailsComponent {
   detailsForm!: FormGroup;
+  industriesArray: industry[] = []
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, public industryService:GigsService) {
+    this.getIndustries()
+   }
 
   ngOnInit(): void {
     this.detailsForm = this.fb.group({
-      name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
       phone: ['', Validators.required],
       dob_dd: ['', Validators.required],
       dob_mm: ['', Validators.required],
@@ -28,15 +31,22 @@ export class SpecialistDetailsComponent {
       languages: [''],
       about: [''],
       city: [''],
-      address1: [''],
-      address2: [''],
+      nickname: [''],
+      industry:[''],
       service: ['']
     });
+   
   }
-
+  getIndustries() {
+    this.industryService.getIndustries().subscribe((res) => {
+      this.industriesArray = res.industries
+      console.log(this.industriesArray)
+    })
+  }
+  
   onSubmit() {
     if (this.detailsForm.valid) {
-      // Handle form submission
+      
       console.log(this.detailsForm.value);
     }
   }

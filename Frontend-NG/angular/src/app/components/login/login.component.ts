@@ -22,17 +22,17 @@ export class LoginComponent implements OnInit {
 
   msgVisible = false
   msgVisible2 = false
- title = "Don't have account?"
-  constructor(private formBuilder: FormBuilder, private userService: UserServiceService, private authService:AuthServiceService, private router: Router) { }
+  title = "Don't have account?"
+  constructor(private formBuilder: FormBuilder, private userService: UserServiceService, private authService: AuthServiceService, private router: Router) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.loginForm = this.formBuilder.group({
       email: ['', Validators.required],
       password: ['', Validators.required]
     });
   }
 
-  loginUser(){
+  loginUser() {
     if (this.loginForm.valid) {
       const userDetails: loginDetails = {
         email: this.loginForm.value.email,
@@ -42,9 +42,11 @@ export class LoginComponent implements OnInit {
       this.userService.loginUser(userDetails).subscribe(
         res => {
           if (res) {
-            console.log(res)
+            console.log(res);
             localStorage.setItem('token', res.token);
             this.authService.setUser(res);
+            this.successMsg = res.message;
+            this.msgVisible = true;
 
             this.authService.readToken(res.token).subscribe(
               response => {
@@ -59,7 +61,8 @@ export class LoginComponent implements OnInit {
               },
               error => {
                 console.error('Error reading token:', error);
-                this.displayError('An error occurred while processing your request.');
+                this.errorMsg = 'An error occurred while processing your request.'; // Update error message
+                this.msgVisible2 = true; // Show error message
               }
             );
           }

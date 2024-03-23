@@ -6,7 +6,9 @@ import { Request, Response } from "express";
 
 export const createProfile = async (req: Request, res: Response) => {
     try {
-        const { userID, role, profile_pic, phone_number, DOB, gender, education, experience, language, about, nickname, country, city, industry }: ProfileInterface = req.body;
+        const userID = req.params.id
+
+        const {role, profile_pic, phone_number, DOB, gender, education, experience, language, about, nickname, country, city, industry, sector }: ProfileInterface = req.body;
 
         const pool = await mssql.connect(sqlConfig);
 
@@ -25,6 +27,7 @@ export const createProfile = async (req: Request, res: Response) => {
             .input('country', mssql.VarChar, country)
             .input('city', mssql.VarChar, city)
             .input('industry', mssql.VarChar, industry)
+            .input('sector', mssql.VarChar, sector)
             .execute('createProfile');
 
         if (result.rowsAffected && result.rowsAffected[0] > 0) {

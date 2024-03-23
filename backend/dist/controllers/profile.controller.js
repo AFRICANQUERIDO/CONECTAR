@@ -17,7 +17,8 @@ const mssql_1 = __importDefault(require("mssql"));
 const sqlConfig_1 = require("../config/sqlConfig");
 const createProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { userID, role, profile_pic, phone_number, DOB, gender, education, experience, language, about, nickname, country, city, industry } = req.body;
+        const userID = req.params.id;
+        const { role, profile_pic, phone_number, DOB, gender, education, experience, language, about, nickname, country, city, industry, sector } = req.body;
         const pool = yield mssql_1.default.connect(sqlConfig_1.sqlConfig);
         const result = yield pool.request()
             .input('userID', mssql_1.default.VarChar, userID)
@@ -34,6 +35,7 @@ const createProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             .input('country', mssql_1.default.VarChar, country)
             .input('city', mssql_1.default.VarChar, city)
             .input('industry', mssql_1.default.VarChar, industry)
+            .input('sector', mssql_1.default.VarChar, sector)
             .execute('createProfile');
         if (result.rowsAffected && result.rowsAffected[0] > 0) {
             return res.json({ message: 'User details updated successfully' });

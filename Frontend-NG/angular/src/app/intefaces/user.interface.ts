@@ -32,11 +32,27 @@ export interface ViewUsers {
 
 export interface UserResponse{
 email: string
-firstName: string
-lastName: string
+Name: string
 message: string
 role: string
 token: string
 userID: string
 welcomed:string
+  }
+
+  export interface profileDetails{
+    userID:string,
+    profile_pic:string,
+    phone_number:string,
+    DOB:string,
+    gender:string,
+    education:string,
+    experience:string,
+    language:string,
+    about:string,
+    nickname:string,
+    country:string,
+    city:string,
+    industry:string,
+    sector:string
   }

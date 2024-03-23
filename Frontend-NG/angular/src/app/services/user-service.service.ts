@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { UserResponse, Users, ViewUsers, loginDetails, signUpDetails, updatedUser } from '../intefaces/user.interface';
+import { UserResponse, profileDetails, Users, ViewUsers, loginDetails, signUpDetails, updatedUser } from '../intefaces/user.interface';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { OTP } from '../intefaces/otp';
-import { createIndustry } from '../intefaces/industry';
+
 
 @Injectable({
   providedIn: 'root'
@@ -60,6 +60,15 @@ export class UserServiceService {
     })
   }
 
+  createProfile(id:string, details:profileDetails){
+    return this.http.put<{message:string, error:string}>(`http://localhost:4500/users/profile/{id}`, details, {
+      headers:new HttpHeaders({
+        'Content-type': 'application/json',
+        'token': this.token
+      })
+    })
+  }
+
   updateUserDetails(id: string, details: updatedUser) {
     return this.http.put<{ message: string, error: string }>(`http://localhost:4500/users/update/{id}`, details, {
       headers: new HttpHeaders({
@@ -68,6 +77,8 @@ export class UserServiceService {
       })
     })
   }
+
+
   // updateUser(userDetails: updateUserDetails, userId: string){
   //   return this.http.put<{success: string}>(`http://localhost:4500/users/update-details/${userId}`, userDetails)
   // }

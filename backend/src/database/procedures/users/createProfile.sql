@@ -40,7 +40,8 @@ CREATE OR ALTER PROCEDURE createProfile (
     @nickname VARCHAR(255),
     @country VARCHAR(255),
     @city VARCHAR(255),
-    @industry VARCHAR(255)
+    @industry VARCHAR(255),
+    @sector VARCHAR(255)
 )
 AS
 BEGIN
@@ -58,7 +59,8 @@ BEGIN
         nickname = @nickname,
         country = @country,
         city = @city,
-        industry = @industry
+        industry = @industry,
+        sector=@sector
     WHERE userID = @userID;
 END;
 
