@@ -105,7 +105,7 @@ const fetchAllUSersController = (req, res) => __awaiter(void 0, void 0, void 0, 
     try {
         const pool = yield mssql_1.default.connect(sqlConfig_1.sqlConfig);
         let users = (yield pool.request().execute('getAllUsers')).recordset;
-        return res.json(users);
+        return res.json({ users: users });
     }
     catch (error) {
         return res.json({

@@ -23,7 +23,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.resetPassword = exports.checkUserDetails = exports.validateUser = exports.loginUserController = void 0;
+exports.checkUserDetails = exports.validateUser = exports.loginUserController = void 0;
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const mssql_1 = __importDefault(require("mssql"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
@@ -154,43 +154,40 @@ const checkUserDetails = (req, res) => __awaiter(void 0, void 0, void 0, functio
     }
 });
 exports.checkUserDetails = checkUserDetails;
-const resetPassword = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const { email, password } = req.body;
-        const pool = yield mssql_1.default.connect(sqlConfig_1.sqlConfig);
-        const checkEmail = `
-SELECT * FROM Users WHERE email = @email) 
-        `;
-        const emailCheckResult = yield pool.request()
-            .input("email", email)
-            .query(checkEmail);
-        const notExists = emailCheckResult.recordset[0].userExists;
-        if (notExists === 0) {
-            return res.json({
-                message: "User not found"
-            });
-        }
-        let hashedPwd = yield bcrypt_1.default.hash(password, 5);
-        const updatequery = `EXEC resetPassword @email, @password`;
-        const updateResult = yield pool.request()
-            .input("email", email)
-            .input("password", hashedPwd)
-            .query(updatequery);
-        if (updateResult.rowsAffected[0] < 1) {
-            return res.json({
-                message: "Failed to update password"
-            });
-        }
-        else {
-            return res.json({
-                message: "Password updated successfully"
-            });
-        }
-    }
-    catch (error) {
-        return res.status(501).json({
-            error: 'error catch block'
-        });
-    }
-});
-exports.resetPassword = resetPassword;
+// export const resetPassword = async (req: Request, res: Response) => {
+//   try {
+//     const { email, password } = req.body;
+//     const pool = await mssql.connect(sqlConfig);
+//     const checkEmail = `
+// SELECT * FROM Users WHERE email = @email)
+//         `;
+//     const emailCheckResult = await pool.request()
+//       .input("email", email)
+//       .query(checkEmail);
+//     const notExists = emailCheckResult.recordset[0].userExists;
+//     if (notExists === 0) {
+//       return res.json({
+//         message: "User not found"
+//       });
+//     }
+//     let hashedPwd = await bcrypt.hash(password, 5);
+//     const updatequery = `EXEC resetPassword @email, @password`;
+//     const updateResult = await pool.request()
+//       .input("email", email)
+//       .input("password", hashedPwd)
+//       .query(updatequery);
+//     if (updateResult.rowsAffected[0] < 1) {
+//       return res.json({
+//         message: "Failed to update password"
+//       });
+//     } else {
+//       return res.json({
+//         message: "Password updated successfully"
+//       });
+//     }
+//   } catch (error) {
+//     return res.status(501).json({
+//       error: 'error catch block'
+//     });
+//   }
+// };

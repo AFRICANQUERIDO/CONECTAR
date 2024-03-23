@@ -14,7 +14,7 @@ const verifyAdminToken = (req, res, next) => {
         const userData = jsonwebtoken_1.default.verify(token, process.env.SECRET);
         req.userInfo = userData;
         // Check if the user's role is admin
-        if (userData.role !== 'admin') {
+        if (userData.role !== 'Admin') {
             return res.status(403).json({ error: "Access denied. You do not have admin privileges" });
         }
         next();

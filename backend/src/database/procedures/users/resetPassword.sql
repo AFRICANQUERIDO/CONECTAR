@@ -6,10 +6,10 @@ CREATE OR ALTER PROCEDURE resetPassword(
 AS
 BEGIN
     SET NOCOUNT ON
-    IF EXISTS (SELECT * FROM Users WHERE email = @email)
+    IF EXISTS (SELECT * FROM UserDetails WHERE email = @email)
     BEGIN
     
-        UPDATE Users 
+        UPDATE UserDetails
         SET password = @newPassword
         WHERE email = @email
 

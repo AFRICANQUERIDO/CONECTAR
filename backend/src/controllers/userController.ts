@@ -106,7 +106,7 @@ export const fetchAllUSersController = async (req: Request, res: Response) => {
     const pool = await mssql.connect(sqlConfig);
     let users = (await pool.request().execute('getAllUsers')).recordset
 
-    return res.json(users)
+    return res.json({users:users})
 
   } catch (error) {
     return res.json({

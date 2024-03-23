@@ -36,7 +36,10 @@ export class UserServiceService {
 
   getAllUsers() {
     return this.http.get<{ users: ViewUsers[], error: string }>(`http://localhost:4500/users`, {
-
+      headers: new HttpHeaders({
+        'Content-type': 'application/json',
+        'token': this.token
+      })
     })
   }
   getOneUser(id: string) {

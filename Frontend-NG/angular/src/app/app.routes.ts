@@ -35,6 +35,7 @@ export const routes: Routes = [
     { path: 'calender', component: CalenderComponent },
     { path: 'forgot', component: ForgotPwdComponent },
     { path: 'otp', component: OtpComponent },
+    
     { path: 'spec-profile', component:SpecialistsProfileComponent },
     { path: 'spec-detail/:id', component: SpecialistDetailsComponent },
     // { path: 'cust-detail', component: CustomerDetailsComponent },

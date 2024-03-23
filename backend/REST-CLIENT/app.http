@@ -44,7 +44,7 @@ Content-Type: application/json
 
 {
    "email":"janengene12@gmail.com",
-  "password": "strongPassword"
+  "password": "Jane@123"
 }
 
 
@@ -53,8 +53,8 @@ PUT http://localhost:4500/users/resetPWD
 Content-Type: application/json
 
 {
-  "email":"janengene122gmail.com",
-  "password":"Jane@123"
+  "email":"janengene12@gmail.com",
+  "newPassword":"Jane@123"
 }
 
 
@@ -85,8 +85,7 @@ token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiJhYWFlY2I1My0yZDJhLTQw
 ### Get all Users
 GET  http://localhost:4500/users
 Content-Type: application/json
-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiJhYWFlY2I1My0yZDJhLTQwNmEtOTYzMC0yMTM1YTA4N2I4ZDkiLCJOYW1lIjoiRHVuY2FuIEtpbmdhbmdpIiwiZW1haWwiOiJraW5nYW5naWR1bmNhbjQ3QGdtYWlsLmNvbSIsInBob25lX251bWJlciI6IjA3MjAwMDAwIiwiRE9CIjoiMjAtMi0yMDAyIiwiZ2VuZGVyIjoibWFsZSIsImVkdWNhdGlvbiI6ImJhY2hlbG9yIiwiZXhwZXJpZW5jZSI6IjN5ZWFyIiwibGFuZ3VhZ2UiOiJFbmdsaXNoIiwiYWJvdXQiOiJUaGlzIGlzIGFuIGFib3V0Iiwibmlja25hbWUiOiJEdW5jYW4iLCJjb3VudHJ5Ijoia2VueWEiLCJjaXR5IjoibmFpcm9iaSIsImluZHVzdHJ5IjoiRWR1Y2F0aW9uIiwicHJvZmlsZV9waWMiOiJpbWFnZSIsIk9UUCI6IiQyYiQwNCRvdDcwejU1bTNFY2xpbUp5TEZEYjgubmtacTJZYWo0a0dPSDd0SXUxdnZQZnp5VkNjcmxsRyIsInJvbGUiOiJzcGVjaWFsaXN0Iiwid2VsY29tZWQiOnRydWUsImlzVmVyaWZpZWQiOnRydWUsInByb2ZpbGVfaWQiOm51bGwsImlhdCI6MTcxMTA0MDgwMCwiZXhwIjoxODQwNjQwODAwfQ.sWMWMZAxlcAzw-h_U0HknJ5XCGc2sDpNKu4a2Gjuyzk
-
+token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI0YWZiMTlkNC02NDk2LTQwYTUtYWE2OC0zYmMyMGI3NjNlZGEiLCJOYW1lIjoiIEphbmUgTmdlbmUiLCJlbWFpbCI6ImphbmVuZ2VuZTEyQGdtYWlsLmNvbSIsInBob25lX251bWJlciI6bnVsbCwiRE9CIjpudWxsLCJnZW5kZXIiOm51bGwsImVkdWNhdGlvbiI6bnVsbCwiZXhwZXJpZW5jZSI6bnVsbCwibGFuZ3VhZ2UiOm51bGwsImFib3V0IjpudWxsLCJuaWNrbmFtZSI6bnVsbCwiY291bnRyeSI6bnVsbCwiY2l0eSI6bnVsbCwiaW5kdXN0cnkiOm51bGwsInByb2ZpbGVfcGljIjpudWxsLCJPVFAiOiIkMmIkMDQkTnhuM3MxdHJsV3FJVVFwLmpWMkRiZW9kNnJwRnplN3ROSmR4NXgzMWtTdkxtaUlDRWlqYWkiLCJyb2xlIjoiQWRtaW4iLCJ3ZWxjb21lZCI6dHJ1ZSwiaXNWZXJpZmllZCI6dHJ1ZSwicHJvZmlsZV9pZCI6bnVsbCwiaWF0IjoxNzExMTk3NzM1LCJleHAiOjE4NDA3OTc3MzV9.XfcCH-JDyT0FWinGMBCtxcTg0VeA4WM6CrxjY7FPmNY
  
 
 ### One user details

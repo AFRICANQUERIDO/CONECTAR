@@ -48,12 +48,12 @@ export class LoginComponent implements OnInit {
 
             this.authService.readToken(res.token).subscribe(
               response => {
-                if (response.info.role === 'user') {
-                  this.displaySuccess(res.message, '/user-dashboard');
+                if (response.info.role === 'customer') {
+                  this.displaySuccess(res.message, 'cust-detail/:id');
                 } else if (response.info.role === 'specialist') {
-                  this.displaySuccess(res.message, '/specialist-dashboard');
+                  this.displaySuccess(res.message, 'spec-detail/:id');
                 } else if (response.info.role === 'Admin') {
-                  this.displaySuccess(res.message, '/admin-dashboard');
+                  this.displaySuccess(res.message, 'admin/all-users');
                 } else if (response.info.role === 'NULL') {
                 }
               },

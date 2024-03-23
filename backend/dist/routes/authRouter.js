@@ -14,10 +14,10 @@ userRouter.put('/validate/:id', authController_1.validateUser);
 userRouter.post('/login', authController_1.loginUserController);
 userRouter.put('/profile', verifyToken_1.verifyToken, profile_controller_1.createProfile);
 userRouter.get('/checkdetails', verifyToken_1.verifyToken, authController_1.checkUserDetails);
-userRouter.post('/resetPassword', verifyToken_1.verifyToken, resetPassword);
+userRouter.put('/resetPWD', verifyToken_1.verifyToken, userController_1.resetPasswordController);
 userRouter.get('/:userID', verifyToken_1.verifyToken, userController_1.getSingleUserController);
 userRouter.delete('/delete/:userID', verifyRoleToken_1.verifyAdminToken, userController_1.deleteUserController);
-userRouter.get('/', verifyToken_1.verifyToken, userController_1.fetchAllUSersController);
+userRouter.get('/', verifyRoleToken_1.verifyAdminToken, userController_1.fetchAllUSersController);
 userRouter.get('/userDetails', verifyRoleToken_1.verifyAdminToken, userController_1.getUserDetails);
 // userRouter.put('/update/:userID', updateUserController)
 exports.default = userRouter;

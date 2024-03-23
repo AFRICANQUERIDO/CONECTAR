@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ViewUsers } from '../../intefaces/user.interface';
 import { UserServiceService } from '../../services/user-service.service';
+import { AuthServiceService } from '../../services/auth-service.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -10,26 +11,51 @@ import { CommonModule } from '@angular/common';
   templateUrl: './all-users.component.html',
   styleUrl: './all-users.component.css'
 })
-export class AllUsersComponent {
+export class AllUsersComponent implements OnInit{
   users: ViewUsers[] = [];
   error: string = '';
 
-  constructor(private userService: UserServiceService) {
+  constructor(public userService: UserServiceService, public authService: AuthServiceService) { 
     this.fetchUsers();
   }
 
-  fetchUsers(){
-    this.userService.getAllUsers().subscribe(
-      res => {
-        console.log(res)
-        this.users = res.users;
-        // this.error = res.error;
-      },
-      error => {
-        console.error('Error fetching users:', error);
-        this.error = 'Failed to fetch users';
-      }
-    );
+  ngOnInit() {
   }
-}
+  fetchUsers() {
 
+    const token = this.authService.getToken();
+
+    // Check if token exists
+    if (token) {
+      // Call readToken() to verify token and get user details
+      this.authService.readToken(token).subscribe(
+        (res) => {
+          // Check user role to ensure it has necessary permissions
+          if (res.info.role === 'Admin') {
+            // If user is an admin, fetch all users
+            this.userService.getAllUsers().subscribe(
+              (res) => {
+                this.users = res.users;
+                console.log("users",res.users)
+
+              },
+              (error) => {
+                console.error('Error fetching users:', error);
+                this.error = 'Failed to fetch users';
+              }
+            );
+          } else {
+            console.error('Unauthorized access: User is not an admin');
+            this.error = 'Unauthorized access: User is not an admin';
+          }
+        },
+        (error) => {
+          console.error('Error reading token:', error);
+          this.error = 'An error occurred while processing your request';
+        }
+      );
+    } else {
+      console.error('Token not found in local storage');
+      this.error = 'Token not found in local storage';
+    }
+  }}

@@ -151,49 +151,49 @@ export const checkUserDetails = async (req: ExtendeUser, res: Response) => {
 }
 
 
-export const resetPassword = async (req: Request, res: Response) => {
-  try {
-    const { email, password } = req.body;
-    const pool = await mssql.connect(sqlConfig);
+// export const resetPassword = async (req: Request, res: Response) => {
+//   try {
+//     const { email, password } = req.body;
+//     const pool = await mssql.connect(sqlConfig);
 
-    const checkEmail = `
-SELECT * FROM Users WHERE email = @email) 
-        `;
+//     const checkEmail = `
+// SELECT * FROM Users WHERE email = @email)
+//         `;
 
-    const emailCheckResult = await pool.request()
-      .input("email", email)
-      .query(checkEmail);
+//     const emailCheckResult = await pool.request()
+//       .input("email", email)
+//       .query(checkEmail);
 
-    const notExists = emailCheckResult.recordset[0].userExists;
+//     const notExists = emailCheckResult.recordset[0].userExists;
 
-    if (notExists === 0) {
-      return res.json({
-        message: "User not found"
-      });
-    }
+//     if (notExists === 0) {
+//       return res.json({
+//         message: "User not found"
+//       });
+//     }
 
-    let hashedPwd = await bcrypt.hash(password, 5);
+//     let hashedPwd = await bcrypt.hash(password, 5);
 
-    const updatequery = `EXEC resetPassword @email, @password`;
+//     const updatequery = `EXEC resetPassword @email, @password`;
 
-    const updateResult = await pool.request()
-      .input("email", email)
-      .input("password", hashedPwd)
-      .query(updatequery);
+//     const updateResult = await pool.request()
+//       .input("email", email)
+//       .input("password", hashedPwd)
+//       .query(updatequery);
 
-    if (updateResult.rowsAffected[0] < 1) {
-      return res.json({
-        message: "Failed to update password"
-      });
-    } else {
-      return res.json({
-        message: "Password updated successfully"
-      });
-    }
+//     if (updateResult.rowsAffected[0] < 1) {
+//       return res.json({
+//         message: "Failed to update password"
+//       });
+//     } else {
+//       return res.json({
+//         message: "Password updated successfully"
+//       });
+//     }
 
-  } catch (error) {
-    return res.status(501).json({
-      error: 'error catch block'
-    });
-  }
-};
+//   } catch (error) {
+//     return res.status(501).json({
+//       error: 'error catch block'
+//     });
+//   }
+// };

@@ -64,8 +64,9 @@ export class AuthServiceService {
   clearUser(): void {
     localStorage.removeItem(this.USER_KEY);
   }
+  
   readToken(token: string) {
-    return this.http.get<{ info: { userID: string, firstName: string, lastName: string, email: string, role: string } }>('http://localhost:4500/users/checkdetails',
+    return this.http.get<{ info: { userID: string, Name: string, email: string, role: string } }>('http://localhost:4500/users/checkdetails',
       {
         headers: new HttpHeaders({
           'Content-type': 'application/json',
