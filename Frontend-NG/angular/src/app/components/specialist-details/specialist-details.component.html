@@ -1,4 +1,6 @@
-<form [formGroup]="detailsForm" (ngSubmit)="onSubmit()">
+
+<!-- Personal Details Form -->
+<form *ngIf="currentForm === 'personalDetails'" [formGroup]="personalDetailsForm" (ngSubmit)="onPersonalDetailsSubmit()">
   <!-- Personal Details -->
   <h2>Personal Details</h2>
   <div>
@@ -53,8 +55,8 @@
     <label for="qualification">Highest Qualification</label>
     <input
       type="text"
-      id="qualification"
-      formControlName="qualification"
+      id="education"
+      formControlName="education"
       placeholder="Qualification"
     />
   </div>
@@ -63,7 +65,7 @@
     <input
       type="text"
       id="experience"
-      formControlName="experience_years"
+      formControlName="experience"
       placeholder="Years of Experience"
     />
   </div>
@@ -71,9 +73,9 @@
     <label for="languages">Languages Known</label>
     <input
       type="text"
-      id="languages"
-      formControlName="languages"
-      placeholder="Languages Known"
+      id="language"
+      formControlName="language"
+      placeholder="Fluent language"
     />
   </div>
   <div>
@@ -84,43 +86,52 @@
       placeholder="Write something about you..."
     ></textarea>
   </div>
+    <!-- Proceed Button -->
+    <button type="submit">Proceed</button>
+</form>
 
-  <!-- Address Information -->
+<!-- Address Information Form -->
+<form *ngIf="currentForm === 'addressInformation'" [formGroup]="addressInformationForm" (ngSubmit)="onAddressInformationSubmit()">
   <h2>Address Information</h2>
+
+  <div>
+    <label for="country">Country</label>
+    <input
+      type="text"
+      id="country"
+      formControlName="country"
+      placeholder="Country"
+    />
+  </div>
   <div>
     <label for="city">City</label>
     <input type="text" id="city" formControlName="city" placeholder="City" />
   </div>
-  <div>
-    <label for="address1">Address Line 1</label>
-    <input
-      type="text"
-      id="address1"
-      formControlName="address1"
-      placeholder="House No./Street"
-    />
-  </div>
+    <!-- Proceed Button -->
+    <button type="submit">Proceed</button>
+</form>
 
-  <!-- Preferred Service -->
-  <h2>Set Your Preferred Industry</h2>
-  <div>
-    <label for="industrySelect">Select Industry:</label>
-    <select id="industrySelect" formControlName="industrySelect" required>
-      <option>--Select industry--</option>
-      <option
-        *ngFor="let industry of industriesArray"
-        [value]="industry.industryID"
-      >
-        {{ industry.industryName }}
-      </option>
-    </select>
-    <label for="service">Select Service</label>
-    <select id="service" formControlName="service">
-      <option value="doctor">Doctor</option>
-      <!-- Add other service options here -->
-    </select>
-  </div>
+<!-- Preferred Service Form -->
+<form *ngIf="currentForm === 'preferredService'" [formGroup]="preferredServiceForm" (ngSubmit)="onPreferredServiceSubmit()">
 
-  <!-- Proceed Button -->
-  <button type="submit">Proceed</button>
+ <h2>Set Your Preferred Industry</h2>
+ <div>
+   <label for="industrySelect">Select Industry:</label>
+   <select id="industrySelect" formControlName="industrySelect" required>
+     <option>--Select industry--</option>
+     <option
+       *ngFor="let industry of industriesArray"
+       [value]="industry.industryID"
+     >
+       {{ industry.industryName }}
+     </option>
+   </select>
+   <label for="service">Select Service</label>
+   <select id="service" formControlName="service">
+     <option value="doctor">Doctor</option>
+     <!-- Add other service options here -->
+   </select>
+ </div>
+   <!-- Proceed Button -->
+   <button type="submit">Proceed</button>
 </form>

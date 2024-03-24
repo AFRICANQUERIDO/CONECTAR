@@ -1,17 +1,25 @@
 <form [formGroup]="detailsForm" (ngSubmit)="onSubmit()">
   <!-- Personal Details -->
   <h2>Personal Details</h2>
+  <div *ngIf="errorMessages.length > 0" class="error-msg">
+    <ul>
+      <li *ngFor="let message of errorMessages">{{ message }}</li>
+    </ul>
+  </div>
+
+  <div *ngIf="successMessage" class="success-msg">
+    {{ successMessage }}
+  </div>
+  
   <div>
     <label for="phone">Phone Number</label>
-    <input
-      type="tel"
-      id="phone"
-      formControlName="phone"
-      placeholder="Phone Number"
-    />
+    <input type="tel" id="phone" formControlName="phone_number" placeholder="Phone Number" />
+    <div *ngIf="detailsForm.get('phone')?.invalid && detailsForm.get('phone')?.touched" class="error-msg">
+      Phone number is required
+    </div>
   </div>
   <div>
-    <label for="dob">Date of Birth</label>
+    <label for="dob_dd">Date of Birth</label>
     <input
       type="text"
       id="dob_dd"
@@ -38,6 +46,9 @@
       maxlength="4"
       style="width: 70px"
     />
+    <div *ngIf="(detailsForm.get('dob_dd')?.invalid || detailsForm.get('dob_mm')?.invalid || detailsForm.get('dob_yyyy')?.invalid) && detailsForm.get('dob_dd')?.touched && detailsForm.get('dob_mm')?.touched && detailsForm.get('dob_yyyy')?.touched" class="error-msg">
+      Date of Birth is required
+    </div>
   </div>
   <div class="gender-container">
     <label>Gender</label>
@@ -47,59 +58,62 @@
       <input type="radio" id="female" formControlName="gender" value="female" />
       <label for="female">Female</label>
     </div>
+    <div *ngIf="detailsForm.get('gender')?.invalid && detailsForm.get('gender')?.touched" class="error-msg">
+      Gender is required
+    </div>
   </div>
 
+  <!-- Additional Details -->
+  <h2>Additional Details</h2>
   <div>
     <label for="qualification">Highest Qualification</label>
-    <input
-      type="text"
-      id="qualification"
-      formControlName="qualification"
-      placeholder="Qualification"
-    />
+    <input type="text" id="education" formControlName="education" placeholder="Qualification" />
   </div>
   <div>
-    <label for="experience">Experience</label>
-    <input
-      type="text"
-      id="experience"
-      formControlName="experience_years"
-      placeholder="Years of Experience"
-    />
+    <label for="experience_years">Experience</label>
+    <input type="text" id="experience_years" formControlName="experience" placeholder="Years of Experience" />
   </div>
   <div>
     <label for="languages">Languages Known</label>
-    <input
-      type="text"
-      id="languages"
-      formControlName="languages"
-      placeholder="Languages Known"
-    />
+    <input type="text" id="languages" formControlName="language" placeholder="Languages Known" />
   </div>
   <div>
     <label for="about">About</label>
-    <textarea
-      id="about"
-      formControlName="about"
-      placeholder="Write something about you..."
-    ></textarea>
+    <textarea id="about" formControlName="about" placeholder="Write something about you..."></textarea>
+  </div>
+  <div>
+    <label for="nickname">Nickname</label>
+    <input
+      type="text"
+      id="nickname"
+      formControlName="nickname"
+      placeholder="Nickname"
+    />
   </div>
 
   <!-- Address Information -->
   <h2>Address Information</h2>
   <div>
+    <label for="country">Country</label>
+    <input
+      type="text"
+      id="country"
+      formControlName="country"
+      placeholder="Country"
+    />
+    <div *ngIf="detailsForm.get('country')?.invalid && detailsForm.get('country')?.touched" class="error-msg">
+      Country is required
+    </div>
+  </div>
+  
+  <div>
     <label for="city">City</label>
     <input type="text" id="city" formControlName="city" placeholder="City" />
   </div>
-  <div>
+  <!-- <div>
     <label for="address1">Address Line 1</label>
-    <input
-      type="text"
-      id="address1"
-      formControlName="address1"
-      placeholder="House No./Street"
-    />
-  </div>
+    <input type="text" id="address1" formControlName="address1" placeholder="House No./Street" />
+  </div> -->
   <!-- Proceed Button -->
   <button type="submit">Proceed</button>
 </form>

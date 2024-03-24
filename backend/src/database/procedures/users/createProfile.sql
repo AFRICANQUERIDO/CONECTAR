@@ -28,7 +28,6 @@
 
 CREATE OR ALTER PROCEDURE createProfile (
     @userID VARCHAR(255),
-    @role VARCHAR(255),
     @profile_pic VARCHAR(255),
     @phone_number VARCHAR(255),
     @DOB VARCHAR(255),
@@ -47,7 +46,7 @@ AS
 BEGIN
     -- Update the user details in the UserDetails table
     UPDATE UserDetails
-    SET role = @role,
+    SET 
         profile_pic = @profile_pic,
         phone_number = @phone_number,
         DOB = @DOB,

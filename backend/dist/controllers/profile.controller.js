@@ -18,11 +18,10 @@ const sqlConfig_1 = require("../config/sqlConfig");
 const createProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const userID = req.params.id;
-        const { role, profile_pic, phone_number, DOB, gender, education, experience, language, about, nickname, country, city, industry, sector } = req.body;
+        const { profile_pic, phone_number, DOB, gender, education, experience, language, about, nickname, country, city, industry, sector } = req.body;
         const pool = yield mssql_1.default.connect(sqlConfig_1.sqlConfig);
         const result = yield pool.request()
             .input('userID', mssql_1.default.VarChar, userID)
-            .input('role', mssql_1.default.VarChar, role)
             .input('profile_pic', mssql_1.default.VarChar, profile_pic)
             .input('phone_number', mssql_1.default.VarChar, phone_number)
             .input('DOB', mssql_1.default.VarChar, DOB)

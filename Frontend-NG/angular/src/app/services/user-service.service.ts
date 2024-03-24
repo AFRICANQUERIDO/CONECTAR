@@ -63,7 +63,7 @@ export class UserServiceService {
   }
 
   createProfile(id:string, details:profileDetails){
-    return this.http.put<{message:string, error:string}>(`http://localhost:4500/users/profile/{id}`, details, {
+    return this.http.put<{message:string, error:string}>(`http://localhost:4500/users/profile/${id}`, details, {
       headers:new HttpHeaders({
         'Content-type': 'application/json',
         'token': this.token

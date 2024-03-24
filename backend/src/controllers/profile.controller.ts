@@ -8,13 +8,12 @@ export const createProfile = async (req: Request, res: Response) => {
     try {
         const userID = req.params.id
 
-        const {role, profile_pic, phone_number, DOB, gender, education, experience, language, about, nickname, country, city, industry, sector }: ProfileInterface = req.body;
+        const { profile_pic, phone_number, DOB, gender, education, experience, language, about, nickname, country, city, industry, sector }: ProfileInterface = req.body;
 
         const pool = await mssql.connect(sqlConfig);
 
         const result = await pool.request()
             .input('userID', mssql.VarChar, userID)
-            .input('role', mssql.VarChar, role)
             .input('profile_pic', mssql.VarChar, profile_pic)
             .input('phone_number', mssql.VarChar, phone_number)
             .input('DOB', mssql.VarChar, DOB)

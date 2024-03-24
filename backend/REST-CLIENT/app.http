@@ -1,5 +1,5 @@
 ###set Role
-POST http://localhost:4500/users/role/dc66b82a-b996-40e3-a387-1d9a213f95d3
+POST http://localhost:4500/users/role/13724176-d832-4b75-9e0c-b2286ed6224e
 Content-Type: application/json
 
 {
@@ -25,11 +25,11 @@ Content-Type: application/json
 
 
 ### validate user
-PUT http://localhost:4500/users/validate/b35889b1-f368-490f-ac2d-6c0b93432035
+PUT http://localhost:4500/users/validate/13724176-d832-4b75-9e0c-b2286ed6224e
 Content-Type: application/json
 
 {
-  "OTP": "3501"  
+  "OTP": "7347"  
 }
 
 
@@ -37,15 +37,15 @@ Content-Type: application/json
 POST http://localhost:4500/users/login
 Content-Type: application/json
 
-# {
-#    "email":"kingangiduncan47@gmail.com",
-#   "password": "Duncun@123"
-# }
-
 {
-   "email":"janengene12@gmail.com",
-  "password": "Jane@123"
+   "email":"margeret@gmail.com",
+  "password": "Margeret@123"
 }
+
+# {
+#    "email":"janengene12@gmail.com",
+#   "password": "Jane@123"
+# }
 
 
 ### Reset Password
@@ -53,8 +53,8 @@ PUT http://localhost:4500/users/resetPWD
 Content-Type: application/json
 
 {
-  "email":"janengene12@gmail.com",
-  "newPassword":"Jane@123"
+  "email":"margeret@gmail.com",
+  "newPassword":"Margeret@123"
 }
 
 
@@ -64,7 +64,6 @@ Content-Type: application/json
 token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI0YWZiMTlkNC02NDk2LTQwYTUtYWE2OC0zYmMyMGI3NjNlZGEiLCJOYW1lIjoiIEphbmUgTmdlbmUiLCJlbWFpbCI6ImphbmVuZ2VuZTEyQGdtYWlsLmNvbSIsInBob25lX251bWJlciI6bnVsbCwiRE9CIjpudWxsLCJnZW5kZXIiOm51bGwsImVkdWNhdGlvbiI6bnVsbCwiZXhwZXJpZW5jZSI6bnVsbCwibGFuZ3VhZ2UiOm51bGwsImFib3V0IjpudWxsLCJuaWNrbmFtZSI6bnVsbCwiY291bnRyeSI6bnVsbCwiY2l0eSI6bnVsbCwiaW5kdXN0cnkiOm51bGwsInByb2ZpbGVfcGljIjpudWxsLCJPVFAiOiIkMmIkMDQkTnhuM3MxdHJsV3FJVVFwLmpWMkRiZW9kNnJwRnplN3ROSmR4NXgzMWtTdkxtaUlDRWlqYWkiLCJyb2xlIjoiQWRtaW4iLCJ3ZWxjb21lZCI6dHJ1ZSwiaXNWZXJpZmllZCI6dHJ1ZSwicHJvZmlsZV9pZCI6bnVsbCwic2VjdG9yIjpudWxsLCJpYXQiOjE3MTEyMTgxODUsImV4cCI6MTg0MDgxODE4NX0.h7fjl3Mcx2hFTxosjya38eNXltpAqIfDg2RHNGgAe1g
 
 {
-"role":"specialist",
 "profile_pic":"image",
 "phone_number":"070000000",
 "DOB":"20-10-2002",
@@ -84,12 +83,12 @@ token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI0YWZiMTlkNC02NDk2LTQw
 ### Get all Users
 GET  http://localhost:4500/users
 Content-Type: application/json
-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI0YWZiMTlkNC02NDk2LTQwYTUtYWE2OC0zYmMyMGI3NjNlZGEiLCJOYW1lIjoiIEphbmUgTmdlbmUiLCJlbWFpbCI6ImphbmVuZ2VuZTEyQGdtYWlsLmNvbSIsInBob25lX251bWJlciI6bnVsbCwiRE9CIjpudWxsLCJnZW5kZXIiOm51bGwsImVkdWNhdGlvbiI6bnVsbCwiZXhwZXJpZW5jZSI6bnVsbCwibGFuZ3VhZ2UiOm51bGwsImFib3V0IjpudWxsLCJuaWNrbmFtZSI6bnVsbCwiY291bnRyeSI6bnVsbCwiY2l0eSI6bnVsbCwiaW5kdXN0cnkiOm51bGwsInByb2ZpbGVfcGljIjpudWxsLCJPVFAiOiIkMmIkMDQkTnhuM3MxdHJsV3FJVVFwLmpWMkRiZW9kNnJwRnplN3ROSmR4NXgzMWtTdkxtaUlDRWlqYWkiLCJyb2xlIjoiQWRtaW4iLCJ3ZWxjb21lZCI6dHJ1ZSwiaXNWZXJpZmllZCI6dHJ1ZSwicHJvZmlsZV9pZCI6bnVsbCwiaWF0IjoxNzExMTk3NzM1LCJleHAiOjE4NDA3OTc3MzV9.XfcCH-JDyT0FWinGMBCtxcTg0VeA4WM6CrxjY7FPmNY
+token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI0YWZiMTlkNC02NDk2LTQwYTUtYWE2OC0zYmMyMGI3NjNlZGEiLCJOYW1lIjoiIEphbmUgTmdlbmUiLCJlbWFpbCI6ImphbmVuZ2VuZTEyQGdtYWlsLmNvbSIsInBob25lX251bWJlciI6bnVsbCwiRE9CIjpudWxsLCJnZW5kZXIiOm51bGwsImVkdWNhdGlvbiI6bnVsbCwiZXhwZXJpZW5jZSI6bnVsbCwibGFuZ3VhZ2UiOm51bGwsImFib3V0IjpudWxsLCJuaWNrbmFtZSI6bnVsbCwiY291bnRyeSI6bnVsbCwiY2l0eSI6bnVsbCwiaW5kdXN0cnkiOm51bGwsInByb2ZpbGVfcGljIjpudWxsLCJPVFAiOiIkMmIkMDQkN1ZhTi82a0d5cTI5ZGRyUlphSU11ZWw4ZG5uVUV4QUVwdGdFV2JNRllIVlJod0Uua0JnR0MiLCJyb2xlIjoiYWRtaW4iLCJ3ZWxjb21lZCI6dHJ1ZSwiaXNWZXJpZmllZCI6dHJ1ZSwicHJvZmlsZV9pZCI6bnVsbCwic2VjdG9yIjpudWxsLCJpYXQiOjE3MTEyNTg0MjIsImV4cCI6MTg0MDg1ODQyMn0.ntA8cz84eEFV3uUWVccf0K5yXEukkaYa3d7XSnXTM9g
  
 
 ### One user details
-GET http://localhost:4500/users/
-Content-Type: application/json
+GET http://localhost:4500/users/13724176-d832-4b75-9e0c-b2286ed6224e
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI0YWZiMTlkNC02NDk2LTQwYTUtYWE2OC0zYmMyMGI3NjNlZGEiLCJOYW1lIjoiIEphbmUgTmdlbmUiLCJlbWFpbCI6ImphbmVuZ2VuZTEyQGdtYWlsLmNvbSIsInBob25lX251bWJlciI6bnVsbCwiRE9CIjpudWxsLCJnZW5kZXIiOm51bGwsImVkdWNhdGlvbiI6bnVsbCwiZXhwZXJpZW5jZSI6bnVsbCwibGFuZ3VhZ2UiOm51bGwsImFib3V0IjpudWxsLCJuaWNrbmFtZSI6bnVsbCwiY291bnRyeSI6bnVsbCwiY2l0eSI6bnVsbCwiaW5kdXN0cnkiOm51bGwsInByb2ZpbGVfcGljIjpudWxsLCJPVFAiOiIkMmIkMDQkTnhuM3MxdHJsV3FJVVFwLmpWMkRiZW9kNnJwRnplN3ROSmR4NXgzMWtTdkxtaUlDRWlqYWkiLCJyb2xlIjoiQWRtaW4iLCJ3ZWxjb21lZCI6dHJ1ZSwiaXNWZXJpZmllZCI6dHJ1ZSwicHJvZmlsZV9pZCI6bnVsbCwic2VjdG9yIjpudWxsLCJpYXQiOjE3MTEyMTgxODUsImV4cCI6MTg0MDgxODE4NX0.h7fjl3Mcx2hFTxosjya38eNXltpAqIfDg2RHNGgAe1g
 
 ### Delete user
 DELETE http://localhost:4500/users/delete/267d74d3-0977-467f-9485-d78b343b42d5
