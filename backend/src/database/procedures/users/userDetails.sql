@@ -13,3 +13,7 @@ BEGIN
     WHERE
         userID = @userID;
 END;
+
+UPDATE UserDetails
+SET isVerified = 1
+WHERE email = 'kenidashakt@gmail.com';

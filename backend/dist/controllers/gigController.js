@@ -17,8 +17,9 @@ const uuid_1 = require("uuid");
 const mssql_1 = __importDefault(require("mssql"));
 const sqlConfig_1 = require("../config/sqlConfig");
 const createGig = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const userID = req.params.userID;
     try {
-        const { gigName, gigDescription, gigImage, rate, userID } = req.body;
+        const { gigName, gigDescription, gigImage, rate } = req.body;
         const pool = yield mssql_1.default.connect(sqlConfig_1.sqlConfig);
         const id = (0, uuid_1.v4)();
         const result = yield pool.request()
@@ -47,7 +48,7 @@ const getAllgigs = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         const pool = yield mssql_1.default.connect(sqlConfig_1.sqlConfig);
         const result = yield pool.request().execute('GetAllGigs');
         const gigs = result.recordset;
-        return res.json(gigs);
+        return res.json({ gigs: gigs });
     }
     catch (error) {
         console.error('Error getting all gigs:', error);

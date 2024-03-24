@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { createIndustry, industryResponse ,sector} from '../intefaces/industry';
 import { Observable } from 'rxjs';
@@ -8,7 +8,7 @@ import { Gigs } from '../intefaces/gig.interface';
   providedIn: 'root'
 })
 export class GigsService {
- 
+  token = localStorage.getItem('token') as string;
 
   constructor(private http:HttpClient) { }
   createIndustry(industry_details:createIndustry) {
@@ -27,7 +27,22 @@ export class GigsService {
   }
 
 
-  createGig(gigData:Gigs){
-    return this.http.post<{message:string, error:string}>(`http://localhost:4500/gig/create`,gigData)
+  createGig(gigData: Gigs, userID: string) {
+    return this.http.post<{ message: string, error: string }>(`http://localhost:4500/gigs/create/${userID}`, gigData,{
+    headers:new HttpHeaders({
+      'Content-type': 'application/json',
+      'token': this.token
+    })
+  }
+
+  )}
+
+  getGigs() {
+    return this.http.get<{ gigs: Gigs[], error: string }>(`http://localhost:4500/gigs`, {
+      headers: new HttpHeaders({
+        'Content-type': 'application/json',
+        'token': this.token
+      })
+    })
   }
 }

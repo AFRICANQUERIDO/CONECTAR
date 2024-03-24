@@ -6,7 +6,7 @@ import { verifySpecialistToken } from "../middlewares/verifyRoleToken";
 
 const gigRouter = Router()
 
-gigRouter.post('/create', verifySpecialistToken, createGig)
+gigRouter.post('/create/:userID', verifyToken, createGig)
 gigRouter.get('/:userID', verifyToken, getAllGigsByUser)
 gigRouter.get('/',verifyToken, getAllgigs)
 gigRouter.get('/filter/:industryID',verifyToken, getGigsByIndustry)

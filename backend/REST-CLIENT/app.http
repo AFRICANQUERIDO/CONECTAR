@@ -37,15 +37,15 @@ Content-Type: application/json
 POST http://localhost:4500/users/login
 Content-Type: application/json
 
-{
-   "email":"margeret@gmail.com",
-  "password": "Margeret@123"
-}
-
 # {
-#    "email":"janengene12@gmail.com",
-#   "password": "Jane@123"
+#    "email":"margeret@gmail.com",
+#   "password": "Margeret@123"
 # }
+
+{
+   "email":"janengene12@gmail.com",
+  "password": "Jane@123"
+}
 
 
 ### Reset Password
@@ -53,8 +53,8 @@ PUT http://localhost:4500/users/resetPWD
 Content-Type: application/json
 
 {
-  "email":"margeret@gmail.com",
-  "newPassword":"Margeret@123"
+  "email":"kenidashakt@gmail.com",
+  "newPassword":"Kenidasha@123"
 }
 
 

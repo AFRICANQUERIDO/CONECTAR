@@ -5,8 +5,9 @@ import { Request, Response } from "express";
 import { gig } from "../intefaces/gig.interface";
 
 export const createGig = async (req: Request, res: Response) => {
+    const userID = req.params.userID
     try {
-        const { gigName, gigDescription, gigImage, rate, userID }: gig = req.body;
+        const { gigName, gigDescription, gigImage, rate }: gig = req.body;
         const pool = await mssql.connect(sqlConfig);
 
         const id = v4();
@@ -35,7 +36,7 @@ export const getAllgigs = async (req: Request, res: Response) => {
         const pool = await mssql.connect(sqlConfig);
         const result = await pool.request().execute('GetAllGigs');
         const gigs = result.recordset;
-        return res.json(gigs);
+        return res.json({ gigs: gigs });
     } catch (error) {
         console.error('Error getting all gigs:', error);
         return res.status(500).json({ error: 'Internal server error' });
