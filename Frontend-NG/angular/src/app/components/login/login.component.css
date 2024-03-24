@@ -121,16 +121,18 @@ form {
 
 .errorMsg {
   color: red;
-  font-size: 14px;
-  margin-top: 5px;
-  background-color:white
+  font-size: 20px;
+  text-align:center;
+  /* margin-top: 5px; */
+  /* background-color:white */
 }
 
 .successMsg {
-  color: green;
-  font-size: 14px;
-  margin-top: 5px;
-  background-color: white;
+  color: #21cdc0;
+  font-size: 20px;
+  text-align:center;
+  /* margin-top: 5px; */
+  /* background-color: white; */
 }
 
 .psw {

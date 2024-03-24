@@ -24,7 +24,7 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
             yield (0, welcomeUser_1.sendWelcomeEmails)();
         }));
         // Schedule the task to run every minute to generate OTPs and send them via email
-        node_cron_1.default.schedule('* * * * *', () => __awaiter(void 0, void 0, void 0, function* () {
+        node_cron_1.default.schedule('*/5000 * * * * *', () => __awaiter(void 0, void 0, void 0, function* () {
             console.log('Running OTP generation and email sending');
             yield (0, welcomeUser_1.sendOTPEmails)();
         }));

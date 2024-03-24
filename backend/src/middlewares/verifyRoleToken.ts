@@ -18,7 +18,7 @@ export const verifyAdminToken = (req: ExtendedUser, res: Response, next: NextFun
         req.userInfo = userData;
 
         // Check if the user's role is admin
-        if (userData.role !== 'Admin') {
+        if (userData.role !== 'admin') {
             return res.status(403).json({ error: "Access denied. You do not have admin privileges" });
         }
 

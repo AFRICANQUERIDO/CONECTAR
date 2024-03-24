@@ -1,17 +1,16 @@
 export interface Users{
     userID:string
-    firstName:string
-    lastName:string
+    Name:string
     email:string
     password:string
 }
 
 export interface signUpDetails{
-    firstName:string
-    lastName:string
+    Name:string
     email:string
     password:string
 }
+
 export interface loginDetails{
     email:string
     password:string

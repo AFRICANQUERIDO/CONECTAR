@@ -20,6 +20,7 @@ export class RegUserComponent {
   msgVisible = false;
   msgVisible2 = false;
   successMsg = '';
+  userID = '';
 
   constructor(private formbuilder: FormBuilder, private router: Router, private signServices: UserServiceService) {
     this.registerForm = this.formbuilder.group({
@@ -44,6 +45,11 @@ export class RegUserComponent {
           } else if (response.message) {
             this.msgVisible2 = true;
             this.successMsg = response.message;
+
+            const userID = response.userID;
+          localStorage.setItem("userID", userID); 
+          
+            
             setTimeout(() => {
               this.msgVisible2 = false;
               this.router.navigate(['/otp']);

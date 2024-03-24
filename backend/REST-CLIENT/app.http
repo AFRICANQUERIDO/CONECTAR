@@ -9,27 +9,27 @@ Content-Type: application/json
 POST http://localhost:4500/users/register
 Content-Type: application/json
 
-# {
-#   "Name": " Sharon Cherotich ",
-#   "email": "sharoncherotich112@gmail.com",
-#   "password": "Strong@Password123",
-#   "role":"customer"
-# }
-
 {
-  "Name": "Duncan Kingangi",
-  "email": "kingangiduncan47@gmail.com",
-  "password": "Duncun@123",
-  "role":"Specialist"
+  "Name": "Kenidasha",
+  "email": "kenidashakt@gmail.com",
+  "password": "kenidasha@123",
+  "role":"specialist"
 }
+
+# {
+#   "Name": "Duncan Kingangi",
+#   "email": "kingangiduncan47@gmail.com",
+#   "password": "Duncun@123",
+#   "role":"Specialist"
+# }
 
 
 ### validate user
-PUT http://localhost:4500/users/validate/db77512b-35ed-48d2-93d4-024bb4df4335
+PUT http://localhost:4500/users/validate/b35889b1-f368-490f-ac2d-6c0b93432035
 Content-Type: application/json
 
 {
-  "OTP": "3357"  
+  "OTP": "3501"  
 }
 
 
@@ -96,3 +96,6 @@ DELETE http://localhost:4500/users/delete/267d74d3-0977-467f-9485-d78b343b42d5
 token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiJhYWFlY2I1My0yZDJhLTQwNmEtOTYzMC0yMTM1YTA4N2I4ZDkiLCJOYW1lIjoiRHVuY2FuIEtpbmdhbmdpIiwiZW1haWwiOiJraW5nYW5naWR1bmNhbjQ3QGdtYWlsLmNvbSIsInBob25lX251bWJlciI6bnVsbCwiRE9CIjpudWxsLCJnZW5kZXIiOm51bGwsImVkdWNhdGlvbiI6bnVsbCwiZXhwZXJpZW5jZSI6bnVsbCwibGFuZ3VhZ2UiOm51bGwsImFib3V0IjpudWxsLCJuaWNrbmFtZSI6bnVsbCwiY291bnRyeSI6bnVsbCwiY2l0eSI6bnVsbCwiaW5kdXN0cnkiOm51bGwsInByb2ZpbGVfcGljIjpudWxsLCJPVFAiOiIkMmIkMDQkb3Q3MHo1NW0zRWNsaW1KeUxGRGI4Lm5rWnEyWWFqNGtHT0g3dEl1MXZ2UGZ6eVZDY3JsbEciLCJyb2xlIjoiU3BlY2lhbGlzdCIsIndlbGNvbWVkIjp0cnVlLCJpc1ZlcmlmaWVkIjp0cnVlLCJwcm9maWxlX2lkIjpudWxsLCJpYXQiOjE3MTA5MzM4MDAsImV4cCI6MTg0MDUzMzgwMH0.AT66Yb4cAk15dkcvOqJXW3nit6r-qe5bw1omwVA2J2A
 
  
+###Check User details
+GET http://localhost:4500/users/checkdetails
+token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI0YWZiMTlkNC02NDk2LTQwYTUtYWE2OC0zYmMyMGI3NjNlZGEiLCJOYW1lIjoiIEphbmUgTmdlbmUiLCJlbWFpbCI6ImphbmVuZ2VuZTEyQGdtYWlsLmNvbSIsInBob25lX251bWJlciI6bnVsbCwiRE9CIjpudWxsLCJnZW5kZXIiOm51bGwsImVkdWNhdGlvbiI6bnVsbCwiZXhwZXJpZW5jZSI6bnVsbCwibGFuZ3VhZ2UiOm51bGwsImFib3V0IjpudWxsLCJuaWNrbmFtZSI6bnVsbCwiY291bnRyeSI6bnVsbCwiY2l0eSI6bnVsbCwiaW5kdXN0cnkiOm51bGwsInByb2ZpbGVfcGljIjpudWxsLCJPVFAiOiIkMmIkMDQkTnhuM3MxdHJsV3FJVVFwLmpWMkRiZW9kNnJwRnplN3ROSmR4NXgzMWtTdkxtaUlDRWlqYWkiLCJyb2xlIjoiQWRtaW4iLCJ3ZWxjb21lZCI6dHJ1ZSwiaXNWZXJpZmllZCI6dHJ1ZSwicHJvZmlsZV9pZCI6bnVsbCwiaWF0IjoxNzExMTk3NzM1LCJleHAiOjE4NDA3OTc3MzV9.XfcCH-JDyT0FWinGMBCtxcTg0VeA4WM6CrxjY7FPmNY

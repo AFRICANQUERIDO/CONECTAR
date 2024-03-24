@@ -95,7 +95,6 @@ const validateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             return res.json({ error: "Request body is missing or empty" });
         }
         const pool = yield mssql_1.default.connect(sqlConfig_1.sqlConfig);
-        // Retrieve the user's OTP from the database
         const result = (yield pool.request()
             .input('userID', mssql_1.default.VarChar, userID)
             .query('SELECT * FROM UserDetails WHERE userID = @userID')).recordset;

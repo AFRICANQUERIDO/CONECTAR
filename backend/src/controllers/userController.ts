@@ -70,16 +70,16 @@ export const registerUserController = async (req: Request, res: Response) => {
 
     const results = (await pool.request()
     .input('role', mssql.VarChar, role)
-      .input('userID', mssql.VarChar, userID)
-      .input('Name', mssql.VarChar, Name)
-      .input('email', mssql.VarChar, email)
-      .input('password', mssql.VarChar, hashedpwd)
-      .execute('registerUser')).recordset
+    .input('userID', mssql.VarChar, userID)
+    .input('Name', mssql.VarChar, Name)
+    .input('email', mssql.VarChar, email)
+    .input('password', mssql.VarChar, hashedpwd)
+    .execute('registerUser')).recordset;
 
-    return res.json({
-      message: 'User registered successfully',
-      results
-    })
+      return res.json({
+        message: 'User registered successfully',
+        userID: userID
+      });
   } catch (error) {
     return res.json({
       error: error,

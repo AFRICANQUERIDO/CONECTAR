@@ -8,7 +8,7 @@
       </div>
       <form [formGroup]="otpForm" (ngSubmit)="onOtpSubmit()">
         <h2>Verification</h2>
-        <div *ngIf="otpForm.get('otp') && otpForm.get('otp')?.invalid && otpForm.get('otp')?.touched">
+        <div class ="messageDiv" *ngIf="otpForm.get('otp') && otpForm.get('otp')?.invalid && otpForm.get('otp')?.touched" >
           OTP is required
         </div>
         <!-- Display error message -->

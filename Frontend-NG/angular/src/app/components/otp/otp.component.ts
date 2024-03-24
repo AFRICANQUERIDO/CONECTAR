@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { UserServiceService } from '../../services/user-service.service';
 
 @Component({
@@ -16,7 +16,7 @@ export class OtpComponent {
   errorMsg: string | null = null;
   successMsg: string | null = null;
 
-  constructor(private formBuilder: FormBuilder, public otpService: UserServiceService) { }
+  constructor(private formBuilder: FormBuilder, public otpService: UserServiceService, private router:Router) { }
 
   ngOnInit(): void {
     this.otpForm = this.formBuilder.group({
@@ -33,24 +33,33 @@ export class OtpComponent {
       const otpCode = Object.values(this.otpForm.value).join('');
       console.log('OTP submitted:', otpCode);
 
-      // Call the service method to validate the OTP
-      this.otpService.validateUser("userID", otpCode).subscribe({
-        next: () => {
-          // Reset error message and set success message
-          this.errorMsg = null;
-          this.successMsg = 'OTP submitted successfully';
-        },
-        error: () => {
-          // Set error message
-          this.errorMsg = 'Invalid OTP';
-          this.successMsg = null;
-        }
-      });
+      const userID = localStorage.getItem('userID')
+
+      if (userID) {
+        this.otpService.validateUser(userID, otpCode).subscribe({
+          next: () => {
+            
+            this.errorMsg = null;
+            this.successMsg = 'OTP submitted successfully';
+
+            localStorage.removeItem('userID');
+
+            this.router.navigate(['/login']);
+          },
+          error: () => {
+           
+            this.errorMsg = 'Invalid OTP';
+            this.successMsg = null;
+          }
+        });
+      } else {
+       
+        console.error('UserID not found in localStorage');
+      }
     } else {
-      // Mark fields as touched to show validation messages
+
       this.otpForm.markAllAsTouched();
 
-      // Set error message
       this.errorMsg = 'Please fill in all digits of the OTP';
       this.successMsg = null;
     }

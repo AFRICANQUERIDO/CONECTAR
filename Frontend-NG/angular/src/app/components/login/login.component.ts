@@ -43,10 +43,11 @@ export class LoginComponent implements OnInit {
         res => {
           if (res) {
             console.log(res);
-            localStorage.setItem('token', res.token);
-            this.authService.setUser(res);
             this.successMsg = res.message;
             this.msgVisible = true;
+
+            localStorage.setItem('token', res.token);
+            this.authService.setUser(res);
 
             this.authService.readToken(res.token).subscribe(
               response => {
@@ -54,15 +55,15 @@ export class LoginComponent implements OnInit {
                   this.displaySuccess(res.message, 'cust-detail/:id');
                 } else if (response.info.role === 'specialist') {
                   this.displaySuccess(res.message, 'spec-detail/:id');
-                } else if (response.info.role === 'Admin') {
+                } else if (response.info.role === 'admin') {
                   this.displaySuccess(res.message, 'admin/all-users');
                 } else if (response.info.role === 'NULL') {
                 }
               },
               error => {
                 console.error('Error reading token:', error);
-                this.errorMsg = 'An error occurred while processing your request.'; // Update error message
-                this.msgVisible2 = true; // Show error message
+                this.errorMsg = res.error;
+                this.msgVisible2 = true;
               }
             );
           }

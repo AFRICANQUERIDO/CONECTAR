@@ -111,15 +111,15 @@
   background-color: #05385a;
 }
 
-.error-msg {
+.errorMsg {
   color: red;
-  font-size: 14px;
+  font-size: 24px;
   margin-top: 5px;
 }
 
-.successmsg {
-  color: green;
-  font-size: 14px;
+.successMsg {
+  color: #21cdc0;
+  font-size: 24px;
   margin-top: 5px;
 }
 

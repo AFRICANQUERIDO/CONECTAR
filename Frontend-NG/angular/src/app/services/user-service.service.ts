@@ -16,13 +16,13 @@ export class UserServiceService {
   setRole(userId: string, role:string){
     return this.http.put<{success: string}>(`http://localhost:3900/users/set-role/${userId}`, role)
   }
-  
+
   signUpUser(sign_details: signUpDetails) {
-    return this.http.post<{ users: Users[], message: string, error: string }>('http://localhost:4500/users/register', sign_details)
+    return this.http.post<{ users: Users[], message: string, userID:string, error: string }>('http://localhost:4500/users/register', sign_details)
   }
 
   validateUser(userID: string, OTP: string): Observable<any> {
-    return this.http.post<OTP>(` http://localhost:4500/users/validate/${userID}`, { OTP });
+    return this.http.put<OTP>(` http://localhost:4500/users/validate/${userID}`, { OTP });
   }
   loginUser(user_details: loginDetails) {
     return this.http.post<{ message: string, token: string, role: string, error: string }>('http://localhost:4500/users/login', user_details)

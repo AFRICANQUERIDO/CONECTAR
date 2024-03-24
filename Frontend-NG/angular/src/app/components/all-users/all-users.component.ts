@@ -13,11 +13,11 @@ import Swal from 'sweetalert2';
   templateUrl: './all-users.component.html',
   styleUrl: './all-users.component.css'
 })
-export class AllUsersComponent implements OnInit{
+export class AllUsersComponent implements OnInit {
   users: ViewUsers[] = [];
   error: string = '';
 
-  constructor(public userService: UserServiceService, public authService: AuthServiceService) { 
+  constructor(public userService: UserServiceService, public authService: AuthServiceService) {
     this.fetchUsers();
   }
 
@@ -32,13 +32,12 @@ export class AllUsersComponent implements OnInit{
       // Call readToken() to verify token and get user details
       this.authService.readToken(token).subscribe(
         (res) => {
-          // Check user role to ensure it has necessary permissions
-          if (res.info.role === 'Admin') {
-            // If user is an admin, fetch all users
+          if (res.info.role === 'admin') {
+
             this.userService.getAllUsers().subscribe(
               (res) => {
                 this.users = res.users;
-                console.log("users",res.users)
+                console.log("users", res.users)
 
               },
               (error) => {
@@ -70,7 +69,7 @@ export class AllUsersComponent implements OnInit{
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#d33',
-      cancelButtonColor: '#3085d6',
+      cancelButtonColor: '#21cdc0 ',
       confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.isConfirmed) {
@@ -78,7 +77,7 @@ export class AllUsersComponent implements OnInit{
       }
     });
   }
-  
+
   deleteUser(userID: string) {
     this.userService.deleteUser(userID).subscribe(
       () => {
@@ -87,7 +86,7 @@ export class AllUsersComponent implements OnInit{
       },
       (error) => {
         console.error('Error deleting user:', error);
-        
+
       }
     );
   }

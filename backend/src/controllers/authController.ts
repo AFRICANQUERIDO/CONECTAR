@@ -83,7 +83,7 @@ export const validateUser = async (req: Request, res: Response) => {
 
     const pool = await mssql.connect(sqlConfig);
 
-    // Retrieve the user's OTP from the database
+   
     const result = (await pool.request()
       .input('userID', mssql.VarChar, userID)
       .query('SELECT * FROM UserDetails WHERE userID = @userID')).recordset;

@@ -81,7 +81,7 @@ const registerUserController = (req, res) => __awaiter(void 0, void 0, void 0, f
             .execute('registerUser')).recordset;
         return res.json({
             message: 'User registered successfully',
-            results
+            userID: userID
         });
     }
     catch (error) {
