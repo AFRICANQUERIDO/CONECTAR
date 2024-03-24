@@ -3,11 +3,12 @@ import { Component } from '@angular/core';
 import { Gigs } from '../../intefaces/gig.interface';
 import { GigsService } from '../../services/gigs.service';
 import { AuthServiceService } from '../../services/auth-service.service';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
   selector: 'app-specialists-profile',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NavbarComponent],
   templateUrl: './specialists-profile.component.html',
   styleUrl: './specialists-profile.component.css'
 })

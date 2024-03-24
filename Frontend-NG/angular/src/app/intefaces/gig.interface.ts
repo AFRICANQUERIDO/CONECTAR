@@ -4,5 +4,8 @@ export interface Gigs{
     gigImage: string;
     gigDescription: string;
     rate: string;
+    Name:string;
+    experience:string;
+    education:string;
     userID: string;
 }

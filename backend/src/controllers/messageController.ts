@@ -17,14 +17,16 @@ const checkUserExists = async (authorEmail: string): Promise<boolean> => {
 }
 
 export const createMessage = async (req: Request, res: Response) => {
-    const { newMessage } = req.body;
-    if (!newMessage || !newMessage.author_email || !newMessage.chatId || !newMessage.message) {
+   
+    const { author_email, chatId, message, timestamp }: any = req.body;
+
+    if (!author_email || !chatId || !message) {
         return res.status(400).json({ error: 'Missing required fields in the request body' });
     }
 
     // Check if the author exists in the system
     try {
-        const authorExists = await checkUserExists(newMessage.author_email);
+        const authorExists = await checkUserExists(author_email);
         if (!authorExists) {
             return res.status(404).json({ error: 'Author does not exist' });
         }
@@ -39,10 +41,11 @@ export const createMessage = async (req: Request, res: Response) => {
         const pool = await mssql.connect(sqlConfig);
         await pool.request()
             .input('messageId', mssql.VarChar, messageId) 
-            .input('author_email', mssql.VarChar, newMessage.author_email)
-            .input('chatId', mssql.VarChar, newMessage.chatId)
-            .input('message', mssql.VarChar, newMessage.message)
+            .input('author_email', mssql.VarChar, author_email)
+            .input('chatId', mssql.VarChar, chatId)
+            .input('message', mssql.VarChar, message)
             .query('INSERT INTO Message (messageId, author_email, chatId, message) VALUES (@messageId, @author_email, @chatId, @message)');
+            updateLastMessage(message,chatId);
         res.status(201).json({ messageId, message: 'Message created successfully' });
     } catch (error) {
         console.error('Error creating message:', error);
@@ -50,6 +53,18 @@ export const createMessage = async (req: Request, res: Response) => {
     }
 }
 
+export const updateLastMessage = async (newLastMessage:string,id:string) => {
+    try {
+        const pool = await mssql.connect(sqlConfig);
+        await pool.request()
+            .input('newLastMessage', mssql.VarChar, newLastMessage)
+            .input('chatId', mssql.VarChar, id)
+            .query('UPDATE Conversation SET last_message = @newLastMessage WHERE chatId = @chatId');
+    } catch (error) {
+        console.error('Error updating last message:', error);
+        throw error;
+    }
+}
 
 export const getAllMessages = async (req: Request, res: Response) => {
     try {

@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteMessage = exports.updateMessage = exports.getMessageByChatId = exports.getAllMessages = exports.createMessage = void 0;
+exports.deleteMessage = exports.updateMessage = exports.getMessageByChatId = exports.getAllMessages = exports.updateLastMessage = exports.createMessage = void 0;
 const mssql_1 = __importDefault(require("mssql"));
 const sqlConfig_1 = require("../config/sqlConfig");
 const uuid_1 = require("uuid");
@@ -30,13 +30,13 @@ const checkUserExists = (authorEmail) => __awaiter(void 0, void 0, void 0, funct
     }
 });
 const createMessage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { newMessage } = req.body;
-    if (!newMessage || !newMessage.author_email || !newMessage.chatId || !newMessage.message) {
+    const { author_email, chatId, message, timestamp } = req.body;
+    if (!author_email || !chatId || !message) {
         return res.status(400).json({ error: 'Missing required fields in the request body' });
     }
     // Check if the author exists in the system
     try {
-        const authorExists = yield checkUserExists(newMessage.author_email);
+        const authorExists = yield checkUserExists(author_email);
         if (!authorExists) {
             return res.status(404).json({ error: 'Author does not exist' });
         }
@@ -50,10 +50,11 @@ const createMessage = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         const pool = yield mssql_1.default.connect(sqlConfig_1.sqlConfig);
         yield pool.request()
             .input('messageId', mssql_1.default.VarChar, messageId)
-            .input('author_email', mssql_1.default.VarChar, newMessage.author_email)
-            .input('chatId', mssql_1.default.VarChar, newMessage.chatId)
-            .input('message', mssql_1.default.VarChar, newMessage.message)
+            .input('author_email', mssql_1.default.VarChar, author_email)
+            .input('chatId', mssql_1.default.VarChar, chatId)
+            .input('message', mssql_1.default.VarChar, message)
             .query('INSERT INTO Message (messageId, author_email, chatId, message) VALUES (@messageId, @author_email, @chatId, @message)');
+        (0, exports.updateLastMessage)(message, chatId);
         res.status(201).json({ messageId, message: 'Message created successfully' });
     }
     catch (error) {
@@ -62,6 +63,20 @@ const createMessage = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.createMessage = createMessage;
+const updateLastMessage = (newLastMessage, id) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const pool = yield mssql_1.default.connect(sqlConfig_1.sqlConfig);
+        yield pool.request()
+            .input('newLastMessage', mssql_1.default.VarChar, newLastMessage)
+            .input('chatId', mssql_1.default.VarChar, id)
+            .query('UPDATE Conversation SET last_message = @newLastMessage WHERE chatId = @chatId');
+    }
+    catch (error) {
+        console.error('Error updating last message:', error);
+        throw error;
+    }
+});
+exports.updateLastMessage = updateLastMessage;
 const getAllMessages = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const pool = yield mssql_1.default.connect(sqlConfig_1.sqlConfig);

@@ -17,7 +17,7 @@
     </div>
     <ul>
         <li class="chat_item" *ngFor="let convesation of convestationList" (click)="OpenChat(convesation)">
-             <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="" class="user_dp">
+             <img src="{{convesation.profile_pic}}" alt="" class="user_dp">
             <div class="username_lastMessage">
                 <span class="username">{{convesation.nickname}}</span>
                 <span class="last_message">{{convesation.last_message}}</span>
@@ -54,7 +54,7 @@
 
     <div class="about_client_profile">
         <div class="user_information">
-              <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="" class="user_dp">
+              <img src="{{activeUser.profile_pic}}" alt="" class="user_dp">
               <h2>{{activeUser.nickname}}</h2>
               <ul class="profile_menu">
                 <li><div class="profile_item" (click)="toggleQualifications()"><span>About Client</span><span class="material-icons">expand_more</span></div>

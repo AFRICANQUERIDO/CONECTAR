@@ -2,13 +2,22 @@
 POST http://localhost:4500/conversation/create
 Content-Type: application/json
 
+# {
+#   "profile_pic": "image for profile 1",
+#   "last_message": "Hello, how are you?",
+#   "nickname": "User1",
+#   "sender_email": "janengene12@gmail.com",
+#   "receiver_email": "kingangiduncan47@gmail.com"
+# }
 {
   "profile_pic": "image for profile 1",
-  "last_message": "Hello, how are you?",
+  "last_message": "Hello to you",
   "nickname": "User1",
-  "sender_email": "janengene12@gmail.com",
+  "sender_email": "margeret@gmail.com",
   "receiver_email": "kingangiduncan47@gmail.com"
 }
+
+
 
 ### Get current users conversation list
 GET http://localhost:4500/conversation/my-conversation

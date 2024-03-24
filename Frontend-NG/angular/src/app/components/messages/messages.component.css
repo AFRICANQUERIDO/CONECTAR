@@ -90,6 +90,7 @@
 
 .chat_item img {
     width: 60px;
+    height: 60px;
 }
 
 .username_lastMessage {
@@ -262,6 +263,7 @@
 
 .user_information img {
     width: 120px;
+    height: 120px;
     margin: auto;
 }
 
@@ -278,6 +280,11 @@
     width: 100%;
     border: .5px solid #ccc;
     border-radius: .5rem;
+}
+.user_dp
+{
+    border-radius: 100%;
+    
 }
 
 .profile_menu .profile_item {

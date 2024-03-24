@@ -46,7 +46,7 @@ export const routes: Routes = [
     { path: 'role', component: JoinAsComponent },
     { path: 'cust-dashboard', component: CustDashboardComponent },
     { path: 'cust-page', component: CustomerPageComponent },
-    { path: 'message', component: MessagesComponent },
+    { path: 'message/:chatId', component: MessagesComponent },
     {
         path: 'admin', component: AdminPageComponent,
         children: [

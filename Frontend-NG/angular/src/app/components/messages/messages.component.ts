@@ -8,6 +8,9 @@ import { Conversation, Message } from '../../intefaces/message';
 import { UserDetails } from '../../intefaces/user';
 import { ChatService } from '../../services/chat.service';
 import { AuthServiceService } from '../../services/auth-service.service';
+import { ActivatedRoute, Route, Router } from '@angular/router';
+import { SocketsService } from '../../services/sockets.service';
+import { Socket } from 'ngx-socket-io';
 @Component({
   selector: 'app-messages',
   standalone: true,
@@ -23,16 +26,22 @@ export class MessagesComponent
    convestationList:Conversation[]=[];
    myEmail:string|null =""
    sideMenu:boolean=false;
-   activeUser:UserDetails={nickname:'',active_chat_id:''}
+   activeUser:UserDetails={
+     nickname: '', active_chat_id: '',
+     profile_pic: ''
+   }
     message: any;
-    myMessage:Message={author_email:'',chatId:'',message:'',timestamp:''}
+    myMessage:Message={author_email:'',chatId:'',message:'',timestamp:''};
+  paramChatId!:String
     
 
-   constructor(public messagesService:ChatService, public authServices:AuthServiceService,  private datePipe:DatePipe){}
+   constructor(public messagesService:ChatService, public authServices:AuthServiceService,  private datePipe:DatePipe,private router:Router,private route: ActivatedRoute,private sockectIo:SocketsService,private socket:Socket){}
 
    async ngOnInit(): Promise<void> {
     this.myEmail=this.authServices.getEmailFromToken();
     console.log(this.myEmail);
+    this.paramChatId=this.route.snapshot.paramMap.get('chatId')!;
+  
     // this.messagesService.getAllMessages().subscribe({
     //   next: (messages: Message[]) => {
     //     this.AllMessages = messages;
@@ -57,6 +66,13 @@ export class MessagesComponent
           this.convestationList = value;
           console.log(this.convestationList)
           // this.convestationList.forEach(e=>console.log(e.last_message))
+          if(this.paramChatId!=null || this.paramChatId!=undefined)
+    {
+      const converstationDefault=this.convestationList.find(e=>e.chatId==this.paramChatId);
+      this.OpenChat(converstationDefault!);
+    }else
+    {
+    }
         },
         error: (error: any) => {
           console.log(error);
@@ -73,6 +89,9 @@ export class MessagesComponent
     }
     sendMessage():string | null
       {
+        // this.sockectIo.notifyOnline(this.myEmail!);
+        this.socket.emit('exampleEvent', { message: 'Hello from Angular!' });
+        console.log("helllo world");
         let author_email="";
         if(this.myEmail!=null)
         {
@@ -81,6 +100,8 @@ export class MessagesComponent
                 this.myMessage.chatId=this.activeUser.active_chat_id;
                 this.myMessage.message=this.message;
                 this.myMessage.timestamp='ddd'
+    return "sre";
+
                 this.messagesService.createMessage(this.myMessage).subscribe({next:(value: any)=> {
                   // this.messagesService.add({severity:'success', summary:'Message sent successfully', detail:'Message Content'});
                   // this.messagesService.add({severity: 'success', summary:  'Heading', detail: 'More details....' });
@@ -124,12 +145,29 @@ export class MessagesComponent
     async OpenChat(activeConverstion: Conversation) {
     this.activeUser.nickname=activeConverstion.nickname;
     this.activeUser.active_chat_id=activeConverstion.chatId;
+    this.activeUser.profile_pic=activeConverstion.profile_pic;
+    
+
+    // const currentUrlTree = this.router.parseUrl(this.router.url);
+    // currentUrlTree.fragment = activeConverstion.chatId;
+    // this.router.navigateByUrl(currentUrlTree);
+
+    // this.router.navigate([], { relativeTo: this.route, queryParams: { chatId: activeConverstion.chatId } });
+
+    // this.router.navigate([], {
+    //   relativeTo: this.route,
+    //   queryParams: { chatId: activeConverstion },
+    //   queryParamsHandling: 'merge'
+    // });
+    this.router.navigate(["message/",activeConverstion.chatId]);
+
+
       (await this.messagesService.getMessageByChatId(activeConverstion.chatId)).subscribe({next:(value:Message[])=> {
         this.AllMessages=value;
           
       },
     error:(error: any)=>{
-      console.log(error);
+      this.AllMessages=[]
     }
     })
     
@@ -151,4 +189,3 @@ export class MessagesComponent
     }
 
 }
-
