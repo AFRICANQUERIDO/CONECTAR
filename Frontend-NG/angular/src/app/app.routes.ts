@@ -22,6 +22,7 @@ import { CreateSectorComponent } from './components/create-sector/create-sector.
 import { AllUsersComponent } from './components/all-users/all-users.component';
 import { SpecialistsProfileComponent } from './components/specialists-profile/specialists-profile.component';
 import { MessagesComponent } from './components/messages/messages.component';
+import { CreateGigComponent } from './components/create-gig/create-gig.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'landing', pathMatch: 'full' },
@@ -38,7 +39,7 @@ export const routes: Routes = [
 
     { path: 'spec-profile', component: SpecialistsProfileComponent },
     { path: 'spec-detail/:id', component: SpecialistDetailsComponent },
-    // {path:'spec-de'}
+    {path:'gig-create', component: CreateGigComponent},
     // { path: 'cust-detail', component: CustomerDetailsComponent },
     { path: 'cust-detail/:id', component: CustomerDetailsComponent },
     { path: 'rating', component: RatingComponent },

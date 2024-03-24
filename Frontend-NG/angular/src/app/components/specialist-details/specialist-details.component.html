@@ -1,6 +1,7 @@
-
 <!-- Personal Details Form -->
-<form *ngIf="currentForm === 'personalDetails'" [formGroup]="personalDetailsForm" (ngSubmit)="onPersonalDetailsSubmit()">
+<div class="form-container">
+
+<form *ngIf="currentForm === 'personalDetails'" [formGroup]="personalDetailsForm" (ngSubmit)="submitPersonalDetailsForm()">
   <!-- Personal Details -->
   <h2>Personal Details</h2>
   <div>
@@ -8,17 +9,17 @@
     <input
       type="tel"
       id="phone"
-      formControlName="phone"
+      formControlName="phone_number"
       placeholder="Phone Number"
     />
   </div>
-  <div>
+  <!-- <div>
     <label for="dob">Date of Birth</label>
     <input
       type="text"
-      id="dob"
-      formControlName="DOB"
-      placeholder="Date of birth"
+      id="dob_dd"
+      formControlName="dob_dd"
+      placeholder="DD"
       maxlength="2"
       style="width: 50px"
     />
@@ -39,6 +40,16 @@
       placeholder="YYYY"
       maxlength="4"
       style="width: 70px"
+    />
+  </div> -->
+
+  <div>
+    <label for="dob">Date of Birth</label>
+    <input
+      type="date"
+      id="DOB"
+      formControlName="DOB"
+      placeholder="Date of Birth"
     />
   </div>
   <div class="gender-container">
@@ -86,12 +97,15 @@
       placeholder="Write something about you..."
     ></textarea>
   </div>
-    <!-- Proceed Button -->
-    <button type="submit">Proceed</button>
+  <p *ngIf="personalDetailsForm.invalid && personalDetailsForm.dirty" class="validation-message">Please fill out all fields.</p>
+
+  <!-- Proceed Button -->
+  <button type="submit" [disabled]="personalDetailsForm.invalid">Proceed</button>
 </form>
 
 <!-- Address Information Form -->
-<form *ngIf="currentForm === 'addressInformation'" [formGroup]="addressInformationForm" (ngSubmit)="onAddressInformationSubmit()">
+<form *ngIf="currentForm === 'addressInformation'" [formGroup]="addressInformationForm" (ngSubmit)="submitAddressInformationForm()">
+
   <h2>Address Information</h2>
 
   <div>
@@ -107,31 +121,35 @@
     <label for="city">City</label>
     <input type="text" id="city" formControlName="city" placeholder="City" />
   </div>
-    <!-- Proceed Button -->
-    <button type="submit">Proceed</button>
+    <p *ngIf="addressInformationForm.invalid && addressInformationForm.dirty" class="validation-message">Please fill out all fields.</p>
+
+  <!-- Proceed Button -->
+  <button type="submit" [disabled]="addressInformationForm.invalid">Proceed</button>
 </form>
 
 <!-- Preferred Service Form -->
-<form *ngIf="currentForm === 'preferredService'" [formGroup]="preferredServiceForm" (ngSubmit)="onPreferredServiceSubmit()">
-
- <h2>Set Your Preferred Industry</h2>
- <div>
-   <label for="industrySelect">Select Industry:</label>
-   <select id="industrySelect" formControlName="industrySelect" required>
-     <option>--Select industry--</option>
-     <option
-       *ngFor="let industry of industriesArray"
-       [value]="industry.industryID"
-     >
-       {{ industry.industryName }}
-     </option>
-   </select>
-   <label for="service">Select Service</label>
-   <select id="service" formControlName="service">
-     <option value="doctor">Doctor</option>
-     <!-- Add other service options here -->
-   </select>
- </div>
-   <!-- Proceed Button -->
-   <button type="submit">Proceed</button>
+<form *ngIf="currentForm === 'preferredService'" [formGroup]="preferredServiceForm" (ngSubmit)="submitPreferredServiceForm()">
+  
+  <h2>Set Your Preferred Industry</h2>
+  <div>
+    <label for="industrySelect">Select Industry:</label>
+    <select id="industrySelect" formControlName="industrySelect" required>
+      <option>--Select industry--</option>
+      <option
+      *ngFor="let industry of industriesArray"
+      [value]="industry.industryID"
+      >
+      {{ industry.industryName }}
+    </option>
+  </select>
+  <label for="service">Select Service</label>
+  <select id="service" formControlName="service">
+    <option value="doctor">Doctor</option>
+    <!-- Add other service options here -->
+  </select>
+</div>
+<p *ngIf="preferredServiceForm.invalid && preferredServiceForm.dirty" class="validation-message">Please fill out all fields.</p>
+  <!-- Proceed Button -->
+  <button type="submit" [disabled]="preferredServiceForm.invalid">Proceed</button>
 </form>
+</div>
