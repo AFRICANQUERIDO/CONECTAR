@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Conversation, Message } from '../intefaces/message';
+import { ChatIdModel } from '../intefaces/chatiDModel';
+
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +22,8 @@ export class ChatService {
     return this.http.get<Conversation>(`${this.apiUrl}/get-by-id/${id}`);
   }
 
-  createConversation(conversation: Conversation): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/all-conversation`, conversation);
+  createConversation(conversation: Conversation): Observable<ChatIdModel> {
+    return this.http.post<any>(`${this.apiUrl}/create`, conversation);
   }
 
   updateConversation(id: string, conversation: Conversation): Observable<any> {
@@ -38,6 +40,7 @@ export class ChatService {
 
 
   createMessage(newMessage: Message): Observable<any> {
+    console.log(newMessage)
     return this.http.post(`${this.baseUrl1}/create`, newMessage);
   }
 
@@ -46,7 +49,7 @@ export class ChatService {
   }
 
   async getMessageByChatId(ChatId:string ):Promise<Observable<Message[]>> {
-    return await this.http.get<Message[]>(`${this.apiUrl}get-by-id/${ChatId}`);
+    return await this.http.get<Message[]>(`${this.baseUrl1}/get-by-id/${ChatId}`);
 }
 
  
@@ -58,4 +61,3 @@ export class ChatService {
      return this.http.delete<any>(`${this.apiUrl}delete/${messageId}`);
    }
 }
-
