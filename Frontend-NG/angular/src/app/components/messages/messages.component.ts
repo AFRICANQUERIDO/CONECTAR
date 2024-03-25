@@ -102,15 +102,14 @@ gigID!: string;
                 this.myMessage.chatId=this.activeUser.active_chat_id;
                 this.myMessage.message=this.message;
                 this.myMessage.timestamp='ddd'
-    return "sre";
+    // return "sre";
 
                 this.messagesService.createMessage(this.myMessage).subscribe({next:(value: any)=> {
                   // this.messagesService.add({severity:'success', summary:'Message sent successfully', detail:'Message Content'});
                   // this.messagesService.add({severity: 'success', summary:  'Heading', detail: 'More details....' });
                   this.refreshChat();
+                  this.message =""
                 
-
-                    
                 },
               error:(err: any) =>{
                 // this.messagesService.add({severity:'error', summary:'Failed to send the message', detail:'Message Content'});
