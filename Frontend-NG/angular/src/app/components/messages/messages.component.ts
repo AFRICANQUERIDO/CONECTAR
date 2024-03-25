@@ -9,41 +9,41 @@ import { UserDetails } from '../../intefaces/user';
 import { ChatService } from '../../services/chat.service';
 import { AuthServiceService } from '../../services/auth-service.service';
 import { ActivatedRoute, Route, Router } from '@angular/router';
-import { SocketsService } from '../../services/sockets.service';
-import { Socket } from 'ngx-socket-io';
+// import { SocketsService } from '../../services/sockets.service';
+// import { Socket } from 'ngx-socket-io';
 @Component({
   selector: 'app-messages',
   standalone: true,
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './messages.component.html',
   styleUrl: './messages.component.css'
 })
 export class MessagesComponent
- implements  OnInit {
-   
-   showQualifications: boolean = false;
-   AllMessages:Message[]=[];
-   convestationList:Conversation[]=[];
-   myEmail:string|null =""
-   sideMenu:boolean=false;
-   activeUser:UserDetails={
-     nickname: '', active_chat_id: '',
-     profile_pic: ''
-                                     
-    }
-    message: any;
-    myMessage:Message={author_email:'',chatId:'',message:'',timestamp:''};
-  paramChatId!:String
-gigID!: string;
-    
+  implements OnInit {
 
-   constructor(public messagesService:ChatService, public authServices:AuthServiceService,  private datePipe:DatePipe,private router:Router,private route: ActivatedRoute,private sockectIo:SocketsService,private socket:Socket){}
+  showQualifications: boolean = false;
+  AllMessages: Message[] = [];
+  convestationList: Conversation[] = [];
+  myEmail: string | null = ""
+  sideMenu: boolean = false;
+  activeUser: UserDetails = {
+    nickname: '', active_chat_id: '',
+    profile_pic: ''
 
-   async ngOnInit(): Promise<void> {
-    this.myEmail=this.authServices.getEmailFromToken();
+  }
+  message: any;
+  myMessage: Message = { author_email: '', chatId: '', message: '', timestamp: '' };
+  paramChatId!: String
+  gigID!: string;
+
+
+  constructor(public messagesService: ChatService, public authServices: AuthServiceService, private datePipe: DatePipe, private router: Router, private route: ActivatedRoute) { }
+
+  async ngOnInit(): Promise<void> {
+    this.myEmail = this.authServices.getEmailFromToken();
     console.log(this.myEmail);
-    this.paramChatId=this.route.snapshot.paramMap.get('chatId')!;
-  
+    this.paramChatId = this.route.snapshot.paramMap.get('chatId')!;
+
     // this.messagesService.getAllMessages().subscribe({
     //   next: (messages: Message[]) => {
     //     this.AllMessages = messages;
@@ -55,26 +55,23 @@ gigID!: string;
     // }
     // )
     try {
-     
-      let email="";
-      if(this.myEmail!=null)
-      {
-      email=this.myEmail
+
+      let email = "";
+      if (this.myEmail != null) {
+        email = this.myEmail
       }
       // const observable = await this.chatList.getMyConversations();
-      const observable= this.messagesService.getConversationsByEmail(email);
+      const observable = this.messagesService.getConversationsByEmail(email);
       observable.subscribe({
         next: (value: Conversation[]) => {
           this.convestationList = value;
           console.log(this.convestationList)
           // this.convestationList.forEach(e=>console.log(e.last_message))
-          if(this.paramChatId!=null || this.paramChatId!=undefined)
-    {
-      const converstationDefault=this.convestationList.find(e=>e.chatId==this.paramChatId);
-      this.OpenChat(converstationDefault!);
-    }else
-    {
-    }
+          if (this.paramChatId != null || this.paramChatId != undefined) {
+            const converstationDefault = this.convestationList.find(e => e.chatId == this.paramChatId);
+            this.OpenChat(converstationDefault!);
+          } else {
+          }
         },
         error: (error: any) => {
           console.log(error);
@@ -85,69 +82,70 @@ gigID!: string;
     }
 
   }
-  
-    toggleQualifications() {
-      this.showQualifications = !this.showQualifications;
+
+  toggleQualifications() {
+    this.showQualifications = !this.showQualifications;
+  }
+  sendMessage(): string | null {
+    // this.sockectIo.notifyOnline(this.myEmail!);
+    console.log("helllo world");
+    let author_email = "";
+    if (this.myEmail != null) {
+      author_email = this.myEmail;
+      this.myMessage.author_email = author_email;
+      this.myMessage.chatId = this.activeUser.active_chat_id;
+      this.myMessage.message = this.message;
+      this.myMessage.timestamp = 'ddd'
+
+
+
+
+      // return "sre";
+
+      this.messagesService.createMessage(this.myMessage).subscribe({
+        next: (value: any) => {
+          // this.messagesService.add({severity:'success', summary:'Message sent successfully', detail:'Message Content'});
+          // this.messagesService.add({severity: 'success', summary:  'Heading', detail: 'More details....' });
+          this.refreshChat();
+          this.message = ""
+
+        },
+        error: (err: any) => {
+          // this.messagesService.add({severity:'error', summary:'Failed to send the message', detail:'Message Content'});
+
+        },
+      })
+      console.log(this.message);
+
+      return ""
+
+    } else {
+      return null
     }
-    sendMessage():string | null
-      {
-        // this.sockectIo.notifyOnline(this.myEmail!);
-        this.socket.emit('exampleEvent', { message: 'Hello from Angular!' });
-        console.log("helllo world");
-        let author_email="";
-        if(this.myEmail!=null)
-        {
-          author_email=this.myEmail;
-           this.myMessage.author_email=author_email;
-                this.myMessage.chatId=this.activeUser.active_chat_id;
-                this.myMessage.message=this.message;
-                this.myMessage.timestamp='ddd'
-    // return "sre";
 
-                this.messagesService.createMessage(this.myMessage).subscribe({next:(value: any)=> {
-                  // this.messagesService.add({severity:'success', summary:'Message sent successfully', detail:'Message Content'});
-                  // this.messagesService.add({severity: 'success', summary:  'Heading', detail: 'More details....' });
-                  this.refreshChat();
-                  this.message =""
-                
-                },
-              error:(err: any) =>{
-                // this.messagesService.add({severity:'error', summary:'Failed to send the message', detail:'Message Content'});
-                  
-              },
-              })
-              console.log(this.message);
-              
-          return ""
 
-        }else
-        {
-          return null
-        }
-     
-       
+  }
+  async refreshChat() {
+
+    (await this.messagesService.getMessageByChatId(this.activeUser.active_chat_id)).subscribe({
+      next: (value: Message[]) => {
+        this.AllMessages = value;
+
+      },
+      error: (error: any) => {
+        console.log(error);
       }
-    async refreshChat()
-    {
-   
-      (await this.messagesService.getMessageByChatId(this.activeUser.active_chat_id)).subscribe({next:(value:Message[])=> {
-                    this.AllMessages=value;
-                      
-                  },
-                error:(error: any)=>{
-                  console.log(error);
-                }
-                })
+    })
 
-     
-      
-    }
 
-    async OpenChat(activeConverstion: Conversation) {
-    this.activeUser.nickname=activeConverstion.nickname;
-    this.activeUser.active_chat_id=activeConverstion.chatId;
-    this.activeUser.profile_pic=activeConverstion.profile_pic;
-    
+
+  }
+
+  async OpenChat(activeConverstion: Conversation) {
+    this.activeUser.nickname = activeConverstion.nickname;
+    this.activeUser.active_chat_id = activeConverstion.chatId;
+    this.activeUser.profile_pic = activeConverstion.profile_pic;
+
 
     // const currentUrlTree = this.router.parseUrl(this.router.url);
     // currentUrlTree.fragment = activeConverstion.chatId;
@@ -162,39 +160,44 @@ gigID!: string;
     // });
     // this.router.navigate(["message/",activeConverstion.chatId]);
     const chatId = activeConverstion.chatId;
-this.router.navigate([`/message/${chatId}`]);
+    this.router.navigate([`/message/${chatId}`]);
 
 
 
-      (await this.messagesService.getMessageByChatId(activeConverstion.chatId)).subscribe({next:(value:Message[])=> {
-        this.AllMessages=value;
-          
+    (await this.messagesService.getMessageByChatId(activeConverstion.chatId)).subscribe({
+      next: (value: Message[]) => {
+        this.AllMessages = value;
+
       },
-    error:(error: any)=>{
-      this.AllMessages=[]
-    }
+      error: (error: any) => {
+        this.AllMessages = []
+      }
     })
-    
-    }
 
-    getFormatedDate(message:Message):string|null
-    {
-      return this.datePipe.transform(message.timestamp, 'dd/MM/yyyy HH:mm:ss a')
-    }
+  }
 
-    isMyMessage(message:Message):boolean
-    {
-      return message.author_email==this.myEmail
-      
-    }    
-    manageSideMenu(isMenuOpen:boolean):void
-    {
-      this.sideMenu=isMenuOpen;
-    }
+  getFormatedDate(message: Message): string | null {
+    return this.datePipe.transform(message.timestamp, 'dd/MM/yyyy HH:mm:ss a')
+  }
 
-    createOrder(gigID: string) {
-      this.router.navigate([`/orderPage/${gigID}`]);
+  isMyMessage(message: Message): boolean {
+    return message.author_email == this.myEmail
+
+  }
+  manageSideMenu(isMenuOpen: boolean): void {
+    this.sideMenu = isMenuOpen;
+  }
+
+  createOrder(gigID: string) {
+    // **************************************************************
+    const chat_details = this.activeUser.active_chat_id.split("@");
+    if (chat_details.length > 1) {
+      gigID = chat_details[1]
     }
-    
-    
+    // **************************************************************
+
+    this.router.navigate([`/orders/${gigID}`]);
+  }
+
+
 }

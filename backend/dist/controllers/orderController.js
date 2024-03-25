@@ -20,7 +20,6 @@ const sqlConfig_1 = require("../config/sqlConfig");
 const order_validator_1 = require("../validators/order.validator");
 const stripe_1 = __importDefault(require("stripe"));
 const dotenv_1 = __importDefault(require("dotenv"));
-const paymentController_1 = require("./paymentController");
 dotenv_1.default.config();
 // const KEY = process.env.STRIPE_SECRET_KEY
 const KEY = (_a = process.env) === null || _a === void 0 ? void 0 : _a['STRIPE_SECRET_KEY'];
@@ -47,13 +46,13 @@ const createOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             return res.json({ message: 'Order Exists' });
         }
         // Check if the gig belongs to the user
-        const checkGigOwnership = yield pool.request()
-            .input('gigID', mssql_1.default.VarChar, gigID)
-            .input('userID', mssql_1.default.VarChar, userID)
-            .query('SELECT * FROM Gig WHERE gigID = @gigID AND userID = @userID');
-        if (!checkGigOwnership.recordset.length) {
-            return res.status(403).json({ error: 'Unauthorized access. The gig does not belong to the user.' });
-        }
+        // const checkGigOwnership = await pool.request()
+        //     .input('gigID', mssql.VarChar, gigID)
+        //     .input('userID', mssql.VarChar, userID)
+        //     .query('SELECT * FROM Gig WHERE gigID = @gigID AND userID = @userID');
+        // if (!checkGigOwnership.recordset.length) {
+        //     return res.status(403).json({ error: 'Unauthorized access. The gig does not belong to the user.' });
+        // }
         const result = yield pool.request()
             .input('orderID', mssql_1.default.VarChar, orderID)
             .input('gigID', mssql_1.default.VarChar, gigID)
@@ -68,7 +67,7 @@ const createOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         // Checking if the order was successfully created
         if (result.rowsAffected[0]) {
             // Call payment handling function
-            yield (0, paymentController_1.processPayment)(req, res);
+            // await processPayment(req, res)
             return res.json({ message: 'Order created successfully' });
         }
         else {

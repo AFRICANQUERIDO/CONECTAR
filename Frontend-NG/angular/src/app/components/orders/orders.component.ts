@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { GigsService } from '../../services/gigs.service';
 import { AuthServiceService } from '../../services/auth-service.service';
 import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-orders',
@@ -12,7 +13,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './orders.component.html',
   styleUrl: './orders.component.css'
 })
-export class OrdersComponent implements OnInit { 
+export class OrdersComponent implements OnInit {
   orderForm!: FormGroup;
   userID: string = '';
   gigID: string = '';
@@ -22,7 +23,7 @@ export class OrdersComponent implements OnInit {
     private orderService: GigsService,
     private authService: AuthServiceService,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.orderForm = this.formBuilder.group({
@@ -35,7 +36,7 @@ export class OrdersComponent implements OnInit {
     });
 
     this.route.paramMap.subscribe(params => {
-      this.gigID = params.get('gigID') || ''; 
+      this.gigID = params.get('gigID') || '';
       console.log(this.gigID);
     });
 
@@ -61,11 +62,31 @@ export class OrdersComponent implements OnInit {
       this.orderService.createOrder(orderData).subscribe(
         (response) => {
           console.log('Order created successfully:', response);
-          // Handle success response
+          Swal.fire({
+            title: 'ORDERS',
+            text: response.message,
+            icon: 'success',
+            showCancelButton: true,
+            confirmButtonColor: '#21cdc0',
+            cancelButtonColor: '#d33',
+
+
+          })
+
         },
         (error) => {
-          console.error('Error creating order:', error);
-          // Handle error response
+          console.error('Error creating order:', error.error.error);
+          Swal.fire({
+            title: 'ORDERS',
+            text: error.error.error,
+            icon: 'error',
+            showCancelButton: true,
+            confirmButtonColor: '#21cdc0',
+            cancelButtonColor: '#d33',
+
+
+          })
+
         }
       );
     } else {

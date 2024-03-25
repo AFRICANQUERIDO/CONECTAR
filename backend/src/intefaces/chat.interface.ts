@@ -5,4 +5,5 @@ export interface Conversation {
     nickname:string
     sender_email:string
     receiver_email:string
+    gig_id:string
 }

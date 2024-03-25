@@ -43,14 +43,14 @@ export const createOrder = async (req: Request, res: Response) => {
             return res.json({ message: 'Order Exists' });
         }
         // Check if the gig belongs to the user
-        const checkGigOwnership = await pool.request()
-            .input('gigID', mssql.VarChar, gigID)
-            .input('userID', mssql.VarChar, userID)
-            .query('SELECT * FROM Gig WHERE gigID = @gigID AND userID = @userID');
+        // const checkGigOwnership = await pool.request()
+        //     .input('gigID', mssql.VarChar, gigID)
+        //     .input('userID', mssql.VarChar, userID)
+        //     .query('SELECT * FROM Gig WHERE gigID = @gigID AND userID = @userID');
 
-        if (!checkGigOwnership.recordset.length) {
-            return res.status(403).json({ error: 'Unauthorized access. The gig does not belong to the user.' });
-        }
+        // if (!checkGigOwnership.recordset.length) {
+        //     return res.status(403).json({ error: 'Unauthorized access. The gig does not belong to the user.' });
+        // }
 
         const result = await pool.request()
             .input('orderID', mssql.VarChar, orderID)
@@ -67,7 +67,7 @@ export const createOrder = async (req: Request, res: Response) => {
         // Checking if the order was successfully created
         if (result.rowsAffected[0]) {
             // Call payment handling function
-            await processPayment(req, res)
+            // await processPayment(req, res)
 
             return res.json({ message: 'Order created successfully' });
         } else {
@@ -208,9 +208,9 @@ export const getOrdersByUserID = async (req: Request, res: Response) => {
 };
 
 
-export const getOrdersByStatus = async (req:Request, res:Response) => {
+export const getOrdersByStatus = async (req: Request, res: Response) => {
     try {
-        const { status } = req.params; 
+        const { status } = req.params;
 
         const pool = await mssql.connect(sqlConfig);
 

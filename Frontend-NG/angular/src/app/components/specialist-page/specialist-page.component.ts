@@ -37,7 +37,7 @@ export class SpecialistPageComponent {
     if (token) {
       this.tokenservice.readToken(token).subscribe(
         response => {
-         this.myemail = response.info.email
+          this.myemail = response.info.email
           console.log('myEmail:', this.myemail);
         })
     }
@@ -56,7 +56,7 @@ export class SpecialistPageComponent {
   //       console.log('Gig Information Response:', res);
   //       if (res.gig) {
   //         this.gig = res.gig;
-          
+
   //       }
   //     },
   //     (error) => {
@@ -75,6 +75,7 @@ export class SpecialistPageComponent {
       }
     );
   }
+
   messageSpecialist() {
     this.conversation = {
       chatId: '',
@@ -82,13 +83,14 @@ export class SpecialistPageComponent {
       nickname: this.gig.Name,
       profile_pic: this.gig.profile_pic,
       receiver_email: this.gig.email,
-      sender_email: this.myemail
+      sender_email: this.myemail,
+      gig_id: this.gigID
     };
     this.chatservice.createConversation(this.conversation).subscribe(
       {
         next: (res) => {
           const chatId = res.chatId;
-          this.router.navigate(['/message/:chatId']);
+          this.router.navigate(['/message/', chatId]);
         },
         error: (error) => {
           console.error('Error creating conversation:', error);

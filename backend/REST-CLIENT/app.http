@@ -54,8 +54,8 @@ PUT http://localhost:4500/users/resetPWD
 Content-Type: application/json
 
 {
-  "email":"kenidashakt@gmail.com",
-  "newPassword":"Kenidasha@123"
+  "email":"sharoncherotich112@gmail.com",
+  "newPassword":"Sharon@123"
 }
 
 

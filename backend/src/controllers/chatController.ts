@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 } from 'uuid';
 
 import { sqlConfig } from "../config/sqlConfig";
 import mssql from 'mssql';
@@ -7,8 +7,9 @@ import { Conversation } from "../intefaces/chat.interface";
 
 
 export const createConversation = async (req: Request, res: Response) => {
-    const { profile_pic, last_message, nickname, sender_email, receiver_email }: Conversation = req.body;
+    const { profile_pic, last_message, nickname, sender_email, receiver_email, gig_id }: Conversation = req.body;
     console.log(req.body);
+    console.log(gig_id + " hello  jane")
 
     // Check if all required fields are provided
     if (!profile_pic || !last_message || !nickname || !sender_email || !receiver_email) {
@@ -18,20 +19,21 @@ export const createConversation = async (req: Request, res: Response) => {
     try {
         const pool = await mssql.connect(sqlConfig);
 
-        // Check if conversation already exists between sender and receiver
         const existingConversation = await pool.request()
             .input('senderEmail', sender_email)
             .input('receiverEmail', receiver_email)
             .query('SELECT TOP 1 chatId FROM Conversation WHERE (sender_email = @senderEmail AND receiver_email = @receiverEmail) OR (sender_email = @receiverEmail AND receiver_email = @senderEmail)');
 
         if (existingConversation.recordset.length > 0) {
-            // Conversation already exists, return existing chatId
+
             const chatId = existingConversation.recordset[0].chatId;
             return res.status(200).json({ chatId });
         }
 
         // Conversation does not exist, proceed to create a new one
-        const chatId = uuidv4();
+        const chatId = `${v4()}@${gig_id}`;
+        console.log("testinggggg")
+        console.log("chat id", chatId)
         await pool.request()
             .input('chatId', chatId)
             .input('profile_pic', profile_pic)
@@ -132,4 +134,8 @@ export const deleteConversation = async (req: Request, res: Response) => {
         console.error('Error deleting conversation:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
+}
+
+function uuidv4() {
+    throw new Error("Function not implemented.");
 }
