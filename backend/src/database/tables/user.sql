@@ -32,6 +32,10 @@ ALTER TABLE UserDetails ADD profile_id VARCHAR(255) NULL;
 ALTER TABLE UserDetails ADD  sector VARCHAR(100)
 -- SELECT OTP FROM Users WHERE userID = @userID;
 
+ALTER TABLE UserDetails ADD isOTPSent BIT DEFAULT 0
+-- UPDATE UserDetails SET isDetailsFilled = 1 where email='sharoncherotich112@gmail.com';
+
+ALTER TABLE UserDetails ADD isDetailsFilled BIT DEFAULT 0
 
 
 

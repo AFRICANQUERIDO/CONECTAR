@@ -20,7 +20,7 @@ import { Socket } from 'ngx-socket-io';
 })
 export class MessagesComponent
  implements  OnInit {
-
+   
    showQualifications: boolean = false;
    AllMessages:Message[]=[];
    convestationList:Conversation[]=[];
@@ -29,10 +29,12 @@ export class MessagesComponent
    activeUser:UserDetails={
      nickname: '', active_chat_id: '',
      profile_pic: ''
-   }
+                                     
+    }
     message: any;
     myMessage:Message={author_email:'',chatId:'',message:'',timestamp:''};
   paramChatId!:String
+gigID!: string;
     
 
    constructor(public messagesService:ChatService, public authServices:AuthServiceService,  private datePipe:DatePipe,private router:Router,private route: ActivatedRoute,private sockectIo:SocketsService,private socket:Socket){}
@@ -159,7 +161,10 @@ export class MessagesComponent
     //   queryParams: { chatId: activeConverstion },
     //   queryParamsHandling: 'merge'
     // });
-    this.router.navigate(["message/",activeConverstion.chatId]);
+    // this.router.navigate(["message/",activeConverstion.chatId]);
+    const chatId = activeConverstion.chatId;
+this.router.navigate([`/message/${chatId}`]);
+
 
 
       (await this.messagesService.getMessageByChatId(activeConverstion.chatId)).subscribe({next:(value:Message[])=> {
@@ -188,4 +193,9 @@ export class MessagesComponent
       this.sideMenu=isMenuOpen;
     }
 
+    createOrder(gigID: string) {
+      this.router.navigate([`/orderPage/${gigID}`]);
+    }
+    
+    
 }

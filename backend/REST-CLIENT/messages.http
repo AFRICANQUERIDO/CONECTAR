@@ -25,6 +25,10 @@ GET http://localhost:4500/conversation/my-conversation
 ### Get conversation by ID
 GET http://localhost:4500/conversation/get-by-id/6f915d4f-24a0-45bf-b92a-e514fe7e3605
 
+### Get all conversations by email
+GET http://localhost:4500/conversation/get-by-email/janengene12@gmail.com
+
+
 ### Update conversation by ID
 PUT http://localhost:4500/conversation/update/6f915d4f-24a0-45bf-b92a-e514fe7e3605
 Content-Type: application/json

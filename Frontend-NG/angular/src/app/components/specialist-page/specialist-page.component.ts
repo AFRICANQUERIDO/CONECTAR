@@ -37,8 +37,8 @@ export class SpecialistPageComponent {
     if (token) {
       this.tokenservice.readToken(token).subscribe(
         response => {
-          const myemail = response.info.email
-          console.log('myEmail:', myemail);
+         this.myemail = response.info.email
+          console.log('myEmail:', this.myemail);
         })
     }
 

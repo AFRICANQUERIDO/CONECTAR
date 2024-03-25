@@ -35,7 +35,9 @@ export const routes: Routes = [
     { path: 'reg-user', component: RegUserComponent },
     { path: 'reg-specialist', component: RegSpecialistComponent },
     { path: 'login', component: LoginComponent },
-    {path:'orderPage', component:OrdersComponent},
+    { path: 'orders/:gigID', component: OrdersComponent },
+
+    // {path:'orderPage', component:OrdersComponent},
     { path: 'calender', component: CalenderComponent },
     { path: 'forgot', component: ForgotPwdComponent },
     { path: 'otp', component: OtpComponent },

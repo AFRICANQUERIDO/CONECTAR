@@ -19,11 +19,11 @@ export class ChatService {
   }
 
   getConversationById(id: string): Observable<Conversation> {
-    return this.http.get<Conversation>(`${this.apiUrl}/get-by-id/${id}`);
+    return this.http.get<Conversation>(` http://localhost:4500/conversation/get-by-id/${id}`);
   }
 
   createConversation(conversation: Conversation): Observable<ChatIdModel> {
-    return this.http.post<any>(`${this.apiUrl}/create`, conversation);
+    return this.http.post<any>(` http://localhost:4500/conversation/create`, conversation);
   }
 
   updateConversation(id: string, conversation: Conversation): Observable<any> {

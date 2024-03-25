@@ -33,7 +33,7 @@ export class AuthServiceService {
     }
     const decodedToken = this.decodeToken(token);
     if (decodedToken) {
-      return decodedToken.Email;
+      return decodedToken.email;
     } else {
       return null;
     }
