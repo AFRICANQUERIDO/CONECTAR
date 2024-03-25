@@ -33,7 +33,7 @@
   <div class="empty"></div>
   <div class="specialist-details">
     <div class="specialist-card-grid">
-      <div class="specialist-card" *ngFor="let gig of gigs">
+      <div class="specialist-card" *ngFor="let gig of gigs" (click)="viewGigDetails(gig.gigID)">
         <div class="specialist-header">
           <img [src]="gig.gigImage" class="specialist-image" />
         </div>

@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserServiceService } from '../../services/user-service.service';
 import { AuthServiceService } from '../../services/auth-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-customer-details',
@@ -16,7 +17,7 @@ export class CustomerDetailsComponent {
   detailsForm!: FormGroup;
   errorMessages: string[] = [];
   successMessage: string = '';
-  constructor(private fb: FormBuilder, public customerService: UserServiceService, public authService: AuthServiceService) {
+  constructor(private fb: FormBuilder, public customerService: UserServiceService, public authService: AuthServiceService, private route:Router) {
 
     this.detailsForm = this.fb.group({
       phone_number: ['', Validators.required],
@@ -62,6 +63,7 @@ export class CustomerDetailsComponent {
               this.successMessage = res.message;
               this.errorMessages = [];
               this.detailsForm.reset();
+              this.route.navigate(['/spec-profile'])
             });
           },
           error => {

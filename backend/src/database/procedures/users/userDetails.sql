@@ -5,7 +5,7 @@ AS
 BEGIN
     SELECT
         userID,
-   Name,
+        Name,
         email,
         role
     FROM
@@ -13,6 +13,10 @@ BEGIN
     WHERE
         userID = @userID;
 END;
+
+UPDATE UserDetails
+SET isVerified = 1
+WHERE email = 'gamesmy177@gmail.com';
 
 UPDATE UserDetails
 SET isVerified = 1

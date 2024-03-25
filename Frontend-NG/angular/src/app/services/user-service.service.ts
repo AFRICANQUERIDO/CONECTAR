@@ -10,6 +10,7 @@ import { OTP } from '../intefaces/otp';
 })
 export class UserServiceService {
   token = localStorage.getItem('token') as string;
+  public role! : string
   constructor(private http: HttpClient) { }
   
 
@@ -18,7 +19,7 @@ export class UserServiceService {
   }
 
   signUpUser(sign_details: signUpDetails) {
-    return this.http.post<{ users: Users[], message: string, userID:string, error: string }>('http://localhost:4500/users/register', sign_details)
+    return this.http.post<{ users: Users[], message: string, userID:string, error: string }>(' http://localhost:4500/users/register', sign_details)
   }
 
   validateUser(userID: string, OTP: string): Observable<any> {
@@ -72,7 +73,7 @@ export class UserServiceService {
   }
 
   updateUserDetails(id: string, details: updatedUser) {
-    return this.http.put<{ message: string, error: string }>(`http://localhost:4500/users/update/{id}`, details, {
+    return this.http.put<{ message: string, error: string }>(`http://localhost:4500/users/update/${id}`, details, {
       headers: new HttpHeaders({
         'Content-type': 'application/json',
         'token': this.token

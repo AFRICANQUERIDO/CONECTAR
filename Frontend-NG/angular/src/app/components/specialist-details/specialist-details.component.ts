@@ -73,7 +73,7 @@ export class SpecialistDetailsComponent implements OnInit {
 
   initPreferredServiceForm(): void {
     this.preferredServiceForm = this.fb.group({
-      industrySelect: ['', Validators.required],
+      industry: ['', Validators.required],
       service: ['']
     });
     // this.onSubmit()

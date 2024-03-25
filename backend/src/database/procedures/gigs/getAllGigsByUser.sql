@@ -4,8 +4,6 @@ CREATE OR ALTER PROCEDURE GetAllGigsByUser
 )
 AS
 BEGIN
-    SET NOCOUNT ON;
-
     SELECT *
     FROM Gig
     WHERE userID = @userID;

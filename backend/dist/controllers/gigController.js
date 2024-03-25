@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getGigsByIndustry = exports.getAllGigsByUser = exports.getAllgigs = exports.createGig = void 0;
+exports.getGigsByIndustry = exports.getGigByID = exports.getAllGigsByUser = exports.getAllgigs = exports.createGig = void 0;
 const uuid_1 = require("uuid");
 const mssql_1 = __importDefault(require("mssql"));
 const sqlConfig_1 = require("../config/sqlConfig");
@@ -58,13 +58,13 @@ const getAllgigs = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 exports.getAllgigs = getAllgigs;
 const getAllGigsByUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { userID } = req.body; // Assuming the user ID is sent in the request body
+        const { userID } = req.params;
         const pool = yield mssql_1.default.connect(sqlConfig_1.sqlConfig);
         const result = yield pool.request()
             .input('userID', mssql_1.default.VarChar, userID)
             .execute('GetAllGigsByUser');
-        const gigs = result.recordset;
-        return res.json(gigs);
+        const gig = result.recordset;
+        return res.json({ gig: gig });
     }
     catch (error) {
         console.error('Error getting gigs by user:', error);
@@ -72,6 +72,30 @@ const getAllGigsByUser = (req, res) => __awaiter(void 0, void 0, void 0, functio
     }
 });
 exports.getAllGigsByUser = getAllGigsByUser;
+const getGigByID = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { gigID } = req.params;
+        const pool = yield mssql_1.default.connect(sqlConfig_1.sqlConfig);
+        const result = yield pool.request()
+            .input('gigID', mssql_1.default.VarChar, gigID)
+            .query(`
+                SELECT *
+                FROM GigsWithUserDetailsAndIndustrySector
+                WHERE gigID = @gigID
+            `);
+        if (result.recordset.length > 0) {
+            return res.json(result.recordset[0]);
+        }
+        else {
+            return res.status(404).json({ error: 'No gig found with the specified ID.' });
+        }
+    }
+    catch (error) {
+        console.error('Error fetching gig by ID:', error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+});
+exports.getGigByID = getGigByID;
 const getGigsByIndustry = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { industryID } = req.params; // Extract the industry ID from req.params

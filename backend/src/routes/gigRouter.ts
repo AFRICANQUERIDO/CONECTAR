@@ -1,15 +1,14 @@
 import { Router } from "express";
-import {verifyToken } from "../middlewares/verifyToken";
-import { createGig, getAllGigsByUser, getAllgigs,getGigsByIndustry } from "../controllers/gigController";
+import { verifyToken } from "../middlewares/verifyToken";
+import { createGig, getAllGigsByUser, getAllgigs, getGigsByIndustry, getGigByID } from "../controllers/gigController";
 import { verifySpecialistToken } from "../middlewares/verifyRoleToken";
 
+const gigRouter = Router();
 
-const gigRouter = Router()
+gigRouter.post('/create/:userID', verifyToken, createGig);
+gigRouter.get('/user/:userID', getAllGigsByUser)
+gigRouter.get('/', getAllgigs);
+gigRouter.get('/filter/:industryID', verifyToken, getGigsByIndustry);
+gigRouter.get('/:gigID', getGigByID);
 
-gigRouter.post('/create/:userID', verifyToken, createGig)
-gigRouter.get('/:userID', verifyToken, getAllGigsByUser)
-gigRouter.get('/',verifyToken, getAllgigs)
-gigRouter.get('/filter/:industryID',verifyToken, getGigsByIndustry)
-
-
-export default gigRouter
+export default gigRouter;

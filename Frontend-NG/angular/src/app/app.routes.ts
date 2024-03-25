@@ -23,6 +23,8 @@ import { AllUsersComponent } from './components/all-users/all-users.component';
 import { SpecialistsProfileComponent } from './components/specialists-profile/specialists-profile.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { CreateGigComponent } from './components/create-gig/create-gig.component';
+import { SpecialistPageComponent } from './components/specialist-page/specialist-page.component';
+import { OrdersComponent } from './components/orders/orders.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'landing', pathMatch: 'full' },
@@ -33,10 +35,11 @@ export const routes: Routes = [
     { path: 'reg-user', component: RegUserComponent },
     { path: 'reg-specialist', component: RegSpecialistComponent },
     { path: 'login', component: LoginComponent },
+    {path:'orderPage', component:OrdersComponent},
     { path: 'calender', component: CalenderComponent },
     { path: 'forgot', component: ForgotPwdComponent },
     { path: 'otp', component: OtpComponent },
-
+    {path:'spec-page/:id', component:SpecialistPageComponent},
     { path: 'spec-profile', component: SpecialistsProfileComponent },
     { path: 'spec-detail/:id', component: SpecialistDetailsComponent },
     {path:'gig-create', component: CreateGigComponent},

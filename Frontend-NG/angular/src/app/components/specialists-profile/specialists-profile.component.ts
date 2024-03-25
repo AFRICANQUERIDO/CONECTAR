@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { Gigs } from '../../intefaces/gig.interface';
+import { Gigs, gigDetails } from '../../intefaces/gig.interface';
 import { GigsService } from '../../services/gigs.service';
 import { AuthServiceService } from '../../services/auth-service.service';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-specialists-profile',
@@ -14,11 +15,12 @@ import { NavbarComponent } from '../navbar/navbar.component';
 })
 export class SpecialistsProfileComponent {
   gigs: Gigs[] = [];
+  gigDetails: gigDetails[] = [];
 
-  constructor(public gigService: GigsService, public authService: AuthServiceService) {
+  constructor(public gigService: GigsService, public authService: AuthServiceService, private route:Router) {
     this.fetchGigs();
   }
-  
+
   fetchGigs() {
     const token = localStorage.getItem('token');
     if (token) {
@@ -29,12 +31,21 @@ export class SpecialistsProfileComponent {
         },
         (error) => {
           console.error('Error fetching gigs:', error);
-          // You can provide user-friendly error handling here
+
         }
       );
     } else {
       console.error('Token not found');
-      // You can redirect the user to the login page or display an error message
+
     }
   }
+  
+  viewGigDetails(gigID: string) {
+    this.gigService.getGigbyID(gigID).subscribe((res) => {
+      this.gigDetails = res;
+      this.route.navigate([`/spec-page/${gigID}`]);
+    });
+  }
 }
+
+

@@ -9,3 +9,4 @@ BEGIN
     SELECT * FROM UserDetails WHERE email= @email
 
 END
+

@@ -45,15 +45,38 @@ export const getAllgigs = async (req: Request, res: Response) => {
 
 export const getAllGigsByUser = async (req: Request, res: Response) => {
     try {
-        const { userID } = req.body; // Assuming the user ID is sent in the request body
+        const { userID } = req.params
         const pool = await mssql.connect(sqlConfig);
         const result = await pool.request()
             .input('userID', mssql.VarChar, userID)
             .execute('GetAllGigsByUser');
-        const gigs = result.recordset;
-        return res.json(gigs);
+        const gig = result.recordset;
+        return res.json({gig:gig});
     } catch (error) {
         console.error('Error getting gigs by user:', error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+};
+export const getGigByID = async (req: Request, res: Response) => {
+    try {
+        const { gigID } = req.params
+
+        const pool = await mssql.connect(sqlConfig);
+        const result = await pool.request()
+            .input('gigID', mssql.VarChar, gigID)
+            .query(`
+                SELECT *
+                FROM GigsWithUserDetailsAndIndustrySector
+                WHERE gigID = @gigID
+            `);
+
+        if (result.recordset.length > 0) {
+            return res.json(result.recordset[0]); 
+        } else {
+            return res.status(404).json({ error: 'No gig found with the specified ID.' });
+        }
+    } catch (error) {
+        console.error('Error fetching gig by ID:', error);
         return res.status(500).json({ error: 'Internal server error' });
     }
 };

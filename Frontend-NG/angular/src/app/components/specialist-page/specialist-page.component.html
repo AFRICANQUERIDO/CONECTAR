@@ -1,1 +1,73 @@
-<p>specialist-page works!</p>
+<!-- <div class="main">
+    <div class="title">
+        <h2>Profile</h2>
+    </div>
+    <div *ngIf="gig" class="gig-container">
+
+    
+    <div  *ngFor="let gig of gig" (click)="getGigDetails(gig.gigID)">
+        <div class="image-container">
+            <img src="{{ gig.gigImage }}" alt="Gig Image">
+        </div>
+        <div class="details-container">
+            <p><strong>Name:</strong> {{ gig.Name }}</p>
+            <p><strong>Email:</strong> {{ gig.email }}</p>
+            <p><strong>Gig Title:</strong> {{ gig.gigName }}</p>
+            <p><strong>Description:</strong> {{ gig.gigDescription }}</p>
+            <p><strong>Industry:</strong> {{ gig.industry }}</p>
+            <p><strong>Rate:</strong> {{ gig.rate }}</p>
+            <p><strong>Education:</strong> {{ gig.education}}</p>
+            <p><strong>Experience:</strong> {{ gig.experience}}</p>
+            
+            <div class="button-container">
+                <button class="btn btn-success" (click)="messageSpecialist()">Message</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <hr> -->
+<!-- 
+    <div><h3>Reviews</h3></div>
+    <div class="reviews">
+        <div *ngFor="let review of reviews">
+            <div class="review">
+              <div class="review-details">
+                <div><strong>Organization Name:</strong> {{ review.orgName }}</div>
+                <div><strong>Gig Name:</strong> {{ review.gigName }}</div>
+                Add other review details here
+              </div>
+            </div>
+        </div>
+    </div>    -->
+      
+<!-- </div> -->
+
+
+
+<div class="main">
+    <div class="title">
+        <h2>Profile</h2>
+    </div>
+    <div *ngIf="gig" class="gig-container">
+        <div>
+            <div class="image-container">
+                <img src="{{ gig.gigImage }}" alt="Gig Image">
+            </div>
+            <div class="details-container">
+                <p><strong>Name:</strong> {{ gig.Name }}</p>
+                <p><strong>Email:</strong> {{ gig.email }}</p>
+                <p><strong>Gig Title:</strong> {{ gig.gigName }}</p>
+                <p><strong>Description:</strong> {{ gig.gigDescription }}</p>
+                <p><strong>Industry:</strong> {{ gig.industry }}</p>
+                <p><strong>Rate:</strong> {{ gig.rate }}</p>
+                <p><strong>Education:</strong> {{ gig.education }}</p>
+                <p><strong>Experience:</strong> {{ gig.experience }}</p>
+                <div class="button-container">
+                    <button class="btn btn-success" (click)="messageSpecialist()">Message</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

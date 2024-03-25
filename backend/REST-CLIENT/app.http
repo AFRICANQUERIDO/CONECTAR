@@ -1,19 +1,20 @@
 ###set Role
-POST http://localhost:4500/users/role/13724176-d832-4b75-9e0c-b2286ed6224e
+POST http://localhost:4500/users/role/de7a5937-4a0d-4077-8aee-d3cce03f2646
 Content-Type: application/json
 
 {
-  "role":"customer"
+  "role":"specialist"
 }
+
 ### register user
 POST http://localhost:4500/users/register
 Content-Type: application/json
 
 {
-  "Name": "Kenidasha",
-  "email": "kenidashakt@gmail.com",
-  "password": "kenidasha@123",
-  "role":"specialist"
+  "Name": "Dan",
+  "email": "gamesmy177@gmail.com",
+  "password": "Daniel@123",
+  "role":"customer"
 }
 
 # {
@@ -25,11 +26,11 @@ Content-Type: application/json
 
 
 ### validate user
-PUT http://localhost:4500/users/validate/13724176-d832-4b75-9e0c-b2286ed6224e
+PUT http://localhost:4500/users/validate/192e0b35-0c68-4b8d-b3a7-6ef85e5f297a
 Content-Type: application/json
 
 {
-  "OTP": "7347"  
+  "OTP": "1602"  
 }
 
 
@@ -72,7 +73,7 @@ token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI0YWZiMTlkNC02NDk2LTQw
 "experience":"1year",
 "language":"English",
 "about":"My name is Kenedy",
-"nickname":"Kenny",
+"nickname":"Ken",
 "country":"kenya",
 "city":"nyeri",
 "industry":"Virtual Assistant",

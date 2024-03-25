@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { createIndustry, industryResponse ,sector} from '../intefaces/industry';
 import { Observable } from 'rxjs';
-import { Gigs } from '../intefaces/gig.interface';
+import { Gigs, Order, gigDetails } from '../intefaces/gig.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -44,5 +44,23 @@ export class GigsService {
         'token': this.token
       })
     })
+  }
+
+
+  getGigbyID(gigID:string){
+    return this.http.get<any>(`http://localhost:4500/gigs/${gigID}`);
+  }
+  getSpecialistGigbyID(gigID:string){
+    return this.http.get<any>(`http://localhost:4500/gigs/user/${gigID}`);
+  }
+
+  // getSpecializeDetails(id:number):gigDetails | undefined{
+  //   const allSpecialize=this.getGig();
+  //   return allSpecialize.find(e=>e.id==id);
+  
+  // }
+
+  createOrder(orderData: Order): Observable<any> {
+    return this.http.post<any>(`http://localhost:4500/orders/create`, orderData);
   }
 }
