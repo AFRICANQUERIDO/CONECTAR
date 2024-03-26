@@ -36,7 +36,7 @@
   
   <button class="btn btn-lg btn-outline-primary">Launch demo modal</button>
    -->
-
+<app-navbar></app-navbar>
    <div class="wrapper">
      
      <form [formGroup]="reviewForm" (ngSubmit)="submitReview()">
@@ -48,6 +48,11 @@
     <div class="mb-3">
       <label for="rating">Rating</label>
       <input type="number" formControlName="rating" class="form-control" placeholder="Enter rating 1-5 eg 5">
+      <div *ngIf="reviewForm.get('rating')?.invalid && (reviewForm.get('rating')?.dirty || reviewForm.get('rating')?.touched)">
+        <small class="text-danger" *ngIf="reviewForm.get('rating')?.errors?.['invalidRating']">
+          Rating must be between 1 and 5.
+        </small>
+      </div>
     </div>
     <div class="mb-3">
       <label for="reviewText">Review Text</label>

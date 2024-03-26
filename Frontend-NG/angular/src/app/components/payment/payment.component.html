@@ -1,5 +1,7 @@
+<app-navbar></app-navbar>
 <div class="form-wrapper">
   <form [formGroup]="paymentForm" (ngSubmit)="submitPayment()">
+    <h2>Make Payment</h2>
     <div class="mb-3">
       <label for="orderId">Order ID</label>
       <input
@@ -44,7 +46,7 @@
       Create Payment
     </button>
   </form>
-  <div *ngIf="message" [ngClass]="{'success': success, 'error': !success}">
+  <div *ngIf="message" [ngClass]="{'success': success, 'error': !success}" >
     {{ message }}
   </div>
 </div>
