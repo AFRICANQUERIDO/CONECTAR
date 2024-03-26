@@ -25,6 +25,7 @@ import { MessagesComponent } from './components/messages/messages.component';
 import { CreateGigComponent } from './components/create-gig/create-gig.component';
 import { SpecialistPageComponent } from './components/specialist-page/specialist-page.component';
 import { OrdersComponent } from './components/orders/orders.component';
+import { ReviewComponent } from './components/review/review.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'landing', pathMatch: 'full' },
@@ -36,7 +37,7 @@ export const routes: Routes = [
     { path: 'reg-specialist', component: RegSpecialistComponent },
     { path: 'login', component: LoginComponent },
     { path: 'orders/:gigID', component: OrdersComponent },
-
+{path:'review', component:ReviewComponent},
     // {path:'orderPage', component:OrdersComponent},
     { path: 'calender', component: CalenderComponent },
     { path: 'forgot', component: ForgotPwdComponent },

@@ -81,3 +81,17 @@ export interface GigResponse{
        status: string;
         userID: string;
       }
+
+
+      export interface specOrders {
+        user_fname: string;
+        user_lname: string;
+        order_desc: string;
+        status: string;
+      }
+      export interface userOrders {
+        spec_fname: string;
+        spec_lname: string;
+        order_desc: string;
+        status: string;
+      }

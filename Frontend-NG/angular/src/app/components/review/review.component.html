@@ -1,0 +1,58 @@
+<!-- <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="mb-3">
+          <div class="input-group">
+            <div class="description">
+              <input type="text" name="description" id="description" />
+            </div>
+            <div class="rating">
+              <input type="number" name="rating" id="rating" />
+            </div>
+           
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-outline-dark"
+        (click)="modal.close('Save click')"
+      >
+        Save
+      </button>
+    </div>
+  </ng-template>
+  
+  <button class="btn btn-lg btn-outline-primary">Launch demo modal</button>
+   -->
+
+   <div class="wrapper">
+     
+     <form [formGroup]="reviewForm" (ngSubmit)="submitReview()">
+      <button class="close-btn" (click)="closeForm()">
+        <i class="fas fa-times"></i> 
+        
+      </button>
+    <h3>Your feedback on this order</h3>
+    <div class="mb-3">
+      <label for="rating">Rating</label>
+      <input type="number" formControlName="rating" class="form-control" placeholder="Enter rating 1-5 eg 5">
+    </div>
+    <div class="mb-3">
+      <label for="reviewText">Review Text</label>
+      <textarea formControlName="reviewText" class="form-control" rows="5" placeholder="Enter description for review"></textarea>
+    </div>
+    <button type="submit" [disabled]="reviewForm.invalid" class="btn btn-primary">Submit Review</button>
+  </form>
+</div>

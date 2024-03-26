@@ -1,0 +1,61 @@
+.main{
+    width: 100%;
+    min-height: 90vh;
+    max-height: max-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.head{
+    width: 95%;
+    height: 10vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* background-color: aqua; */
+}
+.content{
+    width: 95%;
+    min-height: 80vh;
+    max-height: max-content;
+}
+.select-box{
+    border-radius: 10px;
+    background-color: #DEE8FB;
+    border: none;
+    height: 4vh;
+    width: 15vw;
+    padding-inline: 1vw;
+}
+.select-box:focus{
+    outline: none;
+}
+.table{
+    width: 100%;
+}
+.table tr,.table th,.table td{
+    border: 1px solid white;
+    text-align: center;
+}
+.table th{
+    background-color: #2369F2;
+    color: white;
+    height: 5vh;
+}
+.table td{
+    background-color: #DEE8FB;
+    height: 5vh;
+}
+.table i{
+    color: green;
+    cursor: pointer;
+}
+.table i:hover{
+    color: limegreen;
+}
+
+@media (max-width:768px) {
+    .head,.content{
+        width: 98%;
+    }
+}

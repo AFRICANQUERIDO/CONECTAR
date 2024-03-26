@@ -1,0 +1,58 @@
+<div class="main">
+    <div class="head">
+        <div class="title">
+            <h2>Orders</h2>
+        </div>
+        <div class="filter">
+            Filter
+            <select class="select-box">
+                <option value="">Status of Orders</option>
+                <option value="completed">Completed</option>
+                <option value="pending">Pending</option>
+            </select>
+        </div>
+    </div>
+    <div class="content">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Client Name</th>
+                    <th>Order Description</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let order of orders ; let i = index">
+                    <td>{{i+1}}</td>
+                    <td>{{order.user_fname}} {{order.user_lname}}</td>
+                    <td>{{order.order_desc}}</td>
+                    <td>{{order.status}}</td>
+                    <td>
+                        
+                    </td>
+                </tr>
+                <!-- <tr>
+                    <td>2</td>
+                    <td>Jane</td>
+                    <td>Doe</td>
+                    <td>Completed</td>
+                    <td>
+                        
+                    </td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Jane</td>
+                    <td>Doe</td>
+                    <td>Pending</td>
+                    <td>
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </td>
+                </tr> -->
+            </tbody>
+
+        </table>
+    </div>
+</div>

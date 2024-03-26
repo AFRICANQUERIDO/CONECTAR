@@ -1,0 +1,21 @@
+<!-- review.component.html -->
+<form [formGroup]="reviewForm" (ngSubmit)="submitPayment()">
+    <div class="mb-3">
+      <label for="orderId">Order ID</label>
+      <input type="text" formControlName="orderId" class="form-control" placeholder="Enter order ID">
+    </div>
+    <div class="mb-3">
+      <label for="amount">Amount</label>
+      <input type="number" formControlName="amount" class="form-control" placeholder="Enter amount">
+    </div>
+    <div class="mb-3">
+      <label for="source">Source</label>
+      <input type="text" formControlName="source" class="form-control" placeholder="Enter source">
+    </div>
+    <div class="mb-3">
+      <label for="description">Description</label>
+      <textarea formControlName="description" class="form-control" rows="5" placeholder="Enter description"></textarea>
+    </div>
+    <button type="submit" [disabled]="reviewForm.invalid" class="btn btn-primary">Create Payment</button>
+  </form>
+  
