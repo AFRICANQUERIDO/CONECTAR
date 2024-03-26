@@ -1,25 +1,31 @@
-
-<form [formGroup]="orderForm" (ngSubmit)="createOrder()">
+<div class="form-wrapper">
+  <form [formGroup]="orderForm" (ngSubmit)="createOrder()">
     <div>
       <label for="orderDescription">Order Description</label>
-      <input type="text" formControlName="orderDescription" id="orderDescription">
+      <input
+        type="text"
+        formControlName="orderDescription"
+        id="orderDescription"
+      />
     </div>
     <div>
       <label for="startDate">Start Date</label>
-      <input type="date" formControlName="startDate" id="startDate">
+      <input type="date" formControlName="startDate" id="startDate" />
     </div>
     <div>
       <label for="endDate">End Date</label>
-      <input type="date" formControlName="endDate" id="endDate">
+      <input type="date" formControlName="endDate" id="endDate" />
     </div>
     <div>
       <label for="quantity">Quantity</label>
-      <input type="number" formControlName="quantity" id="quantity">
+      <input type="number" formControlName="quantity" id="quantity" />
     </div>
     <div>
       <label for="totalAmount">Total Amount</label>
-      <input type="number" formControlName="totalAmount" id="totalAmount">
+      <input type="number" formControlName="totalAmount" id="totalAmount" />
     </div>
-    <button type="submit" [disabled]="!orderForm.valid">Create Order</button>
+    <button type="submit" [disabled]="!orderForm.valid" >
+      Create Order
+    </button>
   </form>
-  
+</div>

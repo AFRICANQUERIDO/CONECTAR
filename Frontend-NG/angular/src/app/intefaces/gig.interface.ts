@@ -83,15 +83,17 @@ export interface GigResponse{
       }
 
 
-      export interface specOrders {
-        user_fname: string;
-        user_lname: string;
-        order_desc: string;
+  //     export interface orderResponse {
+  //  order:Order[]
+  //     }
+      export interface orderResponse {
+        orderID: string;
+        userID: string;
+        gigID: string;
+        startDate: string;
+        endDate: string;
+        quantity: number;
+        totalAmount: number;
         status: string;
-      }
-      export interface userOrders {
-        spec_fname: string;
-        spec_lname: string;
-        order_desc: string;
-        status: string;
+        orderDescription: string;
       }

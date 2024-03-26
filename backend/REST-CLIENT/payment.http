@@ -5,12 +5,11 @@ POST http://localhost:4500/payment/payment
 Content-Type: application/json
 
 {
-    "orderID":"972273d8-bdb3-4153-8dad-aba7cdacad4e",
-    "amount": 500000,
+    "orderID":"d57ede5c-faf6-4e5e-9fe4-531a4756347d",
+    "amount": 150000,
     "source": "tok_visa",
-    "description": "Testing another Payment saving to db"
+    "description": "Testing another Paymentfrom frontend"
 }
-
 
 
 ###GET ALL PAYMENTS BY ORDER

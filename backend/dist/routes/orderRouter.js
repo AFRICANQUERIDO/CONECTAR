@@ -9,5 +9,6 @@ orderRouter.get('/', orderController_1.getOrders);
 orderRouter.get('/:userID', orderController_1.getOrdersByUserID);
 orderRouter.get('/status/:status', orderController_1.getOrdersByStatus);
 orderRouter.put('/update/:orderID', orderController_1.updateOrder);
+orderRouter.get('/order/:orderID', orderController_1.getOrderByID);
 orderRouter.put('/cancel/:orderID', orderController_1.cancelOrder);
 exports.default = orderRouter;

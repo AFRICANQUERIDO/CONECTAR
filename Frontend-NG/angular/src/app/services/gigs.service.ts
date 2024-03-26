@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { createIndustry, industryResponse, sector } from '../intefaces/industry';
 import { Observable } from 'rxjs';
-import { Gigs, Order, gigDetails } from '../intefaces/gig.interface';
+import { Gigs, Order, gigDetails, orderResponse } from '../intefaces/gig.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -65,9 +65,9 @@ export class GigsService {
     return this.http.post<any>(`http://localhost:4500/orders/create`, orderData);
   }
 
-  getOrders(id: string): Observable<{ spec_orders: Order[], error: string }> {
-    const url = `http://localhost:4500/orders/${id}`;
-    return this.http.get<{ spec_orders: Order[], error: string }>(url, {
+  getOrders(id: string): Observable<{ order:orderResponse[], error: string }> {
+    const url = `http://localhost:4500/orders/order/${id}`;
+    return this.http.get<{ order:orderResponse[], error: string }>(url, {
       headers: new HttpHeaders({
         'Content-type': 'application/json',
       })

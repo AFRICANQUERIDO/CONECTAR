@@ -69,7 +69,7 @@ export const createOrder = async (req: Request, res: Response) => {
             // Call payment handling function
             // await processPayment(req, res)
 
-            return res.json({ message: 'Order created successfully' });
+            return res.json({ message: 'Order created successfully' , orderID});
         } else {
             return res.status(500).json({ error: 'Failed to create order' });
         }
@@ -88,7 +88,7 @@ export const getOrders = async (req: Request, res: Response) => {
         const result = await pool.request().query('SELECT * FROM Orders');
 
         // Send the list of orders as response
-        return res.json(result.recordset);
+        return res.json({orders:result.recordset});
     } catch (error) {
         console.error('Error fetching orders:', error);
         return res.status(500).json({ error: 'Internal server error' });
@@ -228,6 +228,28 @@ export const getOrdersByStatus = async (req: Request, res: Response) => {
         return res.status(500).json({ error: 'Error fetching orders by status' });
     }
 };
+
+
+export const getOrderByID = async(req:Request, res:Response)=>{
+  try{
+    const{orderID} = req.params
+
+    const pool = await mssql.connect(sqlConfig);
+
+    const result = await pool.request()
+        .input('orderID', mssql.VarChar, orderID)
+        .query('SELECT * FROM Orders WHERE orderID = @orderID');
+
+    if (result.recordset.length > 0) {
+        return res.json({order:result.recordset});
+    } else {
+        return res.status(404).json({ error: 'No orders found for the specified orderID' });
+    }
+} catch (error) {
+    console.error('Error fetching orders by status:', error);
+    return res.status(500).json({ error: 'Error fetching orders by status' });
+  }  
+}
 
 export const updateOrder = async (req: Request, res: Response) => {
     try {

@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.cancelOrder = exports.updateOrder = exports.getOrdersByStatus = exports.getOrdersByUserID = exports.getOrders = exports.createOrder = void 0;
+exports.cancelOrder = exports.updateOrder = exports.getOrderByID = exports.getOrdersByStatus = exports.getOrdersByUserID = exports.getOrders = exports.createOrder = void 0;
 const mssql_1 = __importDefault(require("mssql"));
 const uuid_1 = require("uuid");
 const sqlConfig_1 = require("../config/sqlConfig");
@@ -68,7 +68,7 @@ const createOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         if (result.rowsAffected[0]) {
             // Call payment handling function
             // await processPayment(req, res)
-            return res.json({ message: 'Order created successfully' });
+            return res.json({ message: 'Order created successfully', orderID });
         }
         else {
             return res.status(500).json({ error: 'Failed to create order' });
@@ -87,7 +87,7 @@ const getOrders = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         // Query all orders
         const result = yield pool.request().query('SELECT * FROM Orders');
         // Send the list of orders as response
-        return res.json(result.recordset);
+        return res.json({ orders: result.recordset });
     }
     catch (error) {
         console.error('Error fetching orders:', error);
@@ -212,6 +212,26 @@ const getOrdersByStatus = (req, res) => __awaiter(void 0, void 0, void 0, functi
     }
 });
 exports.getOrdersByStatus = getOrdersByStatus;
+const getOrderByID = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { orderID } = req.params;
+        const pool = yield mssql_1.default.connect(sqlConfig_1.sqlConfig);
+        const result = yield pool.request()
+            .input('orderID', mssql_1.default.VarChar, orderID)
+            .query('SELECT * FROM Orders WHERE orderID = @orderID');
+        if (result.recordset.length > 0) {
+            return res.json({ order: result.recordset });
+        }
+        else {
+            return res.status(404).json({ error: 'No orders found for the specified orderID' });
+        }
+    }
+    catch (error) {
+        console.error('Error fetching orders by status:', error);
+        return res.status(500).json({ error: 'Error fetching orders by status' });
+    }
+});
+exports.getOrderByID = getOrderByID;
 const updateOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { orderID } = req.params;

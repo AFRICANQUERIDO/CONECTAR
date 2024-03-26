@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GigsService } from '../../services/gigs.service';
 import { AuthServiceService } from '../../services/auth-service.service';
 import { CommonModule } from '@angular/common';
@@ -22,7 +22,8 @@ export class OrdersComponent implements OnInit {
     private formBuilder: FormBuilder,
     private orderService: GigsService,
     private authService: AuthServiceService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router:Router
   ) { }
 
   ngOnInit(): void {
@@ -72,6 +73,9 @@ export class OrdersComponent implements OnInit {
 
 
           })
+          const orderID = response.orderID
+
+          this.router.navigate([`/payment/${orderID}`])
 
         },
         (error) => {
@@ -92,5 +96,9 @@ export class OrdersComponent implements OnInit {
     } else {
       console.log('Form is invalid');
     }
+  }
+
+  makePayment(){
+    
   }
 }

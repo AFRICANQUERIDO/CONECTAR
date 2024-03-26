@@ -16,6 +16,9 @@ Content-Type: application/json
 ###GET ALL ORDERS
 GET http://localhost:4500/orders
 
+### GET ORDERS BY ORDERID
+GET http://localhost:4500/orders/order/33ae5b37-62cd-4081-a499-1495f41e5052
+
 ### GET A USER ORDERS
 GET http://localhost:4500/orders/aaaecb53-2d2a-406a-9630-2135a087b8d9
 
