@@ -52,7 +52,9 @@ export const routes: Routes = [
     { path: 'cust-detail/:id', component: CustomerDetailsComponent },
     { path: 'rating', component: RatingComponent },
     { path: 'role', component: JoinAsComponent },
-    { path: 'cust-dashboard', component: CustDashboardComponent },
+    { path: 'cust-dashboard', component: CustDashboardComponent,children:[
+        {path:'spec-profile', component:SpecialistsProfileComponent},
+    ] },
     { path: 'cust-page', component: CustomerPageComponent },
     { path: 'message/:chatId', component: MessagesComponent },
     {
