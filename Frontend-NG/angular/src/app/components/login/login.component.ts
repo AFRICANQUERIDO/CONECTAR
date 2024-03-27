@@ -41,21 +41,24 @@ export class LoginComponent implements OnInit {
 
       this.userService.loginUser(userDetails).subscribe(
         res => {
-          if (res) {
+          if (res.error) {
+            return this.displayError(res.error)
+          }
+          if (res.message) {
             console.log(res);
             this.successMsg = res.message;
             this.msgVisible = true;
             localStorage.setItem('token', res.token);
             this.authService.setUser(res);
-  
+
             const token = localStorage.getItem('token');
-  
+
             if (token) {
               this.authService.readToken(token).subscribe(
                 response => {
                   const userID = response.info.userID;
                   console.log('UserID:', userID);
-  
+
                   if (response.info.role === 'customer') {
                     this.displaySuccess(res.message, `cust-detail/${userID}`);
                   } else if (response.info.role === 'specialist') {
@@ -100,15 +103,21 @@ export class LoginComponent implements OnInit {
   }
 
   displayError(message: string): void {
+    console.log(message);
+
+    this.msgVisible = true
     this.errorMsg = message;
     setTimeout(() => {
+      this.msgVisible = false
       this.errorMsg = '';
     }, 5000);
   }
 
   displaySuccess(message: string, route: string): void {
+    this.msgVisible2 = true
     this.successMsg = message;
     setTimeout(() => {
+      this.msgVisible2 = false
       this.successMsg = '';
       this.router.navigate([route]);
     }, 3000);

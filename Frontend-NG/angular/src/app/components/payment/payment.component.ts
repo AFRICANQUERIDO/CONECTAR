@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Order, orderResponse } from '../../intefaces/gig.interface';
 import { GigsService } from '../../services/gigs.service';
 import { NavbarComponent } from '../navbar/navbar.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-payment',
@@ -14,7 +15,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
   templateUrl: './payment.component.html',
   styleUrl: './payment.component.css'
 })
-export class PaymentComponent implements OnInit{
+export class PaymentComponent implements OnInit {
   paymentForm!: FormGroup;
   orderID!: string;
   order: orderResponse[] = [];
@@ -33,12 +34,12 @@ export class PaymentComponent implements OnInit{
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.orderID = params['orderID'];
-      
+
       localStorage.setItem('orderID', this.orderID);
-  
+
       this.orderService.getOrders(this.orderID).subscribe((res: { order: Order[] }) => {
         this.totalAmount = res.order[0].totalAmount;
-  
+
         this.paymentForm = this.fb.group({
           orderID: [this.orderID, Validators.required],
           amount: [this.totalAmount, Validators.required],
@@ -57,14 +58,32 @@ export class PaymentComponent implements OnInit{
       const paymentData = this.paymentForm.value;
       this.paymentService.createPayment(paymentData).subscribe(
         response => {
-          this.success = true;
-          this.message = 'Payment successful';
+          Swal.fire({
+            title: 'ORDERS',
+            text: response.message,
+            icon: 'success',
+            showCancelButton: true,
+            confirmButtonColor: '#21cdc0',
+            cancelButtonColor: '#d33',
+
+
+          })
+          // this.success = true;
+          // this.message = 'Payment successful';
           console.log('Payment successful:', response);
           this.paymentForm.reset
         },
         error => {
-          this.success = false;
-          this.message = 'Error creating payment: Please try again';
+          Swal.fire({
+            title: 'PAYMENT',
+            text: "Order is already paid. Another payment is not required",
+            icon: 'error',
+            showCancelButton: true,
+            confirmButtonColor: '#21cdc0',
+            cancelButtonColor: '#d33',
+          })
+          // this.success = false;
+          // this.message = "Order is already paid. Another payment is not required";
           console.error('Error creating payment:', error);
         }
       )
