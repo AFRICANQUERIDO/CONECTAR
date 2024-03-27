@@ -31,12 +31,18 @@
 <div class="page_wrapper">
   <app-navbar></app-navbar>
   <div class="empty"></div>
+  <div class="search-icon" (click)="toggleSearchDiv()">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </div>
+  <div class="search-div"  >
+    <input type="search" placeholder="Search here" [(ngModel)]="filter"/>
+    <i (click)="performSearch()" class="fa-solid fa-magnifying-glass"></i>
+  </div>
   <div class="specialist-details">
     <div class="specialist-card-grid">
-      <div class="specialist-card" *ngFor="let gig of gigs" (click)="viewGigDetails(gig.gigID)">
+      <div class="specialist-card" *ngFor="let gig of gigs | searchPipe:filter;" (click)="viewGigDetails(gig.gigID) ">
         <div class="specialist-header">
-          <img [src]="gig.gigImage" class="specialist-image" />
-        </div>
+          <img [src]=" 'https://img.freepik.com/free-photo/mixed-race-classmate-study-together-write-notebook-rewrite-information-from-papers-prepare-school-exam-wear-casual-clothes-pose-desktop-spend-time-together-people-assistance-concept_273609-28949.jpg?t=st=1711546569~exp=1711550169~hmac=df0e673dfcb36c3faaac6c4b5af3b4ca449efb18125d74f30dd1a30865a9a4f7&w=1380'" class="specialist-image" />         </div>
         <div class="specialist-info">
           <div class="specialist_name">
             <h2>{{ gig.gigName }}</h2>
@@ -53,7 +59,7 @@
           </p>
           <p><strong>Experience:</strong> {{ gig.experience }}</p>
           <p><strong>Highest Education:</strong> {{ gig.education }}</p>
-          <p><strong>Rate per Hour:</strong> {{ gig.rate }}</p>
+          <p><strong>Rate per Hour:</strong> Ksh. 1000/hr </p>
         </div>
       </div>
     </div>

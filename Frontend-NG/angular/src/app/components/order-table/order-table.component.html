@@ -1,10 +1,9 @@
-<div class="main">
+<!-- <div class="main">
     <div class="head">
         <div class="title">
             <h2>Orders</h2>
         </div>
         <div class="filter">
-            Filter
             <select class="select-box">
                 <option value="">Status of Orders</option>
                 <option value="completed">Completed</option>
@@ -33,26 +32,34 @@
                         
                     </td>
                 </tr>
-                <!-- <tr>
-                    <td>2</td>
-                    <td>Jane</td>
-                    <td>Doe</td>
-                    <td>Completed</td>
-                    <td>
-                        
-                    </td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Jane</td>
-                    <td>Doe</td>
-                    <td>Pending</td>
-                    <td>
-                        <i class="fa-solid fa-pen-to-square"></i>
-                    </td>
-                </tr> -->
+
             </tbody>
 
         </table>
     </div>
-</div>
+</div> -->
+
+
+<div class="orders-table">
+    <table>
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Product Name</th>
+          <th>Quantity</th>
+          <th>Total Price</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of customerOrders">
+          <td>{{ order.orderId }}</td>
+          <td>{{ order.productName }}</td>
+          <td>{{ order.quantity }}</td>
+          <td>{{ order.totalPrice | currency }}</td>
+          <td>{{ order.status }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

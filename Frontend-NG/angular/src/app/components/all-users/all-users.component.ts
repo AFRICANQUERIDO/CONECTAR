@@ -4,7 +4,7 @@ import { UserServiceService } from '../../services/user-service.service';
 import { AuthServiceService } from '../../services/auth-service.service';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
-import { FilterRolePipe } from '../../FilterRole/filter-role.pipe';
+import { FilterRolePipe } from '../../Pipes/FilterRole/filter-role.pipe';
 import { FormsModule } from '@angular/forms';
 
 

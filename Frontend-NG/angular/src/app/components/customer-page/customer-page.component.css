@@ -42,9 +42,8 @@
 }
 
 .sidebar li:active {
-    background-color: #0a7e74;
+    background-color: #213360;
 }
-
 
 .cont{
     width:85%;
@@ -54,7 +53,7 @@
 
 .navbar {
     background-color: #213360;
-    color: #7f7f7f;
+    color: #21cdc0;
     padding: 20px;
     text-align: center;
     cursor: pointer;
@@ -67,7 +66,7 @@
 }
 
 .account {
-    border: #7f7f7f 1px solid;
+    border: #213360 1px solid;
     width: 10%;
     border-radius: 6px;
 }
@@ -80,8 +79,46 @@
     border: 1px solid #ddd;
     width:100%;
     height:100%;
+} 
+
+/* 
+.cont {
+    width: 100%;
+    background-repeat: none;
+    background-size: cover;
 }
 
+.cont-nav-bar {
+    background-color: #213360;
+    color: 
+    #21cdc0;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10%;
+    height: 10vh;
+    width: 100%; 
+}
+
+.account {
+    border: 
+    #21cdc0 1px solid;
+    width: 10%;
+    border-radius: 6px;
+}
+
+.account:hover {
+    background-color: #006241;
+}
+
+.content {
+    border: 1px solid #ddd;
+    width: 100%;
+    height: 100%;
+} */
 .search-div {
     /* display: none; */
     position: fixed;
