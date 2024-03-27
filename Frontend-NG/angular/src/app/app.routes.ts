@@ -27,6 +27,7 @@ import { SpecialistPageComponent } from './components/specialist-page/specialist
 import { OrdersComponent } from './components/orders/orders.component';
 import { ReviewComponent } from './components/review/review.component';
 import { PaymentComponent } from './components/payment/payment.component';
+import { UpdateGigComponent } from './components/update-gig/update-gig.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'landing', pathMatch: 'full' },
@@ -47,6 +48,8 @@ export const routes: Routes = [
     {path:'spec-page/:id', component:SpecialistPageComponent},
     { path: 'spec-profile', component: SpecialistsProfileComponent },
     { path: 'spec-detail/:id', component: SpecialistDetailsComponent },
+    
+    {path:'update-gig', component:UpdateGigComponent},
     {path:'gig-create', component: CreateGigComponent},
     // { path: 'cust-detail', component: CustomerDetailsComponent },
     { path: 'cust-detail/:id', component: CustomerDetailsComponent },

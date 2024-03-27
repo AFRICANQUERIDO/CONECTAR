@@ -41,33 +41,47 @@
             </div>
         </div>
     </div>    -->
-      
+
 <!-- </div> -->
+<app-navbar></app-navbar>
+<div
+  class="main"
+  [ngStyle]="{ 'background-image': 'url(' + gig.gigImage + ')' }"
+>
+<!-- <div class="title">
+    <h2>Profile</h2>
+  </div> -->
+<div *ngIf="gig" class="gig-container">
 
-
-
-<div class="main">
-    <div class="title">
-        <h2>Profile</h2>
-    </div>
-    <div *ngIf="gig" class="gig-container">
-        <div>
-            <div class="image-container">
+    <div class="details-wrapper">
+      <!-- <div class="image-container">
                 <img src="{{ gig.gigImage }}" alt="Gig Image">
-            </div>
+            </div> -->
             <div class="details-container">
-                <p><strong>Name:</strong> {{ gig.Name }}</p>
-                <p><strong>Email:</strong> {{ gig.email }}</p>
-                <p><strong>Gig Title:</strong> {{ gig.gigName }}</p>
-                <p><strong>Description:</strong> {{ gig.gigDescription }}</p>
-                <p><strong>Industry:</strong> {{ gig.industry }}</p>
-                <p><strong>Rate:</strong> {{ gig.rate }}</p>
-                <p><strong>Education:</strong> {{ gig.education }}</p>
-                <p><strong>Experience:</strong> {{ gig.experience }}</p>
-                <div class="button-container">
-                    <button class="btn btn-success" (click)="messageSpecialist()">Message</button>
+                <div class="details"> 
+                <div class="left-section">
+                  <p><strong>Gig Title:</strong> {{ gig.gigName }}</p>
+                  <p><strong>Name:</strong> {{ gig.Name }}</p>
+                  <p><strong>Description:</strong> {{ gig.gigDescription }}</p>
+                  <p><strong>Email:</strong> {{ gig.email }}</p>
                 </div>
-            </div>
+                <div class="right-section">
+                  <p><strong>Industry:</strong> {{ gig.industry }}</p>
+                  <p><strong>Education:</strong> {{ gig.education }}</p>
+                  <p><strong>Rate:</strong> {{ gig.rate }}</p>
+                  <p><strong>Experience:</strong> {{ gig.experience }}</p>
+                </div>
+              </div>
+        <div class="btn-container">
+          <a>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <button (click)="messageSpecialist()">Message</button>
+          </a>
         </div>
+      </div>
     </div>
+  </div>
 </div>

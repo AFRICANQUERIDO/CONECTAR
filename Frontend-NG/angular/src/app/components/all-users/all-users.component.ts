@@ -4,18 +4,22 @@ import { UserServiceService } from '../../services/user-service.service';
 import { AuthServiceService } from '../../services/auth-service.service';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
+import { FilterRolePipe } from '../../FilterRole/filter-role.pipe';
+import { FormsModule } from '@angular/forms';
+
 
 
 @Component({
   selector: 'app-all-users',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FilterRolePipe, FormsModule],
   templateUrl: './all-users.component.html',
   styleUrl: './all-users.component.css'
 })
 export class AllUsersComponent implements OnInit {
   users: ViewUsers[] = [];
   error: string = '';
+  filter = ''
 
   constructor(public userService: UserServiceService, public authService: AuthServiceService) {
     this.fetchUsers();

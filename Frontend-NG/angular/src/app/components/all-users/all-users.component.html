@@ -1,15 +1,13 @@
 <section>
-  <!--for demo wrap-->
-  <!-- <h1>All Users</h1> -->
+
+  <div class="filter">
+    <select class="select-box" [(ngModel)]="filter">
+      <option value="">All users</option>
+      <option value="specialist">Specialist</option>
+      <option value="customer">Customer</option>
+    </select>
+  </div>
   <div class="tbl-header">
-    <div class="filter">
-      Filter
-      <select class="select-box">
-        <option value="">Type of User</option>
-        <option value="specialist">Specialist</option>
-        <option value="user">User</option>
-      </select>
-    </div>
     <table cellpadding="0" cellspacing="0" border="0">
       <thead>
         <tr>
@@ -25,7 +23,7 @@
   <div class="tbl-content">
     <table cellpadding="0" cellspacing="0">
       <tbody>
-        <tr *ngFor="let user of users; let i = index">
+        <tr *ngFor="let user of users| filterRole:filter; let i = index">
           <td>{{ i + 1 }}</td>
           <td>{{ user.Name }}</td>
           <td>{{ user.email }}</td>

@@ -1,0 +1,30 @@
+<div class="form-wrapper">
+    <div class="image-and-form">    
+    <!-- <div class="image">
+        <img src="../../../assets/maximalfocus-VT4rx775FT4-unsplash.jpg" alt="gigimg">
+    </div> -->
+<form [formGroup]="gigUpdateForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="gigName">Gig Name</label>
+      <input type="text" id="gigName" formControlName="gigName" />
+    </div>
+    <div>
+      <label for="gigImage">Gig Image</label>
+      <input type="text" id="gigImage" formControlName="gigImage" />
+    </div>
+    <div>
+      <label for="gigDescription">Gig Description</label>
+      <textarea id="gigDescription" formControlName="gigDescription"></textarea>
+    </div>
+    <div>
+      <label for="rate">Rate</label>
+      <input type="text" id="rate" formControlName="rate" />
+    </div>
+    <!-- <div>
+      <label for="userID">User ID</label>
+      <input type="text" id="userID" formControlName="userID" />
+    </div> -->
+    <button type="submit">Create Gig</button>
+  </form>
+</div>
+</div>

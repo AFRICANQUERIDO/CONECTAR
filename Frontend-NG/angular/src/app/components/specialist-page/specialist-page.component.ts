@@ -6,11 +6,12 @@ import { ChatService } from '../../services/chat.service';
 import { Conversation } from '../../intefaces/message';
 import { AuthServiceService } from '../../services/auth-service.service';
 import { CommonModule } from '@angular/common';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
   selector: 'app-specialist-page',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NavbarComponent],
   templateUrl: './specialist-page.component.html',
   styleUrl: './specialist-page.component.css'
 })

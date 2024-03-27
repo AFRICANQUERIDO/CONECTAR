@@ -5,8 +5,10 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     background-color: #f9f9f9;
+
 }
-.select-box{
+
+.select-box {
     border-radius: 10px;
     background-color: #DEE8FB;
     border: none;
@@ -14,9 +16,11 @@
     width: 12vw;
     padding-inline: 1vw;
 }
-.select-box:focus{
+
+.select-box:focus {
     outline: none;
 }
+
 .successDiv,
 .errorDiv {
     margin-bottom: 10px;
@@ -38,17 +42,28 @@ label {
 }
 
 input[type="text"],
-textarea,
-select {
+textarea {
     padding: 0.5rem;
     margin-bottom: 1rem;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 1rem;
-    width: calc(100% - 1rem); /* Subtracting 1rem to account for margins and borders */
-    box-sizing: border-box; /* Ensure padding and border are included in width calculation */
+    width: calc(100% - 1rem);
+    box-sizing: border-box;
 }
 
+.filter {
+    /* background-color: #07153b; */
+    /* border: 1px solid red; */
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    width: 100%;
+}
+.filter select{
+    background-color: white;
+    border:1px solid #07153b;
+}
 button[type="submit"] {
     padding: 10px 20px;
     background-color: #213360;
@@ -75,6 +90,8 @@ h1 {
 table {
     width: 100%;
     table-layout: fixed;
+    color:
+    #21cdc0 ;
 }
 
 .tbl-header {
@@ -85,7 +102,7 @@ table {
     /* height: 400px; */
     overflow-x: auto;
     margin-top: 0px;
-    background-color:#07153b;
+    background-color: #3a4e84;
 }
 
 th {
@@ -93,7 +110,8 @@ th {
     text-align: left;
     font-weight: 500;
     font-size: 12px;
-    color: #fff;
+    color:
+    #213360 ;
     text-transform: uppercase;
 }
 
@@ -102,9 +120,10 @@ td {
     text-align: left;
     vertical-align: middle;
     font-weight: 300;
-    font-size: 12px;
-    color: #fff;
-    
+    font-size: 18px;
+  color:
+    #21cdc0 ;;
+
     border-bottom: solid 1px rgba(255, 255, 255, 0.1);
 }
 
