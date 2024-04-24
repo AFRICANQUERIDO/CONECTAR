@@ -21,6 +21,13 @@ const createGig = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { gigName, gigDescription, gigImage, rate } = req.body;
         const pool = yield mssql_1.default.connect(sqlConfig_1.sqlConfig);
+        // Check if the user has the role 'specialist'
+        const roleCheck = yield pool.request()
+            .input('userID', mssql_1.default.VarChar, userID)
+            .query('SELECT role FROM Users WHERE userID = @userID');
+        if (roleCheck.recordset.length === 0 || roleCheck.recordset[0].role !== 'specialist') {
+            return res.status(403).json({ error: 'Current role is not allowed to create a gig' });
+        }
         const id = (0, uuid_1.v4)();
         const result = yield pool.request()
             .input('gigID', mssql_1.default.VarChar, id)

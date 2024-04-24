@@ -5,10 +5,19 @@ import { Request, Response } from "express";
 import { gig } from "../intefaces/gig.interface";
 
 export const createGig = async (req: Request, res: Response) => {
-    const userID = req.params.userID
+    const userID = req.params.userID;
     try {
         const { gigName, gigDescription, gigImage, rate }: gig = req.body;
         const pool = await mssql.connect(sqlConfig);
+
+        // Check if the user has the role 'specialist'
+        const roleCheck = await pool.request()
+            .input('userID', mssql.VarChar, userID)
+            .query('SELECT role FROM Users WHERE userID = @userID');
+
+        if (roleCheck.recordset.length === 0 || roleCheck.recordset[0].role !== 'specialist') {
+            return res.status(403).json({ error: 'Current role is not allowed to create a gig' });
+        }
 
         const id = v4();
         const result = await pool.request()
@@ -30,6 +39,7 @@ export const createGig = async (req: Request, res: Response) => {
         return res.status(500).json({ error: 'Internal server error' });
     }
 }
+
 
 export const getAllgigs = async (req: Request, res: Response) => {
     try {
