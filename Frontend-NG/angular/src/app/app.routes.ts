@@ -28,6 +28,7 @@ import { OrdersComponent } from './components/orders/orders.component';
 import { ReviewComponent } from './components/review/review.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import { UpdateGigComponent } from './components/update-gig/update-gig.component';
+import { OrderTableComponent } from './components/order-table/order-table.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'landing', pathMatch: 'full' },
@@ -39,25 +40,29 @@ export const routes: Routes = [
     { path: 'reg-specialist', component: RegSpecialistComponent },
     { path: 'login', component: LoginComponent },
     { path: 'orders/:gigID', component: OrdersComponent },
-    {path:'payment/:orderID', component:PaymentComponent},
-{path:'review', component:ReviewComponent},
+    { path: 'payment/:orderID', component: PaymentComponent },
+    { path: 'review', component: ReviewComponent },
     // {path:'orderPage', component:OrdersComponent},
     { path: 'calender', component: CalenderComponent },
     { path: 'forgot', component: ForgotPwdComponent },
     { path: 'otp', component: OtpComponent },
-    {path:'spec-page/:id', component:SpecialistPageComponent},
+    { path: 'spec-page/:id', component: SpecialistPageComponent },
     { path: 'spec-profile', component: SpecialistsProfileComponent },
     { path: 'spec-detail/:id', component: SpecialistDetailsComponent },
-    
-    {path:'update-gig', component:UpdateGigComponent},
-    {path:'gig-create', component: CreateGigComponent},
-    // { path: 'cust-detail', component: CustomerDetailsComponent },
+
+    { path: 'update-gig', component: UpdateGigComponent },
+    { path: 'gig-create', component: CreateGigComponent },
     { path: 'cust-detail/:id', component: CustomerDetailsComponent },
     { path: 'rating', component: RatingComponent },
     { path: 'role', component: JoinAsComponent },
-    { path: 'cust-dashboard', component: CustDashboardComponent,children:[
-        {path:'spec-profile', component:SpecialistsProfileComponent},
-    ] },
+    {
+        path: 'spec-dashboard', component: CustDashboardComponent, children: [
+            { path: 'spec-profile', component: SpecialistsProfileComponent },
+            { path: 'message/:chatId', component: MessagesComponent },
+            { path: 'order-table', component: OrderTableComponent },
+            { path: 'gig-create', component: CreateGigComponent },
+        ]
+    },
     { path: 'cust-page', component: CustomerPageComponent },
     { path: 'message/:chatId', component: MessagesComponent },
     {
@@ -66,6 +71,7 @@ export const routes: Routes = [
             { path: 'create-ind', component: CreateCategoryComponent },
             { path: 'create-sector', component: CreateSectorComponent },
             { path: 'all-users', component: AllUsersComponent },
+            { path: 'message', component: MessagesComponent },
         ]
     },
 

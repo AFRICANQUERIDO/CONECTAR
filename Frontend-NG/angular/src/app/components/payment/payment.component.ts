@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PaymentService } from '../../services/payment.service';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Order, orderResponse } from '../../intefaces/gig.interface';
 import { GigsService } from '../../services/gigs.service';
 import { NavbarComponent } from '../navbar/navbar.component';
@@ -27,7 +27,8 @@ export class PaymentComponent implements OnInit {
     private fb: FormBuilder,
     private paymentService: PaymentService,
     private orderService: GigsService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
 
@@ -85,6 +86,7 @@ export class PaymentComponent implements OnInit {
           // this.success = false;
           // this.message = "Order is already paid. Another payment is not required";
           console.error('Error creating payment:', error);
+          this.router.navigate(['/review'])
         }
       )
     } else {

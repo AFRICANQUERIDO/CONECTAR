@@ -48,12 +48,12 @@ Content-Type: application/json
 
 
 ### create gig
-POST http://localhost:4500/gigs/create/9f9c1cbc-0b8c-4fed-8231-b52523e727e1
+POST http://localhost:4500/gigs/create/3bd6e83c-cc2a-4532-8121-44ef3d7788ad
 Content-Type: application/json
 token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI0YWZiMTlkNC02NDk2LTQwYTUtYWE2OC0zYmMyMGI3NjNlZGEiLCJOYW1lIjoiIEphbmUgTmdlbmUiLCJlbWFpbCI6ImphbmVuZ2VuZTEyQGdtYWlsLmNvbSIsInBob25lX251bWJlciI6bnVsbCwiRE9CIjpudWxsLCJnZW5kZXIiOm51bGwsImVkdWNhdGlvbiI6bnVsbCwiZXhwZXJpZW5jZSI6bnVsbCwibGFuZ3VhZ2UiOm51bGwsImFib3V0IjpudWxsLCJuaWNrbmFtZSI6bnVsbCwiY291bnRyeSI6bnVsbCwiY2l0eSI6bnVsbCwiaW5kdXN0cnkiOm51bGwsInByb2ZpbGVfcGljIjpudWxsLCJPVFAiOiIkMmIkMDQkN1ZhTi82a0d5cTI5ZGRyUlphSU11ZWw4ZG5uVUV4QUVwdGdFV2JNRllIVlJod0Uua0JnR0MiLCJyb2xlIjoiYWRtaW4iLCJ3ZWxjb21lZCI6dHJ1ZSwiaXNWZXJpZmllZCI6dHJ1ZSwicHJvZmlsZV9pZCI6bnVsbCwic2VjdG9yIjpudWxsLCJpYXQiOjE3MTEyODIwNjUsImV4cCI6MTg0MDg4MjA2NX0.fWh4mpuWgo9k5urr9OiN1NICt-NenVJIiSaYnEAaqmA
 
 {
-"gigName": "I will do this and that 2 ",  
+"gigName": "I will aloot ",  
 "gigImage":"https://www.freepik.com/education-learning#from_element=photos_categories_block.png",
 "gigDescription": "I will offer you these services",
 "rate" :"$15/hour"

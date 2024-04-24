@@ -102,7 +102,8 @@ table {
     /* height: 400px; */
     overflow-x: auto;
     margin-top: 0px;
-    background-color: #3a4e84;
+    /* background-color: #3a4e84; */
+    background-color: white;
 }
 
 th {

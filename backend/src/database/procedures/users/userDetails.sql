@@ -11,8 +11,10 @@ BEGIN
     FROM
         UserDetails
     WHERE
-        userID = @userID;
+        userID = @userID AND role != 'admin';
 END;
+
+-- SELECT * FROM UserDetails WHERE role != 'admin';
 
 UPDATE UserDetails
 SET isVerified = 1

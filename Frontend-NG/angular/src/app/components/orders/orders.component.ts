@@ -23,7 +23,7 @@ export class OrdersComponent implements OnInit {
     private orderService: GigsService,
     private authService: AuthServiceService,
     private route: ActivatedRoute,
-    private router:Router
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -70,11 +70,9 @@ export class OrdersComponent implements OnInit {
             showCancelButton: true,
             confirmButtonColor: '#21cdc0',
             cancelButtonColor: '#d33',
-
-
           })
-          const orderID = response.orderID
 
+          const orderID = response.orderID
           this.router.navigate([`/payment/${orderID}`])
 
         },
@@ -98,7 +96,7 @@ export class OrdersComponent implements OnInit {
     }
   }
 
-  makePayment(){
-    
+  makePayment() {
+
   }
 }
