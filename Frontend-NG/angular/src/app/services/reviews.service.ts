@@ -13,4 +13,7 @@ export class ReviewsService {
   createReview(reviewData: Review): Observable<string> {
     return this.http.post<any>(`http://localhost:4500/reviews`, reviewData);
   }
+  getAverageReview(userID: string): Observable<number> {
+    return this.http.get<number>(`http://localhost:4500/reviews/user/${userID}/average`);
+  }
 }

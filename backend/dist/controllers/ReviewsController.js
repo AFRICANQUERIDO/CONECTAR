@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.calculateGigAverageRatings = exports.getReviewsByOrderStatus = exports.getAllReviews = exports.checkExistingReview = exports.createReview = void 0;
+exports.userReview = exports.calculateGigAverageRatings = exports.getReviewsByOrderStatus = exports.getAllReviews = exports.checkExistingReview = exports.createReview = void 0;
 const mssql_1 = __importDefault(require("mssql"));
 const uuid_1 = require("uuid");
 const sqlConfig_1 = require("../config/sqlConfig");
@@ -120,3 +120,18 @@ const calculateGigAverageRatings = () => __awaiter(void 0, void 0, void 0, funct
     }
 });
 exports.calculateGigAverageRatings = calculateGigAverageRatings;
+const userReview = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const userID = req.params.userID;
+        // Create a new request object
+        const pool = yield mssql_1.default.connect(sqlConfig_1.sqlConfig);
+        // Execute the SELECT query to retrieve reviews for the specified user
+        const result = (yield pool.request().input('userID', mssql_1.default.VarChar(100), userID).execute('getUserReviews')).recordset;
+        return res.json({ result });
+    }
+    catch (error) {
+        console.error('Error fetching user reviews:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+exports.userReview = userReview;

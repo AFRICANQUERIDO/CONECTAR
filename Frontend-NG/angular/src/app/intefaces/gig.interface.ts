@@ -8,6 +8,8 @@ export interface Gigs {
   experience: string;
   education: string;
   userID: string;
+  averageRating?: number; 
+
 }
 
 export interface gigDetails {

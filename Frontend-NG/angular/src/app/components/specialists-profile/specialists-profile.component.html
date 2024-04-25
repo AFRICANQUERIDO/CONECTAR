@@ -53,13 +53,17 @@
           </p>
           <p>
             <strong>Rating:</strong>
-            <span *ngFor="let _ of [].constructor(gig.rate); let i = index">
-              <i class="fa-solid fa-star text-warning"></i>
+            <span *ngIf="gig.averageRating !== undefined">
+              <ng-container *ngFor="let _ of [].constructor(gig.averageRating); let i = index">
+                <i class="fa-solid fa-star text-warning"></i>
+              </ng-container>
             </span>
+            <span *ngIf="gig.averageRating === undefined">No rating available</span>
           </p>
+          
           <p><strong>Experience:</strong> {{ gig.experience }}</p>
           <p><strong>Highest Education:</strong> {{ gig.education }}</p>
-          <p><strong>Rate per Hour:</strong> Ksh. 1000/hr </p>
+          <p><strong>Rate per Hour:</strong> {{gig.rate}} </p>
         </div>
       </div>
     </div>

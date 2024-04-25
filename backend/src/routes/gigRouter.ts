@@ -11,4 +11,5 @@ gigRouter.get('/', getAllgigs);
 gigRouter.get('/filter/:industryID', verifyToken, getGigsByIndustry);
 gigRouter.get('/:gigID', getGigByID);
 
+
 export default gigRouter;

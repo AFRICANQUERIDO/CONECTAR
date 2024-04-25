@@ -62,16 +62,43 @@ JOIN
 
 
 -----creating view with gigs users industry and sector
+-- CREATE VIEW GigsWithUserDetailsAndIndustrySector AS
+-- SELECT 
+--     Gig.gigDescription,
+--     Gig.gigID,
+--     Gig.gigImage,
+--     Gig.gigName,
+--     UserDetailsWithIndustrySector.*
+-- FROM 
+--     Gig
+-- JOIN 
+--     UserDetailsWithIndustrySector ON Gig.userID = UserDetailsWithIndustrySector.UserID;
+
+-- SELECT * FROM GigsWithUserDetailsAndIndustrySector
+
+
 CREATE VIEW GigsWithUserDetailsAndIndustrySector AS
 SELECT 
     Gig.gigDescription,
     Gig.gigID,
     Gig.gigImage,
     Gig.gigName,
-    UserDetailsWithIndustrySector.*
+    UserDetailsWithIndustrySector.*,
+    -- AVG(CAST(ReviewsTable.rating AS DECIMAL(5, 2))) AS avgRating
 FROM 
     Gig
 JOIN 
-    UserDetailsWithIndustrySector ON Gig.userID = UserDetailsWithIndustrySector.UserID;
+    UserDetailsWithIndustrySector ON Gig.userID = UserDetailsWithIndustrySector.UserID
+LEFT JOIN
+    Orders ON Gig.gigID = Orders.gigID
+LEFT JOIN
+    ReviewsTable ON Orders.orderID = ReviewsTable.orderID
+-- GROUP BY 
+--     Gig.gigDescription,
+--     Gig.gigID,
+--     Gig.gigImage,
+--     Gig.gigName
+--     UserDetailsWithIndustrySector.*
 
-SELECT * FROM GigsWithUserDetailsAndIndustrySector
+
+select * from GigsWithUserDetailsAndIndustrySector

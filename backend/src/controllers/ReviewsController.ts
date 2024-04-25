@@ -1,8 +1,9 @@
-import mssql from 'mssql';
+import mssql, { pool } from 'mssql';
 import { v4 } from 'uuid';
 import { Review } from '../intefaces/review.interface';
 import { sqlConfig } from '../config/sqlConfig';
 import { Request, Response } from 'express';
+import userRouter from '../routes/authRouter';
 
 export const createReview = async (req: Request, res: Response) => {
     try {
@@ -120,5 +121,22 @@ export const calculateGigAverageRatings = async () => {
 
         // Return error status
         return { success: false, error: 'Error calculating gig average ratings. See server logs for details.' };
+    }
+};
+
+export const userReview =  async (req:Request, res:Response) => {
+    try {
+        const userID = req.params.userID; 
+
+        // Create a new request object
+        const pool = await mssql.connect(sqlConfig);
+
+        // Execute the SELECT query to retrieve reviews for the specified user
+        const result = (await pool.request().input('userID', mssql.VarChar(100), userID).execute('getUserReviews')).recordset;
+
+        return res.json({result})
+    } catch (error) {
+        console.error('Error fetching user reviews:', error);
+        res.status(500).json({ error: 'Internal server error' });
     }
 };

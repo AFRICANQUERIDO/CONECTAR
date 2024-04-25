@@ -7,4 +7,5 @@ reviewRouter.post('/', ReviewsController_1.createReview);
 reviewRouter.get('/status/:status', ReviewsController_1.getReviewsByOrderStatus);
 reviewRouter.get('/', ReviewsController_1.getAllReviews);
 reviewRouter.get('/gig/rating', ReviewsController_1.calculateGigAverageRatings);
+reviewRouter.get('/user/:userID', ReviewsController_1.userReview);
 exports.default = reviewRouter;

@@ -20,3 +20,6 @@ GET http://localhost:4500/reviews/status/pending
 
 ### GET RATING PER GIG
 GET http://localhost:4500/reviews/gig/rating
+
+### Get reviews for a user
+GET http://localhost:4500/reviews/user/aaaecb53-2d2a-406a-9630-2135a087b8d9
